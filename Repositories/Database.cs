@@ -26,7 +26,11 @@ public class DataBaseSetup
     // コレクションのリスト化
     public static List<Problem> GetProblems()
     {
-        return problemCollection().Find(FilterDefinition<Problem>.Empty).ToList();
+        var collection = problemCollection();
+        return collection
+        .Find(FilterDefinition<Problem>.Empty)
+        .SortByDescending(h => h.IdNumber)
+        .ToList();
     }
 
     public static List<User> GetUsers()

@@ -35,13 +35,10 @@ if (!app.Environment.IsDevelopment())
 
 
 // ミドルウェア
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseAuthorization();
-
-
 app.UseAuthorization();
 
 app.UseStaticFiles();
@@ -50,6 +47,13 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-DataBaseSetup.ShowUsers();
+try
+{
+    DataBaseSetup.ShowUsers();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"MongoDB接続エラー: {ex.Message}");
+}
 
 app.Run();

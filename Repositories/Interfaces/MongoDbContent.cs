@@ -9,7 +9,7 @@ public class MongoDbContext
 
     public MongoDbContext(IConfiguration configuration)
     {
-        var client = new MongoClient(configuration.GetConnectionString("MongoDb"));
+        var client = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI"));
         _database = client.GetDatabase("MathProjectDB");
     }
 

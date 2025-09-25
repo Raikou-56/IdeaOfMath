@@ -5,7 +5,7 @@ namespace MathSiteProject.Repositories;
 
 public class DataBaseSetup
 {
-    public static MongoClient client = new MongoClient("mongodb+srv://raikoukit777_db_user:mathSite-at@mathuserdataonc.si9g8gl.mongodb.net/MathProjectDB?retryWrites=true&w=majority&appName=MathUserDataonC");
+    public static MongoClient client = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI"));
     public static IMongoDatabase database = client.GetDatabase("MathProjectDB");
 
     // コレクションの取得

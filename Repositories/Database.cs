@@ -29,7 +29,7 @@ public class DataBaseSetup
         var collection = problemCollection();
         return collection
         .Find(FilterDefinition<Problem>.Empty)
-        .SortByDescending(h => h.IdNumber)
+        .SortBy(h => h.IdNumber)
         .ToList();
     }
 

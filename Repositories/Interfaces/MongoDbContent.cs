@@ -7,8 +7,12 @@ public class MongoDbContext
 {
     private readonly IMongoDatabase _database;
 
-    public MongoDbContext(IConfiguration configuration)
+    public MongoDbContext()
     {
+        if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MONGODB_URI")))
+        {
+            throw new InvalidOperationException("MONGODB_URI is not set.");
+        }
         var client = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI"));
         _database = client.GetDatabase("MathProjectDB");
     }

@@ -1,0 +1,11 @@
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+*.db
+*.DS_Store
+.vscode/
+.env
+appsettings.*.json

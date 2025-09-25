@@ -1,0 +1,64 @@
+{
+            new Problem{
+                SerialNumber = 1,
+                IdNumber = "0-1",
+                difficulty = "D",
+                category = "微積",
+                ProblemLatex = @"
+                    \(\quad n\)回微分可能な二つの関数\(f(x),g(x)\)が
+                        \(f(x)=g(x)e^{x}\)
+                    を満たすとき
+                    \[
+                        \begin{align*}
+                            f^{(n)}(x)=\sum_{k=0}^{n} {}_{n}C_{k}g^{(k)}(x)e^{x}
+                        \end{align*}
+                    \]
+                    \(\hspace{22em}\)を示せ.",
+                AnswerLatex = @"
+                    \(\quad \)講評\(\\ \)
+                    この問題はライプニッツの公式の特別な場合の証明となっている. これが解ければライプニッツの公式も
+                    同様の手順で証明することができるだろう. このように一般化を目標とした証明では数学的帰納法や
+                    無限降下法などが瞬時に思い付けるかどうかが受験本番で差をつけるとこであろう. 
+                    \(\\ \)
+                    \(\quad \)数学的帰納法による証明"
+            },
+            new Problem{
+                SerialNumber = 2,
+                IdNumber = "0-2",
+                difficulty = "C",
+                category = "極限", 
+                ProblemLatex = @"
+                    \(\quad n\)を整数とする. 連立不等式
+                    \[
+                        \begin{cases}
+                            x+y+z \leq n\\
+                            -x+y-z \leq n\\
+                            x-y-z \leq n\\
+                            -x-y+z \leq n
+                        \end{cases}
+                    \]
+                    を満たす\(xyz\)平面の点\(P(x,y,z)\)で\(x, y, z\)がすべて整数
+                    であるものの個数を\(f(n)\)とおく. 極限
+                    \[
+                        \begin{align*}
+                            \lim_{n\rightarrow\infty}\dfrac{f(n)}{n^{3}}
+                        \end{align*}
+                    \]
+                    \(\hspace{22em}\)を求めよ."
+            },
+            new Problem{
+                SerialNumber = 3,
+                IdNumber = "1-1",
+                difficulty = "A",
+                category = "整数", 
+                ProblemLatex = @"
+                    \(\quad\) 正の整数\(a, b, p\)に対して
+                    \[
+                        \begin{eqnarray*}
+                            A &=& (a+b)^{p}\\
+                            B &=& 2^{n-1}(a^{p}+b^{p})
+                        \end{eqnarray*}
+                    \]
+                    としたとき, \(A\)と\(B\) の大小関係を調べよ. "
+            }
+        };

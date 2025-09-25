@@ -1,0 +1,156 @@
+using System.Diagnostics;
+using MongoDB.Driver;
+using Microsoft.AspNetCore.Mvc;
+using MathSiteProject.Models;
+using MathSiteProject.Repositories;
+using MathSiteProject.Repositories.Data;
+using Microsoft.AspNetCore.Authorization;
+
+
+namespace MathSiteProject.Controllers;
+
+public class HomeController : Controller
+{
+    private readonly ILogger<HomeController> _logger;
+    private readonly AnswerHistoryRepository _answerHistoryRepo;
+
+    public HomeController(ILogger<HomeController> logger, AnswerHistoryRepository answerHistoryRepo)
+    {
+        _logger = logger;
+        _answerHistoryRepo = answerHistoryRepo;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        List<Problem> problemsData = DataBaseSetup.GetProblems();
+
+        var problems = new List<ProblemViewData> { };
+        var studentId = User.FindFirst("StudentId")?.Value;
+        if (string.IsNullOrEmpty(studentId))
+        {
+            // ログインしてない or Claimがない場合の処理
+            foreach (var problem in problemsData)
+            {
+                var problemData = new ProblemViewData
+                {
+                    SerialNumber = problem.SerialNumber,
+                    IdNumber = problem.IdNumber,
+                    difficulty = problem.difficulty,
+                    category = problem.category,
+                    LatexSrc = problem.ProblemLatex,
+                    UserData = false,
+                    Teacher = problem.Teacher
+                };
+                problems.Add(problemData);
+            }
+            return View(problems);
+        }
+        var historyList = await _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId);
+        var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
+
+        foreach (var problem in problemsData)
+        {
+            var problemData = new ProblemViewData
+            {
+                SerialNumber = problem.SerialNumber,
+                IdNumber = problem.IdNumber,
+                difficulty = problem.difficulty,
+                category = problem.category,
+                LatexSrc = problem.ProblemLatex,
+                UserData = solvedIds.Contains(problem.SerialNumber.ToString()),
+                Teacher = problem.Teacher,
+            };
+            problems.Add(problemData);
+        }
+        return View(problems);
+    }
+
+    [Authorize(Roles = "Teacher")]
+    public IActionResult Teacher()
+    {
+        var Tmodel = new TeacherViewModel
+        {
+            ProblemsCount = DataBaseSetup.CountProblems()
+        };
+        return View(Tmodel);
+    }
+
+    [HttpPost]
+    public IActionResult LookAnswer(string serial)
+    {
+        ViewBag.Message = serial;
+        List<Problem> problemsData = DataBaseSetup.GetProblems();
+
+        if (int.TryParse(serial.ToString(), out int number))
+        {
+            var match = problemsData.FirstOrDefault(p => p.SerialNumber == number);
+            if (match != null)
+            {
+                var AnswerInf = new AnswerViewModel
+                {
+                    SerialNumber = number,
+                    Problem = match.ProblemLatex,
+                    Answer = match.AnswerLatex,
+                    Teacher = match.Teacher
+                };
+                return View(AnswerInf);
+            }
+            else
+            {
+                var AnswerInf = new AnswerViewModel
+                {
+                    SerialNumber = number,
+                    Problem = "問題が存在しません",
+                    Answer = "解答が存在しません"
+                };
+                return View(AnswerInf);
+            }
+        }
+        else
+        {
+            Console.WriteLine("通し番号の変換に失敗しました");
+            return View("Home", "Index");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult SendAnswer(string serial)
+    {
+        ViewBag.Message = serial;
+        return View();
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SubmitAnswer(string problemId, string answer)
+    {
+        var studentId = User.FindFirst("StudentId")?.Value;
+        if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");
+
+        var history = new AnswerHistory
+        {
+            StudentId = studentId,
+            ProblemId = problemId,
+            Answer = answer,
+            IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
+            SolvedAt = DateTime.Now,
+            Score = 0
+        };
+
+        await _answerHistoryRepo.InsertAsync(history);
+
+        return RedirectToAction("Index");
+    }
+
+    [Authorize]
+    public IActionResult MyPage()
+    {
+        return View();
+    }
+
+}

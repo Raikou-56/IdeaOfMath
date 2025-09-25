@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Teacher Page";
+}
+
+@section Scripts {
+    <script src="~/js/teacher.js"></script>
+}
+
+@model Problem
+
+<div class="all">
+    <br>
+    <div class="que">
+        <form asp-controller="Problem" asp-action="SaveProb" method="post">
+            <label>問題ID:</label>
+            <input asp-for="IdNumber" />
+            <span asp-validation-for="IdNumber"></span><br>
+
+            <label>難易度:</label>
+            <input asp-for="difficulty" /><br>
+
+            <label>カテゴリ:</label>
+            <input asp-for="category" /><br>
+
+            <label>問題（LaTeX）:</label>
+            <textarea asp-for="ProblemLatex" id="latexInput1" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
+
+            <div style="margin-top:20px;">
+                <h4>問題文プレビュー:</h4>
+                <div class="latex" id="mathPreview1">ここに数式が表示されます</div>
+            </div>
+
+            <label>答え（LaTeX）:</label>
+            <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
+
+            <div style="margin-top:20px;">
+                <h4>解答プレビュー:</h4>
+                <div class="latex" id="mathPreview2">ここに数式が表示されます</div>
+            </div>
+
+            <label>先生:</label>
+            <input asp-for="Teacher" /><br>
+
+            <div style="text-align: right;">
+                <button class="send" type="submit">保存</button>
+            </div>
+        </form>
+    </div>
+</div>

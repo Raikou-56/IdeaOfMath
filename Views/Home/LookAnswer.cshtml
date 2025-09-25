@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "LookAnswer Page";
+}
+
+@model AnswerViewModel
+
+<p>@ViewBag.Message 番の答えはこちら</p>
+
+<div class="text-center">
+    <div class="all">
+        <div class="que">
+            <br>
+            <div class="latex">
+                @Html.Raw(Model.Problem)
+            </div><br>
+            <div class="latex">
+                @Html.Raw(Model.Answer)
+            </div><br>
+            <p style="display: flex; justify-content: flex-end;">編集者：@Model.Teacher</p><br>
+            @if (User.Identity != null && User.IsInRole("Teacher"))
+            {
+                <div class="ans-but">
+                    <form method="post" asp-area="" asp-controller="Problem" asp-action="EditProblem"
+                    value=@Model style="text-align: right;">
+                        <button class="send" name="serial" value="@ViewBag.Message">この問題の情報を編集する</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</div>

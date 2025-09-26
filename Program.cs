@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using MathSiteProject;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
+using MathSiteProject.Repositories.Mega;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,7 @@ app.MapControllerRoute(
 try
 {
     DataBaseSetup.ShowUsers();
+    MegaUploader.LoginToMega();
 }
 catch (Exception ex)
 {

@@ -6,10 +6,10 @@
 <div class="all">
 @if (User.Identity != null && User.IsInRole(role: "Student"))
     {
-        <form asp-controller="Home" asp-action="SubmitAnswer" method="post">
+        <form asp-controller="Home" asp-action="SubmitAnswer" method="post" enctype="multipart/form-data">
             <input type="hidden" name="problemId" value="@ViewBag.Message" />
-            <input type="hidden" name="answer" value="テスト解答" />
-            <button class="send" type="submit">解答しました</button>
+            <input type="file" name="imageAnswer" accept="image/*" />
+            <button class="send" type="submit">画像で解答する</button>
         </form>
     }
 </div>

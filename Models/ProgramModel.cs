@@ -102,6 +102,9 @@ public class AnswerHistory
     [BsonElement("answer")]
     public string? Answer { get; set; }
 
+    [BsonElement("megaNodeId")]
+    public string? MegaNodeId { get; set; }
+
     [BsonElement("isCorrect")]
     public bool IsCorrect { get; set; }
 

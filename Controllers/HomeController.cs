@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MathSiteProject.Models;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
+using MathSiteProject.Repositories.Mega;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -127,16 +128,34 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SubmitAnswer(string problemId, string answer)
+    public async Task<IActionResult> SubmitAnswer(string problemId, IFormFile imageAnswer)
     {
         var studentId = User.FindFirst("StudentId")?.Value;
+        var studentName = User.Identity?.Name ?? "UnknownStudent";
         if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");
+
+        var fileName = $"{studentName}_{problemId}_{DateTime.Now:yyyyMMddHHmmss}.png";
+
+        // 一時保存（Renderのサーバー内）
+        var tempPath = Path.Combine(Path.GetTempPath(), fileName);
+        using (var stream = new FileStream(tempPath, FileMode.Create))
+        {
+            await imageAnswer.CopyToAsync(stream);
+        }
+
+        var megaService = new MegaStorageService(Environment.GetEnvironmentVariable("MAIN_EMAIL"),
+        Environment.GetEnvironmentVariable("MEGA_PASS"));
+
+        var folder = await megaService.FolderMethodAsync(studentName);
+        var fileId = await megaService.UploadFileAsync(tempPath, fileName, folder);
+        megaService.Logout();
 
         var history = new AnswerHistory
         {
             StudentId = studentId,
             ProblemId = problemId,
-            Answer = answer,
+            Answer = fileName,
+            MegaNodeId = fileId,
             IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
             SolvedAt = DateTime.Now,
             Score = 0

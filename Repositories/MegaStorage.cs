@@ -24,21 +24,37 @@ public class MegaStorageService
         }
     }
 
-
-    public async Task<INode> FolderMethodAsync(string studentName)
+    public async Task<INode> GetOrCreateRootFolderAsync(string rootName = "MathSite")
     {
         var nodes = _client.GetNodes();
         var root = nodes.Single(n => n.Type == NodeType.Root);
 
-        // すでに存在するか確認
-        var existing = nodes.FirstOrDefault(n => n.Type == NodeType.Directory && n.ParentId == root.Id && n.Name == studentName);
-        if (existing != null)
-        {
-            return existing;
-        }
+        var existing = nodes.FirstOrDefault(n =>
+            n.Type == NodeType.Directory &&
+            n.ParentId == root.Id &&
+            n.Name == rootName);
 
-        // なければ作成
-        var newFolder = await _client.CreateFolderAsync(studentName, root);
+        if (existing != null)
+            return existing;
+
+        var newFolder = await _client.CreateFolderAsync(rootName, root);
+        return newFolder;
+    }
+
+    public async Task<INode> FolderMethodAsync(string studentName)
+    {
+        var mathSiteFolder = await GetOrCreateRootFolderAsync();
+
+        var nodes = _client.GetNodes();
+        var existing = nodes.FirstOrDefault(n =>
+            n.Type == NodeType.Directory &&
+            n.ParentId == mathSiteFolder.Id &&
+            n.Name == studentName);
+
+        if (existing != null)
+            return existing;
+
+        var newFolder = await _client.CreateFolderAsync(studentName, mathSiteFolder);
         return newFolder;
     }
 

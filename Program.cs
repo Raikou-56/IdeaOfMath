@@ -51,7 +51,6 @@ app.MapControllerRoute(
 try
 {
     DataBaseSetup.ShowUsers();
-    MegaUploader.LoginToMega();
 }
 catch (Exception ex)
 {

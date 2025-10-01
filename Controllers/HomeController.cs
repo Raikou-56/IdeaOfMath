@@ -168,22 +168,20 @@ public class HomeController : Controller
                 // 必要なら履歴に「失敗」として記録してもOK
             }
 
-            var history = new AnswerHistory
-            {
-                StudentId = studentId,
-                ProblemId = problemId,
-                Answers = fileNames,
-                MegaNodeIds = fileIds,
-                IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
-                SolvedAt = DateTime.Now,
-                Score = 0
-            };
-
-            await _answerHistoryRepo.InsertAsync(history);
-
             if (System.IO.File.Exists(tempPath))
                 System.IO.File.Delete(tempPath); // 一時ファイルを削除
         }
+        var history = new AnswerHistory
+        {
+            StudentId = studentId,
+            ProblemId = problemId,
+            Answers = fileNames,
+            MegaNodeIds = fileIds,
+            IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
+            SolvedAt = DateTime.Now,
+            Score = 0
+        };      
+        await _answerHistoryRepo.InsertAsync(history);
         megaService.Logout();
 
         return RedirectToAction("Index");

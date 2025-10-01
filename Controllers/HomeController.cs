@@ -128,40 +128,57 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SubmitAnswer(string problemId, IFormFile imageAnswer)
+    public async Task<IActionResult> SubmitAnswer(string problemId, IFormFile[] imageAnswers)
     {
         var studentId = User.FindFirst("StudentId")?.Value;
         var studentName = User.Identity?.Name ?? "UnknownStudent";
         if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");
 
-        var fileName = $"{studentName}_{problemId}_{DateTime.Now:yyyyMMddHHmmss}.png";
-
-        // 一時保存（Renderのサーバー内）
-        var tempPath = Path.Combine(Path.GetTempPath(), fileName);
-        using (var stream = new FileStream(tempPath, FileMode.Create))
-        {
-            await imageAnswer.CopyToAsync(stream);
-        }
-
         var megaService = new MegaStorageService(Environment.GetEnvironmentVariable("MAIN_EMAIL"),
         Environment.GetEnvironmentVariable("MEGA_PASS"));
 
-        var folder = await megaService.FolderMethodAsync(studentName);
-        var fileId = await megaService.UploadFileAsync(tempPath, fileName, folder);
-        megaService.Logout();
+        int counter = 0;
 
-        var history = new AnswerHistory
+        foreach (var imageAnswer in imageAnswers)
         {
-            StudentId = studentId,
-            ProblemId = problemId,
-            Answer = fileName,
-            MegaNodeId = fileId,
-            IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
-            SolvedAt = DateTime.Now,
-            Score = 0
-        };
+            var fileName = $"{problemId}_{counter}.png";
 
-        await _answerHistoryRepo.InsertAsync(history);
+            // 一時保存（Renderのサーバー内）
+            var tempPath = Path.Combine(Path.GetTempPath(), fileName);
+            try
+            {
+                using (var stream = new FileStream(tempPath, FileMode.Create))
+                {
+                    await imageAnswer.CopyToAsync(stream);
+                }
+
+                var folder = await megaService.AnswerFolderMethodAsync(studentName, problemId);
+                var fileId = await megaService.UploadFileAsync(tempPath, fileName, folder);
+
+                var history = new AnswerHistory
+                {
+                    StudentId = studentId,
+                    ProblemId = problemId,
+                    Answer = fileName,
+                    MegaNodeId = fileId,
+                    IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
+                    SolvedAt = DateTime.Now,
+                    Score = 0
+                };
+
+                counter += 1;
+                await _answerHistoryRepo.InsertAsync(history);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"画像アップロード失敗: {fileName}");
+                // 必要なら履歴に「失敗」として記録してもOK
+            }
+
+            if (System.IO.File.Exists(tempPath))
+                System.IO.File.Delete(tempPath); // 一時ファイルを削除
+        }
+        megaService.Logout();
 
         return RedirectToAction("Index");
     }

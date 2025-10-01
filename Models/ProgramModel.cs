@@ -93,7 +93,7 @@ public class AnswerHistory
     [BsonElement("studentId")]
     public string? StudentId { get; set; }
 
-    [BsonElement("problemId")]
+    [BsonElement("problemId")] // フォルダ名は問題IDに対応
     public string? ProblemId { get; set; }
 
     [BsonElement("solvedAt")]

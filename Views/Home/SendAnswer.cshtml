@@ -8,7 +8,7 @@
     {
         <form asp-controller="Home" asp-action="SubmitAnswer" method="post" enctype="multipart/form-data">
             <input type="hidden" name="problemId" value="@ViewBag.Message" />
-            <input type="file" name="imageAnswer" accept="image/*" />
+            <input type="file" name="imageAnswer" accept="image/*" multiple/>
             <button class="send" type="submit">画像で解答する</button>
         </form>
     }

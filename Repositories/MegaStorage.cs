@@ -41,7 +41,28 @@ public class MegaStorageService
         return newFolder;
     }
 
-    public async Task<INode> FolderMethodAsync(string studentName)
+    public async Task<INode> GetOrCreateAnswerFolderAsync(string studentName, string problemId)
+    {
+        var mathSiteFolder = await GetOrCreateRootFolderAsync();
+
+        // 生徒フォルダの取得 or 作成
+        var studentFolder = await StudentFolderMethodAsync(studentName);
+
+        var nodes = _client.GetNodes();
+        var existing = nodes.FirstOrDefault(n =>
+            n.Type == NodeType.Directory &&
+            n.ParentId == studentFolder.Id &&
+            n.Name == problemId);
+
+        if (existing != null)
+            return existing;
+
+        var newFolder = await _client.CreateFolderAsync(problemId, studentFolder);
+        return newFolder;
+    }
+
+
+    public async Task<INode> StudentFolderMethodAsync(string studentName)
     {
         var mathSiteFolder = await GetOrCreateRootFolderAsync();
 
@@ -57,6 +78,27 @@ public class MegaStorageService
         var newFolder = await _client.CreateFolderAsync(studentName, mathSiteFolder);
         return newFolder;
     }
+
+    public async Task<INode> AnswerFolderMethodAsync(string studentName, string problemId)
+    {
+        var mathSiteFolder = await GetOrCreateRootFolderAsync();
+    
+        // 生徒フォルダの取得 or 作成
+        var studentFolder = await StudentFolderMethodAsync(studentName);
+    
+        var nodes = _client.GetNodes();
+        var existing = nodes.FirstOrDefault(n =>
+            n.Type == NodeType.Directory &&
+            n.ParentId == studentFolder.Id &&
+            n.Name == problemId);
+    
+        if (existing != null)
+            return existing;
+    
+        var newFolder = await _client.CreateFolderAsync(problemId, studentFolder);
+        return newFolder;
+    }
+
 
 
     public void Logout()

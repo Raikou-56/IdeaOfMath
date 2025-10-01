@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using MongoDB.Bson;
 using MathSiteProject.Models;
 
 namespace MathSiteProject.Repositories.Data;
@@ -44,6 +45,18 @@ public class AnswerHistoryRepository
     public async Task InsertAsync(AnswerHistory history)
     {
         await _collection.InsertOneAsync(history);
+    }
+
+    public async Task<AnswerHistory?> GetByIdAsync(string id)
+    {
+        var filter = Builders<AnswerHistory>.Filter.Eq("_id", ObjectId.Parse(id));
+        return await _collection.Find(filter).FirstOrDefaultAsync();
+    }
+
+    public async Task UpdateAsync(AnswerHistory history)
+    {
+        var filter = Builders<AnswerHistory>.Filter.Eq("_id", history.Id);
+        await _collection.ReplaceOneAsync(filter, history);
     }
 
 }

@@ -82,24 +82,29 @@ public class MegaStorageService
     public async Task<INode> AnswerFolderMethodAsync(string studentName, string problemId)
     {
         var mathSiteFolder = await GetOrCreateRootFolderAsync();
-    
+
         // 生徒フォルダの取得 or 作成
         var studentFolder = await StudentFolderMethodAsync(studentName);
-    
+
         var nodes = _client.GetNodes();
         var existing = nodes.FirstOrDefault(n =>
             n.Type == NodeType.Directory &&
             n.ParentId == studentFolder.Id &&
             n.Name == problemId);
-    
+
         if (existing != null)
             return existing;
-    
+
         var newFolder = await _client.CreateFolderAsync(problemId, studentFolder);
         return newFolder;
     }
 
-
+    public string GetPublicUrl(string nodeId)
+    {
+        var node = _client.GetNodes().FirstOrDefault(n => n.Id == nodeId);
+        if (node == null) return string.Empty;
+        return _client.GetDownloadLink(node).ToString(); // もしくは公開リンク取得メソッド
+    }
 
     public void Logout()
     {

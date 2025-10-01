@@ -100,10 +100,10 @@ public class AnswerHistory
     public DateTime SolvedAt { get; set; }
 
     [BsonElement("answer")]
-    public string? Answer { get; set; }
+    public List<string>? Answers { get; set; }
 
     [BsonElement("megaNodeId")]
-    public string? MegaNodeId { get; set; }
+    public List<string>? MegaNodeIds { get; set; }
 
     [BsonElement("isCorrect")]
     public bool IsCorrect { get; set; }

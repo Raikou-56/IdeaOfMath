@@ -138,6 +138,8 @@ public class HomeController : Controller
         Environment.GetEnvironmentVariable("MEGA_PASS"));
 
         int counter = 0;
+        List<string> fileIds = new List<string>();
+        List<string> fileNames = new List<string>();
 
         foreach (var imageAnswer in imageAnswers)
         {
@@ -155,25 +157,29 @@ public class HomeController : Controller
                 var folder = await megaService.AnswerFolderMethodAsync(studentName, problemId);
                 var fileId = await megaService.UploadFileAsync(tempPath, fileName, folder);
 
-                var history = new AnswerHistory
-                {
-                    StudentId = studentId,
-                    ProblemId = problemId,
-                    Answer = fileName,
-                    MegaNodeId = fileId,
-                    IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
-                    SolvedAt = DateTime.Now,
-                    Score = 0
-                };
+                fileIds.Add(fileId);
+                fileNames.Add(fileName);
 
                 counter += 1;
-                await _answerHistoryRepo.InsertAsync(history);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"画像アップロード失敗: {fileName}");
                 // 必要なら履歴に「失敗」として記録してもOK
             }
+
+            var history = new AnswerHistory
+            {
+                StudentId = studentId,
+                ProblemId = problemId,
+                Answers = fileNames,
+                MegaNodeIds = fileIds,
+                IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
+                SolvedAt = DateTime.Now,
+                Score = 0
+            };
+
+            await _answerHistoryRepo.InsertAsync(history);
 
             if (System.IO.File.Exists(tempPath))
                 System.IO.File.Delete(tempPath); // 一時ファイルを削除

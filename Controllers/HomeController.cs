@@ -187,6 +187,23 @@ public class HomeController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
+    public async Task<IActionResult> ScoreAnswer(string historyId, List<int> Scores)
+    {
+        var history = await _answerHistoryRepo.GetByIdAsync(historyId);
+        if (history == null) return NotFound();
+
+        // スコアの保存（ここは設計次第で柔軟に）
+        history.Scoring = true; 
+        history.Score = Scores.Sum(); // 合計でも平均でもOK
+        history.IsCorrect = Scores.All(s => s > 0); // 仮の判定ロジック
+    
+        await _answerHistoryRepo.UpdateAsync(history);
+    
+        return RedirectToAction("Index"); // 採点後の遷移先
+    }
+
+
     [Authorize]
     public IActionResult MyPage()
     {

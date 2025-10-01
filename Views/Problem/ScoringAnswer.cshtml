@@ -9,7 +9,7 @@
 <p>@Model.StudentId</p>
 <p>@Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
 
-<form asp-controller="Problem" asp-action="ScoreAnswer" method="post">
+<form asp-controller="Home" asp-action="ScoreAnswer" method="post">
     <input type="hidden" name="historyId" value="@Model.Id" />
     @foreach (string nodeId in Model.MegaNodeIds)
     {

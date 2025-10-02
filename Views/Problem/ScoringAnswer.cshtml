@@ -11,17 +11,14 @@
 
 <form asp-controller="Home" asp-action="ScoreAnswer" method="post">
     <input type="hidden" name="historyId" value="@Model.Id" />
-    @if (Model.MegaNodeIds == null || Model.MegaNodeIds.Count == 0)
+    @if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
     {
         <p>解答画像がありません。</p>
     }
     else
     {
-        @foreach (string nodeId in Model.MegaNodeIds)
+        @foreach (string url in Model.CloudinaryUrls)
         {
-            MegaStorageService? mega = new MegaStorageService(Environment.GetEnvironmentVariable(variable: "MAIN_EMAIL"),
-                                           Environment.GetEnvironmentVariable(variable: "MEGA_PASS"));
-            string? url = mega.GetPublicUrl(nodeId);
             <img src="@url" alt="解答画像" style="max-width:200px; margin:10px;" />
         }
     }

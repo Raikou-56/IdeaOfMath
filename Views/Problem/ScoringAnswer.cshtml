@@ -26,5 +26,10 @@
         <input type="number" name="Score" min="0" max="50" /><br>
         <button class="send" type="submit">採点する</button>
     </form>
+        <form method="post" action="/Home/ScoreAnswer">
+        <input type="hidden" name="historyId" value="@Model.Id" />
+        <input type="number" name="Score" value="42" />
+        <button type="submit">送信</button>
+    </form>
 </div>
 

@@ -66,8 +66,7 @@ public class HomeController : Controller
                 Teacher = problem.Teacher,
                 Scoring = historyList
                             .Where(h => h.ProblemId == problem.SerialNumber.ToString())
-                            .OrderByDescending(h => h.Score)
-                            .FirstOrDefault()?.Scoring ?? true
+                            .All(h => h.Scoring)
             };
             problems.Add(problemData);
         }

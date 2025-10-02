@@ -65,7 +65,7 @@
                             <button class="send" name="serial" value="@problem.SerialNumber">解答を採点する</button>
                         </form>
                     }
-                    @if (!problem.Scoring && User.IsInRole(role: "Teacher"))
+                    @if (problem.Scoring && User.IsInRole(role: "Teacher"))
                     {
                         <img src="/img/mathimg3.png" alt="未採点" style="width:40px; vertical-align:middle;" />
                     }

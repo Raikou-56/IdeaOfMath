@@ -55,7 +55,8 @@ public class AnswerHistoryRepository
 
     public async Task UpdateAsync(AnswerHistory history)
     {
-        var filter = Builders<AnswerHistory>.Filter.Eq("_id", history.Id);
+        var objectId = new ObjectId(history.Id);
+        var filter = Builders<AnswerHistory>.Filter.Eq("_id", objectId);
         await _collection.ReplaceOneAsync(filter, history);
     }
 

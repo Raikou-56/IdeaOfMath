@@ -2,13 +2,18 @@
     ViewData["Title"] = "Answer Page";
 }
 
+@section Scripts {
+    <script src="~/js/SendAnswer.js"></script>
+}
+
 <p>@ViewBag.Message 番の解答を送信する</p>
 <div class="all">
 @if (User.Identity != null && User.IsInRole(role: "Student"))
     {
         <form asp-controller="Home" asp-action="SubmitAnswer" method="post" enctype="multipart/form-data">
             <input type="hidden" name="problemId" value="@ViewBag.Message" />
-            <input type="file" name="imageAnswers" accept="image/*" multiple/>
+            <input type="file" id="fileInput" name="imageAnswers" accept="image/*" multiple/>
+            <div id="previewArea"></div>
             <button class="send" type="submit">画像で解答する</button>
         </form>
     }

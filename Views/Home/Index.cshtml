@@ -64,10 +64,10 @@
                         <form method="post" asp-area="" asp-controller="Problem" asp-action="ScoringPage" style="text-align: right;">
                             <button class="send" name="serial" value="@problem.SerialNumber">解答を採点する</button>
                         </form>
-                    }
-                    @if (problem.Scoring && User.IsInRole(role: "Teacher"))
-                    {
-                        <img src="/img/mathimg3.png" alt="未採点" style="width:40px; vertical-align:middle;" />
+                        @if (!problem.Scoring)
+                        {
+                            <img src="/img/mathimg3.png" alt="未採点" style="width:40px; vertical-align:middle;" />
+                        }
                     }
                 </div>
             </div>

@@ -102,8 +102,8 @@ public class AnswerHistory
     [BsonElement("answer")]
     public List<string>? Answers { get; set; }
 
-    [BsonElement("megaNodeId")]
-    public List<string>? MegaNodeIds { get; set; }
+    [BsonElement("cloudinaryUrls")]
+    public List<string>? CloudinaryUrls { get; set; }
 
     [BsonElement("isCorrect")]
     public bool IsCorrect { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MathSiteProject.Models;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
-using MathSiteProject.Repositories.Mega;
+using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -134,19 +134,23 @@ public class HomeController : Controller
         var studentName = User.Identity?.Name ?? "UnknownStudent";
         if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");
 
-        var megaService = new MegaStorageService(Environment.GetEnvironmentVariable("MAIN_EMAIL"),
-        Environment.GetEnvironmentVariable("MEGA_PASS"));
+        var cloudinaryService = new CloudinaryStorageService(
+            Environment.GetEnvironmentVariable("CLOUD_NAME"),
+            Environment.GetEnvironmentVariable("CLOUD_API_KEY"),
+            Environment.GetEnvironmentVariable("CLOUD_API_SECRET"),
+            "MathSite"
+        );
 
         int counter = 0;
-        List<string> fileIds = new List<string>();
+        List<string> imageUrls = new List<string>();
         List<string> fileNames = new List<string>();
 
         foreach (var imageAnswer in imageAnswers)
         {
-            var fileName = $"{problemId}_{counter}.png";
+            var fileName = $"{problemId}_{counter}";
 
             // 一時保存（Renderのサーバー内）
-            var tempPath = Path.Combine(Path.GetTempPath(), fileName);
+            var tempPath = Path.Combine(Path.GetTempPath(), fileName + ".tmp");
             try
             {
                 using (var stream = new FileStream(tempPath, FileMode.Create))
@@ -154,10 +158,8 @@ public class HomeController : Controller
                     await imageAnswer.CopyToAsync(stream);
                 }
 
-                var folder = await megaService.AnswerFolderMethodAsync(studentName, problemId);
-                var fileId = await megaService.UploadFileAsync(tempPath, fileName, folder);
-
-                fileIds.Add(fileId);
+                var imageUrl = await cloudinaryService.UploadFileAsync(tempPath, studentName, problemId, fileName);
+                imageUrls.Add(imageUrl);
                 fileNames.Add(fileName);
 
                 counter += 1;
@@ -165,27 +167,28 @@ public class HomeController : Controller
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"画像アップロード失敗: {fileName}");
-                // 必要なら履歴に「失敗」として記録してもOK
             }
 
             if (System.IO.File.Exists(tempPath))
                 System.IO.File.Delete(tempPath); // 一時ファイルを削除
         }
+
         var history = new AnswerHistory
         {
             StudentId = studentId,
             ProblemId = problemId,
             Answers = fileNames,
-            MegaNodeIds = fileIds,
-            IsCorrect = false, // 仮で false にしておいて、あとで判定ロジック追加！
+            CloudinaryUrls = imageUrls, // MegaNodeIds の代わりに Cloudinary の URL を保存
+            IsCorrect = false,
             SolvedAt = DateTime.Now,
             Score = 0
-        };      
+        };
+
         await _answerHistoryRepo.InsertAsync(history);
-        megaService.Logout();
 
         return RedirectToAction("Index");
     }
+
 
     [HttpPost]
     public async Task<IActionResult> ScoreAnswer(string historyId, List<int> Scores)

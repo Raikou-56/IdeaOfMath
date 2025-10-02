@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle" Version="1.8.9" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.27.7" />
     <PackageReference Include="MegaApiClient" Version="1.10.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.19.0" />

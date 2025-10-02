@@ -200,6 +200,8 @@ public class HomeController : Controller
         var history = await _answerHistoryRepo.GetByIdAsync(historyId);
         if (history == null) return NotFound($"ID {historyId} の履歴が見つかりません");
 
+        Console.WriteLine(Score);
+
         // スコアの保存（ここは設計次第で柔軟に）
         history.Scoring = true; 
         history.Score = Score; // 合計でも平均でもOK

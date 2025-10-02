@@ -68,6 +68,7 @@ public class HomeController : Controller
                             .Where(h => h.ProblemId == problem.SerialNumber.ToString())
                             .All(h => !h.Scoring)
             };
+            Console.WriteLine(problemData.Scoring);
             problems.Add(problemData);
         }
         return View(problems);

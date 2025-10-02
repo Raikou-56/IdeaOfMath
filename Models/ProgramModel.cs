@@ -62,6 +62,8 @@ public class ProblemViewData
     public bool UserData { get; set; }
 
     public string? Teacher { get; set; }
+
+    public bool Scoring { get; set; }
 }
 
 public class LoginViewModel

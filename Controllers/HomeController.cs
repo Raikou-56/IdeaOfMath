@@ -64,6 +64,10 @@ public class HomeController : Controller
                             .OrderByDescending(h => h.Score)
                             .FirstOrDefault()?.Score.ToString() ?? "未採点",
                 Teacher = problem.Teacher,
+                Scoring = historyList
+                            .Where(h => h.ProblemId == problem.SerialNumber.ToString())
+                            .OrderByDescending(h => h.Score)
+                            .FirstOrDefault()?.Scoring ?? true
             };
             problems.Add(problemData);
         }

@@ -59,6 +59,10 @@ public class HomeController : Controller
                 category = problem.category,
                 LatexSrc = problem.ProblemLatex,
                 UserData = solvedIds.Contains(problem.SerialNumber.ToString()),
+                Score = historyList
+                            .Where(h => h.ProblemId == problem.SerialNumber.ToString() && h.Scoring)
+                            .OrderByDescending(h => h.Score)
+                            .FirstOrDefault()?.Score.ToString() ?? "未採点",
                 Teacher = problem.Teacher,
             };
             problems.Add(problemData);

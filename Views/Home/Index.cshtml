@@ -38,7 +38,7 @@
             <div class="que under" data-field=@problem.category data-dif=@problem.difficulty>
                 <br>
                 <div class="dif">
-                   @problem.IdNumber 難易度 @problem.difficulty @problem.category @(problem.UserData ? "解答済み" : "未回答")
+                   @problem.IdNumber 難易度 @problem.difficulty @problem.category @(problem.UserData ? $"{problem.Score}/50" : "未回答")
                 </div>
                 <div class="latex">
                     @Html.Raw(problem.LatexSrc)

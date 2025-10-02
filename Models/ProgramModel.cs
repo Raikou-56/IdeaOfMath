@@ -57,6 +57,8 @@ public class ProblemViewData
 
     public string? LatexSrc { get; set; }
 
+    public string? Score { get; set; }
+
     public bool UserData { get; set; }
 
     public string? Teacher { get; set; }

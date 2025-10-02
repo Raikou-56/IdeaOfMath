@@ -18,8 +18,14 @@
             <div>
                 <form asp-controller="Problem" asp-action="ScoringAnswer" method="post">
                     <input type="hidden" name="answerId" value="@history.Id" />
-                    <button type="submit" class="send" style="margin: 0px 5px;">採点する</button>
+                    <button type="submit" class="send" style="margin: 0px 5px;">@(history.Scoring ? "採点する" : "採点結果を編集する")</button>
                 </form>
+            </div>
+            <div>
+                @if (!history.Scoring)
+                {
+                    <img src="/img/mathimg3" alt="未採点" style="width:40px; vertical-align:middle;" />
+                }
             </div>
         </div>
     }

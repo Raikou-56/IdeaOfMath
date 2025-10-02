@@ -193,8 +193,12 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> ScoreAnswer(string historyId, int Score)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest("モデルが無効です");
+        }
         var history = await _answerHistoryRepo.GetByIdAsync(historyId);
-        if (history == null) return NotFound();
+        if (history == null) return NotFound($"ID {historyId} の履歴が見つかりません");
 
         // スコアの保存（ここは設計次第で柔軟に）
         history.Scoring = true; 

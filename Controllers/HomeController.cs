@@ -66,7 +66,7 @@ public class HomeController : Controller
                             .OrderByDescending(h => h.Score)
                             .FirstOrDefault()?.Score.ToString() ?? "未採点",
                 Teacher = problem.Teacher,
-                Scoring = !HasUnscoredAnswers(problem.SerialNumber.ToString())
+                Scoring = HasUnscoredAnswers(problem.SerialNumber.ToString())
             };
             Console.WriteLine(problemData.Scoring);
             problems.Add(problemData);

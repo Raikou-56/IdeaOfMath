@@ -4,10 +4,9 @@
 
 @model AnswerViewModel
 
-<p>@ViewBag.Message 番の答えはこちら</p>
-
 <div class="text-center">
     <div class="all">
+        <p>@ViewBag.Message 番の答えはこちら</p>
         <div class="que">
             <br>
             <div class="latex">
@@ -17,7 +16,7 @@
                 @Html.Raw(Model.Answer)
             </div><br>
             <p style="display: flex; justify-content: flex-end;">編集者：@Model.Teacher</p><br>
-            @if (User.Identity != null && User.IsInRole("Teacher"))
+            @if (User.Identity != null && User.IsInRole(role: "Teacher"))
             {
                 <div class="ans-but">
                     <form method="post" asp-area="" asp-controller="Problem" asp-action="EditProblem"

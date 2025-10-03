@@ -68,7 +68,6 @@ public class HomeController : Controller
                 Teacher = problem.Teacher,
                 Scoring = HasUnscoredAnswers(problem.SerialNumber.ToString())
             };
-            Console.WriteLine(problemData.Scoring);
             problems.Add(problemData);
         }
         return View(problems);

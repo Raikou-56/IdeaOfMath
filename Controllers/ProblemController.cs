@@ -47,7 +47,6 @@ public class ProblemController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(Problem updatedItem)
     {
-        Console.WriteLine(updatedItem.SerialNumber);
         var filter = Builders<Problem>.Filter.Eq(p => p.SerialNumber, updatedItem.SerialNumber);
         var existing = await _problemCollection.Find(filter).FirstOrDefaultAsync();
 

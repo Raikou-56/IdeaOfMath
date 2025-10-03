@@ -1,22 +1,24 @@
 @{
-    ViewData["Title"] = "NewUser Page";
+    ViewData[index: "Title"] = "NewUser Page";
 }
 
-<form method="post" action="/Account/Register">
-    <label for="mailaddress">メールアドレス:</label><br>
-    <input type="adress" id="mailaddress" name="mailaddress" required><br><br>
-    <p>※メールアドレスはログイン時のユーザーIDとなります。</p>
+<div class="all">
+    <form method="post" action="/Account/Register">
+        <label for="mailaddress">メールアドレス:</label><br>
+        <input type="adress" id="mailaddress" name="mailaddress" required><br><br>
+        <p>※メールアドレスはログイン時のユーザーIDとなります。</p>
 
-    <label for="username">ユーザー名:</label><br>
-    <input type="text" id="username" name="username" required><br><br>
+        <label for="username">ユーザー名:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
 
-    <label for="password">パスワード:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
+        <label for="password">パスワード:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
 
-    <label for="role">区分:</label><br>
-    <select id="role" name="role">
-        <option value="Student">学生</option>
-    </select><br><br>
+        <label for="role">区分:</label><br>
+        <select id="role" name="role">
+            <option value="Student">学生</option>
+        </select><br><br>
 
-    <button type="submit" class="send">登録する</button>
-</form>
+        <button type="submit" class="send">登録する</button>
+    </form>
+</div>

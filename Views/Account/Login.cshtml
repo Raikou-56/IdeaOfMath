@@ -4,23 +4,25 @@
 
 @model LoginViewModel
 
-<p>こんにちは！数学の源泉運営チームです。このサイトは大学受験を控える受験生のために幅広く数学の問題を扱うサイトとなっております。
-    問題は運営メンバーの独断と偏見で5段階で難易度を表しており難易度のイメージは以下の通りです。
-</p>
-<div class="acc que">
-    <img src="\img\mathimg2.png">
-</div>
+<div class="all">
+    <p>こんにちは！数学の源泉運営チームです。このサイトは大学受験を控える受験生のために幅広く数学の問題を扱うサイトとなっております。
+        問題は運営メンバーの独断と偏見で5段階で難易度を表しており難易度のイメージは以下の通りです。
+    </p>
+    <div class="acc que">
+        <img src="\img\mathimg2.png">
+    </div>
 
-<form method="post" asp-controller="Account" asp-action="Login">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    
-    <label asp-for="MailAddress">ユーザーID:</label><br>
-    <input type="mail" id="mailaddress" asp-for="MailAddress" required><br><br>
-    
-    <label asp-for="Password">パスワード:</label><br>
-    <input asp-for="Password" type="password" id="password" required><br><br>
-    
-    <button type="submit" class="send">ログインする</button>
-</form>
-<br>
-<a asp-area="" asp-controller="Account" asp-action="NewUser">新規会員登録はこちら</a>
+    <form method="post" asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <label asp-for="MailAddress">ユーザーID:</label><br>
+        <input type="mail" id="mailaddress" asp-for="MailAddress" required><br><br>
+
+        <label asp-for="Password">パスワード:</label><br>
+        <input asp-for="Password" type="password" id="password" required><br><br>
+
+        <button type="submit" class="send">ログインする</button>
+    </form>
+    <br>
+    <a asp-area="" asp-controller="Account" asp-action="NewUser">新規会員登録はこちら</a>
+</div>

@@ -66,7 +66,7 @@ public class HomeController : Controller
                 Teacher = problem.Teacher,
                 Scoring = historyList
                             .Where(h => h.ProblemId == problem.SerialNumber.ToString())
-                            .All(h => !h.Scoring)
+                            .All(h => h.Scoring)
             };
             Console.WriteLine(problemData.Scoring);
             problems.Add(problemData);

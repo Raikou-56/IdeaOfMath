@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using MathSiteProject.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MathSiteProject.Controllers;
 
@@ -85,6 +86,12 @@ public class AccountController : Controller
             "Teacher" => RedirectToAction("Teacher", "Home"),
             _         => RedirectToAction("Login", "Account"),
         };
+    }
+
+    [Authorize]
+    public IActionResult MyPage()
+    {
+        return View();
     }
 
     // ログアウト

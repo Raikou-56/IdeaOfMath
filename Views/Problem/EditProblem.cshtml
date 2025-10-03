@@ -8,43 +8,40 @@
 
 @model Problem
 
-<div class="all">
-<br>
-    <div class="que">
-        <form asp-controller="Problem" asp-action="Edit" method="post">
-            <input type="hidden" name="SerialNumber" value="@Model.SerialNumber" />
-            <label>問題ID:</label>
-            <input asp-for="IdNumber" />
-            <span asp-validation-for="IdNumber"></span><br>
+<div class="que" style="padding:30px;">
+    <form asp-controller="Problem" asp-action="Edit" method="post">
+        <input type="hidden" name="SerialNumber" value="@Model.SerialNumber" />
+        <label>問題ID:</label>
+        <input asp-for="IdNumber" />
+        <span asp-validation-for="IdNumber"></span><br>
 
-            <label>難易度:</label>
-            <input asp-for="difficulty" /><br>
+        <label>難易度:</label>
+        <input asp-for="difficulty" /><br>
 
-            <label>カテゴリ:</label>
-            <input asp-for="category" /><br>
+        <label>カテゴリ:</label>
+        <input asp-for="category" /><br>
 
-            <label>問題（LaTeX）:</label>
-            <textarea asp-for="ProblemLatex" id="latexInput1" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
+        <label>問題（LaTeX）:</label>
+        <textarea asp-for="ProblemLatex" id="latexInput1" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
 
-            <div style="margin-top:20px;">
-                <h4>問題文プレビュー:</h4>
-                <div id="mathPreview1" class="latex">ここに数式が表示されます</div>
-            </div>
+        <div style="margin-top:20px;">
+            <h4>問題文プレビュー:</h4>
+            <div id="mathPreview1" class="latex">ここに数式が表示されます</div>
+        </div>
 
-            <label>答え（LaTeX）:</label>
-            <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
+        <label>答え（LaTeX）:</label>
+        <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
 
-            <div style="margin-top:20px;">
-                <h4>解答プレビュー:</h4>
-                <div id="mathPreview2" class="latex">ここに数式が表示されます</div>
-            </div>
+        <div style="margin-top:20px;">
+            <h4>解答プレビュー:</h4>
+            <div id="mathPreview2" class="latex">ここに数式が表示されます</div>
+        </div>
 
-            <label>先生:</label>
-            <input asp-for="Teacher" /><br>
+        <label>先生:</label>
+        <input asp-for="Teacher" /><br>
 
-            <div style="text-align: right;">
-                <button class="send" type="submit">この内容に編集する</button>
-            </div>
-        </form>
-    </div>
+        <div style="text-align: right;">
+            <button class="send" type="submit">この内容に編集する</button>
+        </div>
+    </form>
 </div>

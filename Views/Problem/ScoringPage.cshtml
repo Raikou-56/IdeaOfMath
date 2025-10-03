@@ -6,27 +6,25 @@
 
 <p>@ViewBag.Message 番の解答一覧</p>
 
-<div class="all">
-    @foreach (AnswerHistory history in Model)
-    {
-        <div class="answer-block blsp d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
-            <div>
-                <span class="scor">提出者: @history.StudentId</span>
-                <span class="scor">採点状況: @(history.Scoring ? "採点済み" : "未採点")</span>
-                <span class="scor">得点: @history.Score</span>
-            </div>
-            <div>
-                <form asp-controller="Problem" asp-action="ScoringAnswer" method="post">
-                    <input type="hidden" name="answerId" value="@history.Id" />
-                    <button type="submit" class="send" style="margin: 0px 5px;">@(history.Scoring ? "採点結果を編集する" : "採点する")</button>
-                </form>
-            </div>
-            <div>
-                @if (!history.Scoring)
-                {
-                    <img src="/img/mathimg3.png" alt="未採点" style="width:40px; vertical-align:middle;" />
-                }
-            </div>
+@foreach (AnswerHistory history in Model)
+{
+    <div class="answer-block blsp d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
+        <div>
+            <span class="scor">提出者: @history.StudentId</span>
+            <span class="scor">採点状況: @(history.Scoring ? "採点済み" : "未採点")</span>
+            <span class="scor">得点: @history.Score</span>
         </div>
-    }
-</div>
+        <div>
+            <form asp-controller="Problem" asp-action="ScoringAnswer" method="post">
+                <input type="hidden" name="answerId" value="@history.Id" />
+                <button type="submit" class="send" style="margin: 0px 5px;">@(history.Scoring ? "採点結果を編集する" : "採点する")</button>
+            </form>
+        </div>
+        <div>
+            @if (!history.Scoring)
+            {
+                <img src="/img/mathimg3.png" alt="未採点" style="width:40px; vertical-align:middle;" />
+            }
+        </div>
+    </div>
+}

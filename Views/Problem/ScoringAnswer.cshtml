@@ -4,25 +4,23 @@
 
 @model AnswerHistory
 
-<div class="all">
-    <p>@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
+<p>@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
 
-    <form asp-area="" asp-controller="Home" asp-action="ScoreAnswer" method="post">
-        <input type="hidden" name="historyId" value="@Model.Id" />
-        @if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
+<form asp-area="" asp-controller="Home" asp-action="ScoreAnswer" method="post">
+    <input type="hidden" name="historyId" value="@Model.Id" />
+    @if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
+    {
+        <p>解答画像がありません。</p>
+    }
+    else
+    {
+        @foreach (string url in Model.CloudinaryUrls)
         {
-            <p>解答画像がありません。</p>
+            <img src="@url" alt="解答画像" style="max-width:200px; margin:10px;" />
         }
-        else
-        {
-            @foreach (string url in Model.CloudinaryUrls)
-            {
-                <img src="@url" alt="解答画像" style="max-width:200px; margin:10px;" />
-            }
-        }<br>
+    }<br>
 
-        <input type="number" asp-for="Score" min="0" max="50" /><br>
-        <button class="send" type="submit">採点結果を送信</button>
-    </form>
-</div>
+    <input type="number" asp-for="Score" min="0" max="50" /><br>
+    <button class="send" type="submit">採点結果を送信</button>
+</form>
 

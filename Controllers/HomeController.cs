@@ -218,13 +218,6 @@ public class HomeController : Controller
 
         return RedirectToAction("Index"); // 採点後の遷移先
     }
-
-
-    [Authorize]
-    public IActionResult MyPage()
-    {
-        return View();
-    }
     
     public static bool HasUnscoredAnswers(string problemId)
     {

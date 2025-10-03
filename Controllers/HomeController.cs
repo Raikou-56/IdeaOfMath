@@ -51,6 +51,8 @@ public class HomeController : Controller
 
         foreach (var problem in problemsData)
         {
+            var relatedHistory = historyList
+                .Where(h => h.ProblemId == problem.SerialNumber.ToString());
             var problemData = new ProblemViewData
             {
                 SerialNumber = problem.SerialNumber,
@@ -64,9 +66,7 @@ public class HomeController : Controller
                             .OrderByDescending(h => h.Score)
                             .FirstOrDefault()?.Score.ToString() ?? "未採点",
                 Teacher = problem.Teacher,
-                Scoring = historyList
-                            .Where(h => h.ProblemId == problem.SerialNumber.ToString())
-                            .All(h => h.Scoring)
+                Scoring = !relatedHistory.Any(h => !h.Scoring)
             };
             Console.WriteLine(problemData.Scoring);
             problems.Add(problemData);

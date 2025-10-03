@@ -46,13 +46,13 @@ public class HomeController : Controller
             }
             return View(problems);
         }
+        var AnswerHistories = DataBaseSetup.answerHistoryCollection();
         var historyList = await _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId);
         var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
 
         foreach (var problem in problemsData)
         {
-            var relatedHistory = historyList
-                .Where(h => h.ProblemId == problem.SerialNumber.ToString());
+            var relatedHistory = AnswerHistories.Find(h => h.ProblemId == problem.SerialNumber.ToString());
             var problemData = new ProblemViewData
             {
                 SerialNumber = problem.SerialNumber,
@@ -66,7 +66,7 @@ public class HomeController : Controller
                             .OrderByDescending(h => h.Score)
                             .FirstOrDefault()?.Score.ToString() ?? "未採点",
                 Teacher = problem.Teacher,
-                Scoring = !relatedHistory.Any(h => !h.Scoring)
+                Scoring = !HasUnscoredAnswers(problem.SerialNumber.ToString())
             };
             Console.WriteLine(problemData.Scoring);
             problems.Add(problemData);
@@ -211,12 +211,12 @@ public class HomeController : Controller
         Console.WriteLine(Score);
 
         // スコアの保存（ここは設計次第で柔軟に）
-        history.Scoring = true; 
+        history.Scoring = true;
         history.Score = Score; // 合計でも平均でもOK
         history.IsCorrect = Score == 50; // 仮の判定ロジック
-    
+
         await _answerHistoryRepo.UpdateAsync(history);
-    
+
         return RedirectToAction("Index"); // 採点後の遷移先
     }
 
@@ -226,5 +226,14 @@ public class HomeController : Controller
     {
         return View();
     }
+    
+    public static bool HasUnscoredAnswers(string problemId)
+    {
+        var collection = DataBaseSetup.answerHistoryCollection();
+        var relatedHistory = collection
+            .AsQueryable()
+            .Where(h => h.ProblemId == problemId);
 
+        return relatedHistory.Any(h => !h.Scoring);
+    }
 }

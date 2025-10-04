@@ -93,8 +93,7 @@ public class AnswerController : Controller
     {
         var history = DataBaseSetup
         .GetAnswerHistories()
-        .Where(h => h.ProblemId == answerId && h.StudentId == studentId)
-        .ToList();
+        .Where(h => h.ProblemId == answerId && h.StudentId == studentId);
         if (history == null)
         {
             return RedirectToAction("Index", "Home");

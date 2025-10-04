@@ -42,6 +42,17 @@ public class AnswerHistoryRepository
         return result;
     }
 
+    public async Task<List<AnswerHistory>> GetHistoryByStudentAndProblemAsync(string studentId, string problemId)
+    {
+        var filter = Builders<AnswerHistory>.Filter.And(
+            Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, studentId),
+            Builders<AnswerHistory>.Filter.Eq(h => h.ProblemId, problemId)
+        );
+    
+        var result = await _collection.Find(filter).SortByDescending(h => h.SolvedAt).ToListAsync();
+        return result;
+    }
+
     public async Task InsertAsync(AnswerHistory history)
     {
         await _collection.InsertOneAsync(history);

@@ -89,13 +89,12 @@ public class AnswerController : Controller
     }
 
     [HttpPost]
-    public IActionResult CheckAnswer(string serial, string studentId)
+    public async Task<IActionResult> CheckAnswer(string serial, string studentId)
     {
-        var history = DataBaseSetup
-        .GetAnswerHistories()
-        .Where(h => h.ProblemId == serial && h.StudentId == studentId)
-        .OrderByDescending(h => h.SolvedAt) // 時間のプロパティ名に合わせてね
-        .FirstOrDefault();
+        Console.WriteLine($"answerId: {serial}, studentId: {studentId}");
+
+        var historyList = _answerHistoryRepo.GetHistoryByStudentAndProblemAsync(serial, studentId);
+        var history = historyList.Result.FirstOrDefault();
         if (history == null)
         {
             return RedirectToAction("Index", "Home");

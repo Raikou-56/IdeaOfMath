@@ -1,0 +1,21 @@
+@{
+    ViewData[index: "Title"] = "Scoring Page";
+}
+
+@model AnswerHistory
+
+<p>@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
+
+@if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
+{
+    <p>解答画像がありません。</p>
+}
+else
+{
+    @foreach (string url in Model.CloudinaryUrls)
+    {
+        <img src="@url" alt="解答画像" style="max-width:200px; margin:10px;" />
+    }
+}<br>
+
+<p>@Model.Score</p>

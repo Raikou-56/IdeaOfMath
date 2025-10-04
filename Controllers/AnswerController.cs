@@ -88,4 +88,17 @@ public class AnswerController : Controller
         return RedirectToAction("Index"); // 採点後の遷移先
     }
 
+    [HttpPost]
+    public IActionResult CheckAnswer(string answerId)
+    {
+        var history = DataBaseSetup
+        .GetAnswerHistories()
+        .FirstOrDefault(x => x.Id == answerId);
+        if (history == null)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        return View(history);
+    }
+
 }

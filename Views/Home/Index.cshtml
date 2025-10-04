@@ -43,12 +43,12 @@
                 @Html.Raw(problem.LatexSrc)
             </div>
             <div class="ans-but">
-                <form method="post" asp-area="" asp-controller="Home" asp-action="LookAnswer" style="text-align: right;">
+                <form method="post" asp-area="" asp-controller="Answer" asp-action="LookAnswer" style="text-align: right;">
                     <button class="send" name="serial" value="@problem.SerialNumber">解答を見る</button>
                 </form>
                 @if (User.Identity != null && User.IsInRole(role: "Student") && !problem.UserData)
                 {
-                    <form method="post" asp-area="" asp-controller="Home" asp-action="SendAnswer" style="text-align: right;">
+                    <form method="post" asp-area="" asp-controller="Answer" asp-action="SendAnswer" style="text-align: right;">
                         <button class="send" name="serial" value="@problem.SerialNumber">解答を送信する</button>
                     </form>
                 }

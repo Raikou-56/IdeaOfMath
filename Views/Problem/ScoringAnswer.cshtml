@@ -6,7 +6,7 @@
 
 <p>@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
 
-<form asp-area="" asp-controller="Home" asp-action="ScoreAnswer" method="post">
+<form asp-area="" asp-controller="Answer" asp-action="ScoreAnswer" method="post">
     <input type="hidden" name="historyId" value="@Model.Id" />
     @if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
     {

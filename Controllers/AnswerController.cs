@@ -93,8 +93,12 @@ public class AnswerController : Controller
     {
         Console.WriteLine($"answerId: {serial}, studentId: {studentId}");
 
-        var historyList = _answerHistoryRepo.GetHistoryByStudentAndProblemAsync(serial, studentId);
-        var history = historyList.Result.FirstOrDefault();
+        var historyList = await _answerHistoryRepo.GetHistoryByStudentAndProblemAsync(serial, studentId);
+        foreach (var hist in historyList)
+        {
+            Console.WriteLine($"History ID: {hist.Id}, SolvedAt: {hist.SolvedAt}, Scoring: {hist.Scoring}, Score: {hist.Score}");
+        }
+        var history = historyList.FirstOrDefault();
         if (history == null)
         {
             return RedirectToAction("Index", "Home");

@@ -85,20 +85,20 @@ public class AnswerController : Controller
 
         await _answerHistoryRepo.UpdateAsync(history);
 
-        return RedirectToAction("Index"); // 採点後の遷移先
+        return RedirectToAction("Index", "Home"); // 採点後の遷移先
     }
 
     [HttpPost]
-    public IActionResult CheckAnswer(string answerId)
+    public IActionResult CheckAnswer(string answerId, string studentId)
     {
         var history = DataBaseSetup
         .GetAnswerHistories()
-        .FirstOrDefault(x => x.Id == answerId);
+        .Where(h => h.ProblemId == answerId && h.StudentId == studentId)
+        .ToList();
         if (history == null)
         {
             return RedirectToAction("Index", "Home");
         }
         return View(history);
     }
-
 }

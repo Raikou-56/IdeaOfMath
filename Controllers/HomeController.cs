@@ -52,7 +52,6 @@ public class HomeController : Controller
 
         foreach (var problem in problemsData)
         {
-            var relatedHistory = AnswerHistories.Find(h => h.ProblemId == problem.SerialNumber.ToString());
             var problemData = new ProblemViewData
             {
                 SerialNumber = problem.SerialNumber,

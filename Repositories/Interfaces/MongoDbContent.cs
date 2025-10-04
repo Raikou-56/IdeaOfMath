@@ -42,7 +42,7 @@ public class AnswerHistoryRepository
         return result;
     }
 
-    public async Task<List<AnswerHistory>> GetHistoryByStudentAndProblemAsync(string studentId, string problemId)
+    public async Task<List<AnswerHistory>> GetHistoryByStudentAndProblemAsync(string problemId, string studentId)
     {
         var filter = Builders<AnswerHistory>.Filter.And(
             Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, studentId),

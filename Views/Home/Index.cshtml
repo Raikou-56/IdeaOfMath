@@ -55,7 +55,7 @@
                 @if (User.Identity != null && User.IsInRole(role: "Student") && problem.UserData)
                 {
                     <form method="post" asp-area="" asp-controller="Answer" asp-action="CheckAnswer" style="text-align: right;">
-                        <input type="hidden" name="studentId" value="@User.Identity.Name" />
+                        <input type="hidden" name="studentId" value="@User.FindFirst(type: "StudentId")?.Value" />
                         <button class="send" name="serial" value="@problem.SerialNumber">解答を確認する</button>
                     </form>
                 }

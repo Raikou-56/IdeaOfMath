@@ -72,7 +72,7 @@ public class HomeController : Controller
         return View(problems);
     }
 
-    [Authorize(Roles = "Teacher")]
+    [Authorize(Roles = "Teacher,Admin")]
     public IActionResult Teacher()
     {
         var Tmodel = new TeacherViewModel

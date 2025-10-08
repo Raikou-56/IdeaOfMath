@@ -59,7 +59,7 @@
                         <button class="send" name="serial" value="@problem.SerialNumber">解答を確認する</button>
                     </form>
                 }
-                @if (User.Identity != null && User.IsInRole(role: "Teacher"))
+                @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
                 {
                     <form method="post" asp-area="" asp-controller="Problem" asp-action="ScoringPage" style="text-align: right;">
                         <button class="send" name="serial" value="@problem.SerialNumber">解答を採点する</button>

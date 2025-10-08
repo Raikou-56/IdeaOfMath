@@ -157,3 +157,8 @@ p.tst {
   padding: 3px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
+.user-Profile {
+  margin: 20px;
+  background-color: white;
+}

@@ -14,7 +14,7 @@
         @Html.Raw(Model.Answer)
     </div><br>
     <p style="display: flex; justify-content: flex-end;">編集者：@Model.Teacher</p><br>
-    @if (User.Identity != null && User.IsInRole(role: "Teacher"))
+    @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
     {
         <div class="ans-but">
             <form method="post" asp-area="" asp-controller="Problem" asp-action="EditProblem"

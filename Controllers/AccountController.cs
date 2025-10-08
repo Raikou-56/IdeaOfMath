@@ -33,7 +33,7 @@ public class AccountController : Controller
 
         users.InsertOne(newUser);
 
-        return RedirectToAction("Login", "Home");  // 登録後にログインページへ
+        return RedirectToAction("Login", "Account");  // 登録後にログインページへ
     }
 
     // ログイン

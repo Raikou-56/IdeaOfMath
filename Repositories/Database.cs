@@ -51,7 +51,7 @@ public class DataBaseSetup
     public static void ShowUsers()
     {
         List<User> users = GetUsers();
-        
+
         foreach (var user in users)
         {
             Console.WriteLine($"ID: {user.UserId}");
@@ -69,5 +69,19 @@ public class DataBaseSetup
         return res;
     }
 
+    public static int GetTotalScores(string? userId)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            return 0;
+        }
+
+        var answerHistories = answerHistoryCollection();
+        var filter = Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, userId) & Builders<AnswerHistory>.Filter.Eq(h => h.Scoring, true);
+        var userHistories = answerHistories.Find(filter).ToList();
+
+        int totalScore = userHistories.Sum(h => h.Score ?? 0);
+        return totalScore;
+    }
 
 }

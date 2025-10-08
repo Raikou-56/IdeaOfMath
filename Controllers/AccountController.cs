@@ -91,7 +91,17 @@ public class AccountController : Controller
     [Authorize]
     public IActionResult MyPage()
     {
-        return View();
+        IMongoCollection<User> users = DataBaseSetup.userCollection();
+        var user = users.Find(u => u.UserId == User.FindFirstValue("StudentId")).FirstOrDefault();
+
+        var model = new UserViewModel
+        {
+            UserId = user?.UserId,
+            UserName = user?.Username,
+            Role = user?.Role,
+            TotalScores = DataBaseSetup.GetTotalScores(user?.UserId)
+        };
+        return View(model);
     }
 
     // ログアウト

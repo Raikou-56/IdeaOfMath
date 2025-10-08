@@ -149,3 +149,12 @@ button {
   border: none;
   background: none;
 }
+
+p.tst {
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #ffffff;
+  border-radius: 2px;
+  padding: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}

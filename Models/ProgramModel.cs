@@ -36,6 +36,9 @@ public class User
     [BsonElement("userName")]
     public string? Username { get; set; }
 
+    [BsonElement("grade")]
+    public string? Grade { get; set; }
+
     [BsonElement("passwordHash")]
     public string? PassWordHash { get; set; }
 
@@ -124,5 +127,6 @@ public class UserViewModel
     public string? UserId { get; set; }
     public string? UserName { get; set; }
     public string? Role { get; set; }
+    public string? Grade { get; set; }
     public int TotalScores { get; set; }
 }

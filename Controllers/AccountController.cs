@@ -100,6 +100,7 @@ public class AccountController : Controller
             UserId = user?.UserId,
             UserName = user?.Username,
             Role = user?.Role,
+            Grade = user?.Grade,
             TotalScores = DataBaseSetup.GetTotalScores(user?.UserId)
         };
         return View(model);

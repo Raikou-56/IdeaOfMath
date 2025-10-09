@@ -77,13 +77,13 @@ public class DataBaseSetup
 
     public static string? GetProblemDifficulty(string? problemId)
     {
-        if (string.IsNullOrEmpty(problemId))
+        if (string.IsNullOrEmpty(problemId) || !int.TryParse(problemId, out var serial))
         {
             return null;
         }
 
         var collection = problemCollection();
-        var filter = Builders<Problem>.Filter.Eq(p => p.SerialNumber.ToString(), problemId);
+        var filter = Builders<Problem>.Filter.Eq(p => p.SerialNumber, serial);
         var problem = collection.Find(filter).FirstOrDefault();
 
         return problem?.difficulty;

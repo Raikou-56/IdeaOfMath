@@ -100,8 +100,11 @@ public class AnswerHistory
     [BsonElement("studentId")]
     public string? StudentId { get; set; }
 
-    [BsonElement("problemId")] // フォルダ名は問題IDに対応
+    [BsonElement("problemId")]
     public string? ProblemId { get; set; }
+
+    [BsonElement("difficulty")]
+    public string? Difficulty { get; set; }
 
     [BsonElement("solvedAt")]
     public DateTime SolvedAt { get; set; }
@@ -128,5 +131,8 @@ public class UserViewModel
     public string? UserName { get; set; }
     public string? Role { get; set; }
     public string? Grade { get; set; }
+    public int[]? ScoresbyDifficulty { get; set; }
+    public int[]? IntsAnsweredbyDifficulty { get; set; }
+    public float[]? AverageScoresbyDifficulty { get; set; }
     public int TotalScores { get; set; }
 }

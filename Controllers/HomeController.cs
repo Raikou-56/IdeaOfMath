@@ -92,6 +92,7 @@ public class HomeController : Controller
     public async Task<IActionResult> SubmitAnswer(string problemId, IFormFile[] imageAnswers)
     {
         var studentId = User.FindFirst("StudentId")?.Value;
+        var difficulty = DataBaseSetup.GetProblemDifficulty(problemId);
         var studentName = User.Identity?.Name ?? "UnknownStudent";
         if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");
 
@@ -139,6 +140,7 @@ public class HomeController : Controller
             StudentId = studentId,
             ProblemId = problemId,
             Answers = fileNames,
+            Difficulty = difficulty,
             CloudinaryUrls = imageUrls, // MegaNodeIds の代わりに Cloudinary の URL を保存
             IsCorrect = false,
             SolvedAt = DateTime.Now,

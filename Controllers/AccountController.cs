@@ -94,6 +94,8 @@ public class AccountController : Controller
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
         var user = users.Find(u => u.UserId == User.FindFirstValue("StudentId")).FirstOrDefault();
+        var scoresByDifficulty = DataBaseSetup.GetScoresbyDifficulty(user?.UserId);
+        var countsByDifficulty = DataBaseSetup.GetIntsAnsweredbyDifficulty(user?.UserId);
 
         var model = new UserViewModel
         {
@@ -101,7 +103,11 @@ public class AccountController : Controller
             UserName = user?.Username,
             Role = user?.Role,
             Grade = user?.Grade,
-            TotalScores = DataBaseSetup.GetTotalScores(user?.UserId)
+            ScoresbyDifficulty = scoresByDifficulty,
+            IntsAnsweredbyDifficulty = countsByDifficulty,
+            AverageScoresbyDifficulty = DataBaseSetup
+                .GetAverageScoresbyDifficulty(scoresByDifficulty, countsByDifficulty),
+            TotalScores = ArrayExtensions.TotalScores(scoresByDifficulty)
         };
         return View(model);
     }

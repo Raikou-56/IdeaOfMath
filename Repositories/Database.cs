@@ -47,6 +47,12 @@ public class DataBaseSetup
         .ToList();
     }
 
+    public static List<AnswerHistory> GetAnswerHistoryBystudentId(string studentId)
+    {
+        var collection = answerHistoryCollection();
+        var filter = Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, studentId);
+        return collection.Find(filter).ToList();
+    }
 
     public static void ShowUsers()
     {
@@ -69,19 +75,107 @@ public class DataBaseSetup
         return res;
     }
 
-    public static int GetTotalScores(string? userId)
+    public static string? GetProblemDifficulty(string? problemId)
+    {
+        if (string.IsNullOrEmpty(problemId))
+        {
+            return null;
+        }
+
+        var collection = problemCollection();
+        var filter = Builders<Problem>.Filter.Eq(p => p.SerialNumber.ToString(), problemId);
+        var problem = collection.Find(filter).FirstOrDefault();
+
+        return problem?.difficulty;
+    }
+
+    public static int[] GetScoresbyDifficulty(string? userId)
     {
         if (string.IsNullOrEmpty(userId))
         {
-            return 0;
+            return new int[] { 0, 0, 0, 0, 0 };
         }
+        var answerHistories = GetAnswerHistoryBystudentId(userId);
+        int[] scoresByDifficulty = new int[5]; // 難易度1から5までのスコアを格納する配列
 
-        var answerHistories = answerHistoryCollection();
-        var filter = Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, userId) & Builders<AnswerHistory>.Filter.Eq(h => h.Scoring, true);
-        var userHistories = answerHistories.Find(filter).ToList();
-
-        int totalScore = userHistories.Sum(h => h.Score ?? 0);
-        return totalScore;
+        foreach (var history in answerHistories)
+        {
+            switch (history.Difficulty)
+            {
+                case "A":
+                    scoresByDifficulty[0] += history.Score ?? 0;
+                    break;
+                case "B":
+                    scoresByDifficulty[1] += history.Score ?? 0;
+                    break;
+                case "C":
+                    scoresByDifficulty[2] += history.Score ?? 0;
+                    break;
+                case "D":
+                    scoresByDifficulty[3] += history.Score ?? 0;
+                    break;
+                case "E":
+                    scoresByDifficulty[4] += history.Score ?? 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return scoresByDifficulty;
     }
+    
+    public static int[] GetIntsAnsweredbyDifficulty(string? userId)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            return new int[] { 0, 0, 0, 0, 0 };
+        }
+        var answerHistories = GetAnswerHistoryBystudentId(userId);
+        int[] countsByDifficulty = new int[5]; // 難易度1から5までのスコアを格納する配列
+
+        foreach (var history in answerHistories)
+        {
+            switch (history.Difficulty)
+            {
+                case "A":
+                    countsByDifficulty[0] += 1;
+                    break;
+                case "B":
+                    countsByDifficulty[1] += 1;
+                    break;
+                case "C":
+                    countsByDifficulty[2] += 1;
+                    break;
+                case "D":
+                    countsByDifficulty[3] += 1;
+                    break;
+                case "E":
+                    countsByDifficulty[4] += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return countsByDifficulty;
+    }
+
+    public static float[] GetAverageScoresbyDifficulty(int[] scoresByDifficulty, int[] countsByDifficulty)
+    {
+        float[] averageScores = new float[5];
+        for (int i = 0; i < 5; i++)
+        {
+            if (countsByDifficulty[i] > 0)
+            {
+                averageScores[i] = (float)scoresByDifficulty[i] / countsByDifficulty[i];
+            }
+            else
+            {
+                averageScores[i] = 0;
+            }
+        }
+        return averageScores;
+
+    }
+        
 
 }

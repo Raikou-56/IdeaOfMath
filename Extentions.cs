@@ -11,3 +11,11 @@ public static class SecurityHelper
         return Convert.ToBase64String(bytes);
     }
 }
+
+public static class ArrayExtensions
+{
+    public static int TotalScores(int[] scoresByDifficulty)
+    {
+        return scoresByDifficulty.Sum();
+    }
+}

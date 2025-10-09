@@ -10,7 +10,39 @@
         <li><strong>ユーザーID:</strong> @Model.UserId</li>
         <li><strong>ユーザー名:</strong> @Model.UserName</li>
         <li><strong>ロール:</strong> @Model.Role</li>
-        <li><strong>ロール:</strong> @Model.Role</li>
+        <li><strong>学年:</strong> @(Model.Grade ?? "学年が選択されていません")</li>
         <li><strong>累計スコア:</strong> @Model.TotalScores</li>
     </ul>
+
+    @if (Model.IntsAnsweredbyDifficulty != null && Model.IntsAnsweredbyDifficulty.Length == 5)
+    {
+        <h3>難易度別の統計</h3>
+        <table class="difficulty-stats">
+            <thead>
+                <tr>
+                    <th>難易度</th>
+                    <th>解答数</th>
+                    <th>合計スコア</th>
+                    <th>平均スコア</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 5; i++)
+                {
+                    var label = ((char)('A' + i)).ToString(); // A〜E
+                    <tr>
+                        <td>@label</td>
+                        <td>@Model.IntsAnsweredbyDifficulty[i]</td>
+                        <td>@(Model.ScoresbyDifficulty?[i] ?? 0)</td>
+                        <td>@(Model.AverageScoresbyDifficulty?[i].ToString("0.00") ?? "0.00")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>難易度別の統計情報はまだありません。</p>
+    }
 </div>
+

@@ -62,3 +62,10 @@
                     としたとき, \(A\)と\(B\) の大小関係を調べよ. "
             }
         };
+
+じゃあさ
+\dfrac{1}{1+x^2}=\sum_{n=0}^{\infty}(-1)^{n}x^{2n}
+の両辺を0<\alpha<1を用いてxで0から\alphaで積分すれば
+\int_{0}^{\alpha}\dfrac{1}{1+x^2}dx=\int_{0}^{\alpha}\sum_{n=0}^{\infty}(-1)^{n}x^{2n}dx
+=\sum_{n=0}^{\infty}\dfrac{(-1)^{n}}{2n+1}\alpha^{2n+1}
+ここで両辺\alpha\rightarrow1-0の極限取れば

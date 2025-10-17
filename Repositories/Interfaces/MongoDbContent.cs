@@ -72,3 +72,23 @@ public class AnswerHistoryRepository
     }
 
 }
+
+public class ProblemRepository
+{
+    private readonly IMongoCollection<Problem> _collection;
+
+    public ProblemRepository(MongoDbContext database)
+    {
+        _collection = database.Problems;
+    }
+
+    public List<Problem> GetPagedProblems(int page, int limit)
+    {
+        return _collection.Find(_ => true)
+            .Skip((page - 1) * limit)
+            .Limit(limit)
+            .ToList();
+    }
+
+    // 必要ならフィルター付きの取得も追加できるよ
+}

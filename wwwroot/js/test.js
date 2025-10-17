@@ -1,7 +1,7 @@
 let currentPage = 1;
 
 function loadProblems() {
-    fetch(`/Problem/GetProblems?page=${currentPage}&limit=5`)
+    fetch(`GetProblems?page=${currentPage}&limit=5`)
         .then(response => response.json())
         .then(data => {
             data.forEach(problem => {

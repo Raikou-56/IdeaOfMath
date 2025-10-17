@@ -18,7 +18,12 @@ public class DevelopmentController : Controller
         _problemService = problemService;
     }
 
-    [Authorize(Roles = "Teacher,Admin")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult TestPage()
+    {
+        return View();
+    }
+
     [HttpGet]
     public IActionResult GetProblems(int page = 1, int limit = 5)
     {

@@ -26,8 +26,16 @@ public class DevelopmentController : Controller
     [HttpGet]
     public IActionResult GetProblems(int page = 1, int limit = 5)
     {
-        var problems = _problemService.GetPagedProblems(page, limit);
-        return Json(problems);
+        try
+        {
+            var problems = _problemService.GetPagedProblems(page, limit);
+            return Json(problems);
+        }
+        catch (Exception ex)
+        {
+            return Content($"GetProblemsでエラー発生: {ex.Message}");
+        }
     }
+
 
 }

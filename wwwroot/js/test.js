@@ -117,5 +117,8 @@ function scrollHandler() {
 
 window.addEventListener("scroll", scrollHandler);
 
-document.getElementById("loadMore").addEventListener("click", loadProblems);
-window.addEventListener("DOMContentLoaded", loadProblems);
+window.addEventListener("DOMContentLoaded", () => {
+    if (!isLoading) {
+        loadProblems();
+    }
+});

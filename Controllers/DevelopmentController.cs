@@ -18,7 +18,6 @@ public class DevelopmentController : Controller
         _problemService = problemService;
     }
 
-    [Authorize(Roles = "Admin")]
     public IActionResult TestPage()
     {
         return View();

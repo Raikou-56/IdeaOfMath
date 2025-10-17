@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using MathSiteProject;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
+using MathSiteProject.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddSingleton<MongoDbContext>();
 
 builder.Services.AddSingleton<AnswerHistoryRepository>();
+
+builder.Services.AddScoped<IProblemService, ProblemService>();
+
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");

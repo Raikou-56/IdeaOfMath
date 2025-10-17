@@ -21,18 +21,26 @@ public class ProblemService : IProblemService
 
     public List<ProblemViewData> GetPagedProblems(int page, int limit)
     {
-        var problems = _repository.GetPagedProblems(page, limit);
-        return problems.Select(p => new ProblemViewData
+        try
         {
-            SerialNumber = p.SerialNumber,
-            IdNumber = p.IdNumber,
-            category = p.category,
-            difficulty = p.difficulty,
-            LatexSrc = p.ProblemLatex,
-            UserData = false,
-            Score = "0",
-            Scoring = false
-        }).ToList();
+            var problems = _repository.GetPagedProblems(page, limit);
+            return problems.Select(p => new ProblemViewData
+            {
+                SerialNumber = p.SerialNumber,
+                IdNumber = p.IdNumber,
+                category = p.category,
+                difficulty = p.difficulty,
+                LatexSrc = p.ProblemLatex,
+                UserData = false,
+                Score = "0",
+                Scoring = false
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("ProblemServiceエラー: " + ex.Message);
+            throw;
+        }
     }
 }
 

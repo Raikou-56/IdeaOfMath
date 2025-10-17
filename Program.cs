@@ -23,6 +23,8 @@ builder.Services.AddSingleton<MongoDbContext>();
 
 builder.Services.AddSingleton<AnswerHistoryRepository>();
 
+builder.Services.AddScoped<ProblemRepository>();
+
 builder.Services.AddScoped<IProblemService, ProblemService>();
 
 

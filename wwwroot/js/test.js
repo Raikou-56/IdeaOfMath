@@ -30,14 +30,11 @@ function renderProblems(problems) {
                 </div>
             </div>
         `;
-        MathJax.typeset();
 
         container.appendChild(div);
     });
+    MathJax.typeset();
 }
-
-let currentUserRole = window.currentUserRole || "";
-let currentStudentId = window.currentStudentId || "";
 
 function getAnswerButtons(problem) {
     let buttons = `
@@ -46,7 +43,7 @@ function getAnswerButtons(problem) {
         </form>
     `;
 
-    if (currentUserRole === "Student") {
+    if (window.currentUserRole === "Student") {
         if (!problem.userData) {
             buttons += `
                 <form method="post" action="/Answer/SendAnswer" style="text-align: right;">
@@ -56,14 +53,14 @@ function getAnswerButtons(problem) {
         } else {
             buttons += `
                 <form method="post" action="/Answer/CheckAnswer" style="text-align: right;">
-                    <input type="hidden" name="studentId" value="${currentStudentId}" />
+                    <input type="hidden" name="studentId" value="${window.currentStudentId}" />
                     <button class="send" name="serial" value="${problem.serialNumber}">解答を確認する</button>
                 </form>
             `;
         }
     }
 
-    if (currentUserRole === "Teacher" || currentUserRole === "Admin") {
+    if (window.currentUserRole === "Teacher" || window.currentUserRole === "Admin") {
         buttons += `
             <form method="post" action="/Problem/ScoringPage" style="text-align: right;">
                 <button class="send" name="serial" value="${problem.serialNumber}">解答を採点する</button>
@@ -87,6 +84,7 @@ function loadProblems() {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });
             }
+            MathJax.typeset();
             return response.json();
         })
         .then(data => {

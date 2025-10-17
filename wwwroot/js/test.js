@@ -1,4 +1,5 @@
 let currentPage = 1;
+let isLoading = false;
 
 function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
@@ -79,24 +80,42 @@ function getAnswerButtons(problem) {
 
 
 function loadProblems() {
+    isLoading = true;
+
     fetch(`/Development/GetProblems?page=${currentPage}&limit=5`)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });
             }
-            MathJax.typeset();
             return response.json();
         })
         .then(data => {
-            console.log("取得成功:", data);
+            if (data.length === 0) {
+                // もう読み込むものがない場合はイベント解除してもOK
+                window.removeEventListener("scroll", scrollHandler);
+                return;
+            }
+
             renderProblems(data);
-            currentPage++; // 次のページへ進める
+            currentPage++;
+            isLoading = false;
         })
         .catch(error => {
             console.error("取得失敗:", error.message);
+            isLoading = false;
         });
 }
 
+function scrollHandler() {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const threshold = document.body.offsetHeight - 300;
+
+    if (scrollPosition > threshold && !isLoading) {
+        loadProblems();
+    }
+}
+
+window.addEventListener("scroll", scrollHandler);
 
 document.getElementById("loadMore").addEventListener("click", loadProblems);
 window.addEventListener("DOMContentLoaded", loadProblems);

@@ -3,6 +3,10 @@
 }
 @section Scripts {
     <script src="~/js/test.js"></script>
+    <script>
+        const currentUserRole = "@User.FindFirst("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value";
+        const currentStudentId = "@User.FindFirst("StudentId")?.Value";
+    </script>
 }
 
 <div id="problemContainer"></div>

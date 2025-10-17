@@ -2,7 +2,6 @@ let currentPage = 1;
 
 function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
-    container.innerHTML = ""; // 必要ならクリア
 
     problems.forEach(problem => {
         const div = document.createElement("div");
@@ -26,27 +25,60 @@ function renderProblems(problems) {
                     ${problem.latexSrc}
                 </div>
                 <div class="ans-but">
-                    <form method="post" action="/Answer/LookAnswer" style="text-align: right;">
-                        <button class="send" name="serial" value="${problem.serialNumber}">解答を見る</button>
-                    </form>
-                    ${problem.userData === false ? `
-                        <form method="post" action="/Answer/SendAnswer" style="text-align: right;">
-                            <button class="send" name="serial" value="${problem.serialNumber}">解答を送信する</button>
-                        </form>
-                    ` : `
-                        <form method="post" action="/Answer/CheckAnswer" style="text-align: right;">
-                            <input type="hidden" name="studentId" value="（ここはJSでは取得できない）" />
-                            <button class="send" name="serial" value="${problem.serialNumber}">解答を確認する</button>
-                        </form>
-                    `}
+                    ${getAnswerButtons(problem)}
                     ${scoringIcon}
                 </div>
             </div>
         `;
+        MathJax.typeset();
 
         container.appendChild(div);
     });
 }
+
+let currentUserRole = window.currentUserRole || "";
+let currentStudentId = window.currentStudentId || "";
+
+function getAnswerButtons(problem) {
+    let buttons = `
+        <form method="post" action="/Answer/LookAnswer" style="text-align: right;">
+            <button class="send" name="serial" value="${problem.serialNumber}">解答を見る</button>
+        </form>
+    `;
+
+    if (currentUserRole === "Student") {
+        if (!problem.userData) {
+            buttons += `
+                <form method="post" action="/Answer/SendAnswer" style="text-align: right;">
+                    <button class="send" name="serial" value="${problem.serialNumber}">解答を送信する</button>
+                </form>
+            `;
+        } else {
+            buttons += `
+                <form method="post" action="/Answer/CheckAnswer" style="text-align: right;">
+                    <input type="hidden" name="studentId" value="${currentStudentId}" />
+                    <button class="send" name="serial" value="${problem.serialNumber}">解答を確認する</button>
+                </form>
+            `;
+        }
+    }
+
+    if (currentUserRole === "Teacher" || currentUserRole === "Admin") {
+        buttons += `
+            <form method="post" action="/Problem/ScoringPage" style="text-align: right;">
+                <button class="send" name="serial" value="${problem.serialNumber}">解答を採点する</button>
+            </form>
+        `;
+        if (problem.scoring) {
+            buttons += `
+                <img src="/img/mathimg3.png" style="width:40px; vertical-align:middle; max-height:15px;" />
+            `;
+        }
+    }
+
+    return buttons;
+}
+
 
 
 function loadProblems() {

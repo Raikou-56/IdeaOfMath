@@ -23,4 +23,11 @@ public class DevelopmentController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult GetProblems(int page = 1, int limit = 5)
+    {
+        var problems = _problemService.GetPagedProblems(page, limit);
+        return Json(problems);
+    }
+
 }

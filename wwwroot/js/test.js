@@ -88,7 +88,6 @@ function loadProblems() {
         })
         .then(data => {
             if (data.length === 0) {
-                window.removeEventListener("scroll", scrollHandler);
                 clearInterval(autoLoadInterval);
                 return;
             }
@@ -105,16 +104,6 @@ function loadProblems() {
     console.log("読み込み終了");
 }
 
-function scrollHandler() {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const threshold = document.body.offsetHeight - 300;
-
-    if (scrollPosition > threshold && !isLoading) {
-        loadProblems();
-    }
-}
-
-window.addEventListener("scroll", scrollHandler);
 
 window.addEventListener("DOMContentLoaded", () => {
     loadProblems();

@@ -96,10 +96,19 @@ public class HomeController : Controller
         var studentName = User.Identity?.Name ?? "UnknownStudent";
         if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");
 
+        var cloudName = Environment.GetEnvironmentVariable("CLOUD_NAME");
+        var apiKey = Environment.GetEnvironmentVariable("CLOUD_API_KEY");
+        var apiSecret = Environment.GetEnvironmentVariable("CLOUD_API_SECRET");
+        
+        if (string.IsNullOrEmpty(cloudName) || string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(apiSecret))
+        {
+            throw new InvalidOperationException("Cloudinary の環境変数が正しく設定されていません。");
+        }
+        
         var cloudinaryService = new CloudinaryStorageService(
-            Environment.GetEnvironmentVariable("CLOUD_NAME"),
-            Environment.GetEnvironmentVariable("CLOUD_API_KEY"),
-            Environment.GetEnvironmentVariable("CLOUD_API_SECRET"),
+            cloudName,
+            apiKey,
+            apiSecret,
             "MathSite"
         );
 

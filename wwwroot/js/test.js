@@ -1,5 +1,6 @@
 let currentPage = 1;
 let isLoading = false;
+let autoLoadInterval;
 
 function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
@@ -8,10 +9,7 @@ function renderProblems(problems) {
         const div = document.createElement("div");
         div.className = "problem-item";
 
-        // スコア表示
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
-
-        // 採点済みアイコン
         const scoringIcon = problem.scoring
             ? `<img src="/img/mathimg3.png" style="width:40px; vertical-align:middle; max-height:15px;" />`
             : "";
@@ -61,7 +59,7 @@ function getAnswerButtons(problem) {
         }
     }
 
-    if (window.currentUserRole === "Teacher" || window.currentUserRole === "Admin") {
+    if (["Teacher", "Admin"].includes(window.currentUserRole)) {
         buttons += `
             <form method="post" action="/Problem/ScoringPage" style="text-align: right;">
                 <button class="send" name="serial" value="${problem.serialNumber}">解答を採点する</button>
@@ -77,10 +75,9 @@ function getAnswerButtons(problem) {
     return buttons;
 }
 
-
-
 function loadProblems() {
     isLoading = true;
+    console.log("読み込み開始");
 
     fetch(`/Development/GetProblems?page=${currentPage}&limit=5`)
         .then(response => {
@@ -91,8 +88,8 @@ function loadProblems() {
         })
         .then(data => {
             if (data.length === 0) {
-                // もう読み込むものがない場合はイベント解除してもOK
                 window.removeEventListener("scroll", scrollHandler);
+                clearInterval(autoLoadInterval);
                 return;
             }
 
@@ -104,6 +101,8 @@ function loadProblems() {
             console.error("取得失敗:", error.message);
             isLoading = false;
         });
+
+    console.log("読み込み終了");
 }
 
 function scrollHandler() {
@@ -118,7 +117,11 @@ function scrollHandler() {
 window.addEventListener("scroll", scrollHandler);
 
 window.addEventListener("DOMContentLoaded", () => {
-    if (!isLoading) {
-        loadProblems();
-    }
+    loadProblems();
+
+    autoLoadInterval = setInterval(() => {
+        if (!isLoading) {
+            loadProblems();
+        }
+    }, 150);
 });

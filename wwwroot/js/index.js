@@ -1,6 +1,7 @@
 let currentPage = 1;
 let isLoading = false;
 let autoLoadInterval;
+let initialLoad = true;
 
 function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
@@ -75,7 +76,9 @@ function loadProblems() {
     const studentId = (window.currentStudentId && window.currentStudentId !== "null" && window.currentStudentId !== "undefined")
     ? window.currentStudentId
     : "";
-    fetch(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`)
+    const limit = initialLoad ? 1 : 3;
+
+    fetch(`/Home/GetProblems?page=${currentPage}&limit=${limit}&studentId=${studentId}`)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });
@@ -90,6 +93,7 @@ function loadProblems() {
 
             renderProblems(data);
             currentPage++;
+            initialLoad = false;
             isLoading = false;
         })
         .catch(error => {

@@ -92,6 +92,7 @@ function loadProblems() {
             currentPage++;
             isLoading = false;
 
+            // 自動読み込みを即座に試みる
             setTimeout(() => {
                 loadProblems();
             }, 0);
@@ -102,13 +103,6 @@ function loadProblems() {
         });
 }
 
-
 window.addEventListener("DOMContentLoaded", () => {
-    loadProblems();
-
-    autoLoadInterval = setInterval(() => {
-        if (!isLoading) {
-            loadProblems();
-        }
-    }, 200);
+    loadProblems(); // 最初の読み込みだけ
 });

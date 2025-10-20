@@ -10,10 +10,6 @@ function renderProblems(problems) {
         div.className = "problem-item";
 
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
-        const scoringIcon = problem.scoring
-            ? `<img src="/img/mathimg3.png" style="width:40px; vertical-align:middle; max-height:15px;" />`
-            : "";
-
         div.innerHTML = `
             <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}">
                 <br>
@@ -25,7 +21,6 @@ function renderProblems(problems) {
                 </div>
                 <div class="ans-but">
                     ${getAnswerButtons(problem)}
-                    ${scoringIcon}
                 </div>
             </div>
         `;

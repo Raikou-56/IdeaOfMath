@@ -3,7 +3,7 @@
 }
 
 @section Scripts {
-    <script src="~/js/test.js"></script>
+    <script src="~/js/index.js"></script>
     <script>
         window.currentUserRole = "@User.FindFirst("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value";
         window.currentStudentId = "@User.FindFirst("StudentId")?.Value";

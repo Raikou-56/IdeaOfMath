@@ -26,6 +26,7 @@ public class ProblemService : IProblemService
         var AnswerHistories = DataBaseSetup.answerHistoryCollection();
         var historyList = await _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId ?? "");
         var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
+        var unscoredMap = historyList.Where(h => !h.Scoring).Select(h => h.ProblemId).ToHashSet();
         try
         {
             var problems = _repository.GetPagedProblems(page, limit);
@@ -41,7 +42,7 @@ public class ProblemService : IProblemService
                     .Where(h => h.ProblemId == p.SerialNumber.ToString() && h.Scoring)
                     .OrderByDescending(h => h.Score)
                     .FirstOrDefault()?.Score?.ToString() ?? "未採点",
-                Scoring = HasUnscoredAnswers(p.SerialNumber.ToString())
+                Scoring = unscoredMap.Contains(p.SerialNumber.ToString())
             }).ToList();
         }
         catch (Exception ex)
@@ -49,15 +50,6 @@ public class ProblemService : IProblemService
             Console.WriteLine("ProblemServiceエラー: " + ex.Message);
             throw;
         }
-    }
-    public static bool HasUnscoredAnswers(string problemId)
-    {
-        var collection = DataBaseSetup.answerHistoryCollection();
-        var relatedHistory = collection
-            .AsQueryable()
-            .Where(h => h.ProblemId == problemId);
-
-        return relatedHistory.Any(h => !h.Scoring);
     }
 }
 

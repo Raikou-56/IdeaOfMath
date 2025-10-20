@@ -75,10 +75,6 @@ function loadProblems() {
     const studentId = (window.currentStudentId && window.currentStudentId !== "null" && window.currentStudentId !== "undefined")
     ? window.currentStudentId
     : "";
-    console.log("読み込み開始");
-    console.log("studentId:", studentId);
-    console.log(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`);
-
     fetch(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`)
         .then(response => {
             if (!response.ok) {
@@ -100,8 +96,6 @@ function loadProblems() {
             console.error("取得失敗:", error.message);
             isLoading = false;
         });
-
-    console.log("読み込み終了");
 }
 
 

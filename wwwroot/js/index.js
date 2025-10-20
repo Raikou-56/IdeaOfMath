@@ -79,7 +79,7 @@ function loadProblems() {
     isLoading = true;
     console.log("読み込み開始");
 
-    fetch(`/Home/GetProblems?page=${currentPage}&limit=5`)
+    fetch(`/Home/GetProblems?page=${currentPage}&limit=3`)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });

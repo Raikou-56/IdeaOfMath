@@ -33,7 +33,7 @@ public class HomeController : Controller
 
     // index.cshtmlの問題読み込みメソッド
     [HttpGet]
-    public IActionResult GetProblems(int page = 1, int limit = 5)
+    public IActionResult GetProblems(int page = 1, int limit = 3)
     {
         try
         {

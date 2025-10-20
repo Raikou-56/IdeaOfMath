@@ -13,10 +13,12 @@ public interface IProblemService
 public class ProblemService : IProblemService
 {
     private readonly ProblemRepository _repository;
+    private readonly AnswerHistoryRepository _answerHistoryRepo;
 
-    public ProblemService(ProblemRepository repository)
+    public ProblemService(ProblemRepository repository, AnswerHistoryRepository answerHistoryRepo)
     {
         _repository = repository;
+        _answerHistoryRepo = answerHistoryRepo;
     }
 
     public List<ProblemViewData> GetPagedProblems(int page, int limit)

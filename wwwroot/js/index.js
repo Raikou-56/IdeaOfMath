@@ -77,9 +77,12 @@ function getAnswerButtons(problem) {
 
 function loadProblems() {
     isLoading = true;
+    const studentId = (window.currentStudentId && window.currentStudentId !== "null" && window.currentStudentId !== "undefined")
+    ? window.currentStudentId
+    : "";
     console.log("読み込み開始");
 
-    fetch(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${window.currentStudentId}`)
+    fetch(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });

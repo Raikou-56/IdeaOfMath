@@ -23,19 +23,19 @@ public class DevelopmentController : Controller
         return View();
     }
 
-    [HttpGet]
-    public IActionResult GetProblems(int page = 1, int limit = 5)
-    {
-        try
-        {
-            var problems = _problemService.GetPagedProblems(page, limit);
-            return Json(problems);
-        }
-        catch (Exception ex)
-        {
-            return Content($"GetProblemsでエラー発生: {ex.Message}");
-        }
-    }
+    // [HttpGet]
+    // public IActionResult GetProblems(int page = 1, int limit = 5)
+    // {
+    //     try
+    //     {
+    //         var problems = _problemService.GetPagedProblems(page, limit);
+    //         return Json(problems);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         return Content($"GetProblemsでエラー発生: {ex.Message}");
+    //     }
+    // }
 
 
 }

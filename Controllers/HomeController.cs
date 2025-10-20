@@ -5,6 +5,7 @@ using MathSiteProject.Models;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
 using MathSiteProject.Repositories.Storage;
+using MathSiteProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -14,16 +15,35 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly AnswerHistoryRepository _answerHistoryRepo;
+    private readonly IProblemService _problemService;
 
-    public HomeController(ILogger<HomeController> logger, AnswerHistoryRepository answerHistoryRepo)
+    public HomeController(ILogger<HomeController> logger,
+                        AnswerHistoryRepository answerHistoryRepo,
+                        IProblemService problemService)
     {
         _logger = logger;
         _answerHistoryRepo = answerHistoryRepo;
+        _problemService = problemService;
     }
 
     public IActionResult Index()
     {
         return View();
+    }
+
+    // index.cshtmlの問題読み込みメソッド
+    [HttpGet]
+    public IActionResult GetProblems(int page = 1, int limit = 5)
+    {
+        try
+        {
+            var problems = _problemService.GetPagedProblems(page, limit);
+            return Json(problems);
+        }
+        catch (Exception ex)
+        {
+            return Content($"GetProblemsでエラー発生: {ex.Message}");
+        }
     }
 
     [Authorize(Roles = "Teacher,Admin")]

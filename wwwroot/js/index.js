@@ -81,6 +81,8 @@ function loadProblems() {
     ? window.currentStudentId
     : "";
     console.log("読み込み開始");
+    console.log("studentId:", studentId);
+    console.log(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`);
 
     fetch(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`)
         .then(response => {

@@ -138,13 +138,5 @@ public class HomeController : Controller
 
     
     
-    public static bool HasUnscoredAnswers(string problemId)
-    {
-        var collection = DataBaseSetup.answerHistoryCollection();
-        var relatedHistory = collection
-            .AsQueryable()
-            .Where(h => h.ProblemId == problemId);
-
-        return relatedHistory.Any(h => !h.Scoring);
-    }
+    
 }

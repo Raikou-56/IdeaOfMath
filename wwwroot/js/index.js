@@ -1,43 +1,116 @@
-let offset = 0;
-const limit = 5;
-let loading = false;
+let currentPage = 1;
+let isLoading = false;
+let autoLoadInterval;
 
-function loadProblems() {
-  if (loading) return;
-  loading = true;
-  document.getElementById("loading").style.display = "block";
+function renderProblems(problems) {
+    const container = document.getElementById("problemContainer");
 
-  fetch(`/Problem/GetProblems?offset=${offset}&limit=${limit}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.length === 0) {
-        document.getElementById("loading").textContent = "これ以上ありません";
-        return;
-      }
-
-      const container = document.getElementById("problem-container");
-      data.forEach(p => {
+    problems.forEach(problem => {
         const div = document.createElement("div");
-        div.className = "que under";
-        div.innerHTML = `
-          <div class="dif">${p.IdNumber} 難易度 ${p.Difficulty} ${p.Category} ${p.UserData ? `${p.Score}/50` : "未回答"}</div>
-          <div class="latex">${p.LatexSrc}</div>
-        `;
-        container.appendChild(div);
-      });
+        div.className = "problem-item";
 
-      offset += limit;
-      loading = false;
-      document.getElementById("loading").style.display = "none";
+        const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
+        const scoringIcon = problem.scoring
+            ? `<img src="/img/mathimg3.png" style="width:40px; vertical-align:middle; max-height:15px;" />`
+            : "";
+
+        div.innerHTML = `
+            <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}">
+                <br>
+                <div class="dif">
+                    ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category} ${scoreText}
+                </div>
+                <div class="latex">
+                    ${problem.latexSrc}
+                </div>
+                <div class="ans-but">
+                    ${getAnswerButtons(problem)}
+                    ${scoringIcon}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(div);
     });
+    MathJax.typeset();
 }
 
-// 最初の読み込み
-loadProblems();
+function getAnswerButtons(problem) {
+    let buttons = `
+        <form method="post" action="/Answer/LookAnswer" style="text-align: right;">
+            <button class="send" name="serial" value="${problem.serialNumber}">解答を見る</button>
+        </form>
+    `;
 
-// スクロールで追加読み込み
-window.addEventListener("scroll", () => {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+    if (window.currentUserRole === "Student") {
+        if (!problem.userData) {
+            buttons += `
+                <form method="post" action="/Answer/SendAnswer" style="text-align: right;">
+                    <button class="send" name="serial" value="${problem.serialNumber}">解答を送信する</button>
+                </form>
+            `;
+        } else {
+            buttons += `
+                <form method="post" action="/Answer/CheckAnswer" style="text-align: right;">
+                    <input type="hidden" name="studentId" value="${window.currentStudentId}" />
+                    <button class="send" name="serial" value="${problem.serialNumber}">解答を確認する</button>
+                </form>
+            `;
+        }
+    }
+
+    if (["Teacher", "Admin"].includes(window.currentUserRole)) {
+        buttons += `
+            <form method="post" action="/Problem/ScoringPage" style="text-align: right;">
+                <button class="send" name="serial" value="${problem.serialNumber}">解答を採点する</button>
+            </form>
+        `;
+        if (problem.scoring) {
+            buttons += `
+                <img src="/img/mathimg3.png" style="width:40px; vertical-align:middle; max-height:15px;" />
+            `;
+        }
+    }
+
+    return buttons;
+}
+
+function loadProblems() {
+    isLoading = true;
+    console.log("読み込み開始");
+
+    fetch(`/Development/GetProblems?page=${currentPage}&limit=5`)
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.length === 0) {
+                clearInterval(autoLoadInterval);
+                return;
+            }
+
+            renderProblems(data);
+            currentPage++;
+            isLoading = false;
+        })
+        .catch(error => {
+            console.error("取得失敗:", error.message);
+            isLoading = false;
+        });
+
+    console.log("読み込み終了");
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
     loadProblems();
-  }
+
+    autoLoadInterval = setInterval(() => {
+        if (!isLoading) {
+            loadProblems();
+        }
+    }, 150);
 });

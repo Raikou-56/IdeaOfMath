@@ -2,79 +2,41 @@
     ViewData[index: "Title"] = "Home Page";
 }
 
-@model List<ProblemViewData>
+@section Scripts {
+    <script src="~/js/test.js"></script>
+    <script>
+        window.currentUserRole = "@User.FindFirst("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value";
+        window.currentStudentId = "@User.FindFirst("StudentId")?.Value";
+    </script>
 
-<div class="text-center">
-    <div style="display: flex; justify-content: flex-end; align-items: flex-start;">
-        <button id="toggleButton">
-            <img src="\img\srcbut.png"  class="fil">
-        </button>
-        <div class="checkBoxes">
-            <div id="checkboxContainer1" class="che">
-                <label>分野</label><br>
-                <label><input type="checkbox" name="field1" value="場合の数"> 場合の数</label><br>
-                <label><input type="checkbox" name="field1" value="確率"> 確率</label><br>
-                <label><input type="checkbox" name="field1" value="微積"> 微積</label><br>
-                <label><input type="checkbox" name="field1" value="整数"> 整数</label><br>
-                <label><input type="checkbox" name="field1" value="極限"> 極限</label><br>
-                <label><input type="checkbox" name="field1" value="数列"> 数列</label><br>
-                <label><input type="checkbox" name="field1" value="幾何学"> 幾何学</label><br>
-                <label><input type="checkbox" name="field1" value="all" checked> すべて表示</label>
-            </div>
-            <div id="checkboxContainer2" class="che">
-                <label>難易度</label><br>
-                <label><input type="checkbox" name="field2" value="A"> A</label><br>
-                <label><input type="checkbox" name="field2" value="B"> B</label><br>
-                <label><input type="checkbox" name="field2" value="C"> C</label><br>
-                <label><input type="checkbox" name="field2" value="D"> D</label><br>
-                <label><input type="checkbox" name="field2" value="E"> E</label><br>
-                <label><input type="checkbox" name="field2" value="all" checked> すべて表示</label>
-            </div>
+}
+
+<div style="display: flex; justify-content: flex-end; align-items: flex-start;">
+    <button id="toggleButton">
+        <img src="\img\srcbut.png"  class="fil">
+    </button>
+    <div class="checkBoxes">
+        <div id="checkboxContainer1" class="che">
+            <label>分野</label><br>
+            <label><input type="checkbox" name="field1" value="場合の数"> 場合の数</label><br>
+            <label><input type="checkbox" name="field1" value="確率"> 確率</label><br>
+            <label><input type="checkbox" name="field1" value="微積"> 微積</label><br>
+            <label><input type="checkbox" name="field1" value="整数"> 整数</label><br>
+            <label><input type="checkbox" name="field1" value="極限"> 極限</label><br>
+            <label><input type="checkbox" name="field1" value="数列"> 数列</label><br>
+            <label><input type="checkbox" name="field1" value="幾何学"> 幾何学</label><br>
+            <label><input type="checkbox" name="field1" value="all" checked> すべて表示</label>
+        </div>
+        <div id="checkboxContainer2" class="che">
+            <label>難易度</label><br>
+            <label><input type="checkbox" name="field2" value="A"> A</label><br>
+            <label><input type="checkbox" name="field2" value="B"> B</label><br>
+            <label><input type="checkbox" name="field2" value="C"> C</label><br>
+            <label><input type="checkbox" name="field2" value="D"> D</label><br>
+            <label><input type="checkbox" name="field2" value="E"> E</label><br>
+            <label><input type="checkbox" name="field2" value="all" checked> すべて表示</label>
         </div>
     </div>
-    <div>
-    @foreach (ProblemViewData problem in Model)
-    {
-        <div class="que under" data-field=@problem.category data-dif=@problem.difficulty>
-            <br>
-            <div class="dif">
-               @problem.IdNumber 難易度 @problem.difficulty @problem.category @(problem.UserData ? $"{problem.Score}/50" : "未回答")
-            </div>
-            <div class="latex">
-                @Html.Raw(problem.LatexSrc)
-            </div>
-            <div class="ans-but">
-                <form method="post" asp-area="" asp-controller="Answer" asp-action="LookAnswer" style="text-align: right;">
-                    <button class="send" name="serial" value="@problem.SerialNumber">解答を見る</button>
-                </form>
-                @if (User.Identity != null && User.IsInRole(role: "Student") && !problem.UserData)
-                {
-                    <form method="post" asp-area="" asp-controller="Answer" asp-action="SendAnswer" style="text-align: right;">
-                        <button class="send" name="serial" value="@problem.SerialNumber">解答を送信する</button>
-                    </form>
-                }
-                @if (User.Identity != null && User.IsInRole(role: "Student") && problem.UserData)
-                {
-                    <form method="post" asp-area="" asp-controller="Answer" asp-action="CheckAnswer" style="text-align: right;">
-                        <input type="hidden" name="studentId" value="@User.FindFirst(type: "StudentId")?.Value" />
-                        <button class="send" name="serial" value="@problem.SerialNumber">解答を確認する</button>
-                    </form>
-                }
-                @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
-                {
-                    <form method="post" asp-area="" asp-controller="Problem" asp-action="ScoringPage" style="text-align: right;">
-                        <button class="send" name="serial" value="@problem.SerialNumber">解答を採点する</button>
-                    </form>
-                    @if (problem.Scoring)
-                    {
-                        <img src="/img/mathimg3.png" style="width:40px; vertical-align:middle; max-height:15px;" />
-                    }
-                }
-            </div>
-        </div>
-    }
-    </div>
-    <br>
-    <br>
-    <br>
 </div>
+
+<div id="problemContainer"></div>

@@ -112,5 +112,5 @@ window.addEventListener("DOMContentLoaded", () => {
         if (!isLoading) {
             loadProblems();
         }
-    }, 3000);
+    }, 200);
 });

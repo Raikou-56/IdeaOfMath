@@ -7,7 +7,7 @@ namespace MathSiteProject.Repositories.Interfaces;
 
 public interface IProblemService
 {
-    List<ProblemViewData> GetPagedProblems(int page, int limit);
+    Task<List<ProblemViewData>> GetPagedProblems(int page, int limit, string? studentId);
 }
 
 public class ProblemService : IProblemService
@@ -21,8 +21,11 @@ public class ProblemService : IProblemService
         _answerHistoryRepo = answerHistoryRepo;
     }
 
-    public List<ProblemViewData> GetPagedProblems(int page, int limit)
+    public async Task<List<ProblemViewData>> GetPagedProblems(int page, int limit, string? studentId)
     {
+        var AnswerHistories = DataBaseSetup.answerHistoryCollection();
+        var historyList = await _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId ?? "");
+        var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
         try
         {
             var problems = _repository.GetPagedProblems(page, limit);
@@ -33,9 +36,12 @@ public class ProblemService : IProblemService
                 category = p.category,
                 difficulty = p.difficulty,
                 LatexSrc = p.ProblemLatex,
-                UserData = false,
-                Score = "0",
-                Scoring = false
+                UserData = solvedIds.Contains(p.SerialNumber.ToString()),
+                Score = historyList
+                            .Where(h => h.ProblemId == p.SerialNumber.ToString() && h.Scoring)
+                            .OrderByDescending(h => h.Score)
+                            .FirstOrDefault()?.Score.ToString() ?? "未採点",
+                Scoring = HasUnscoredAnswers(p.SerialNumber.ToString())
             }).ToList();
         }
         catch (Exception ex)
@@ -43,6 +49,15 @@ public class ProblemService : IProblemService
             Console.WriteLine("ProblemServiceエラー: " + ex.Message);
             throw;
         }
+    }
+    public static bool HasUnscoredAnswers(string problemId)
+    {
+        var collection = DataBaseSetup.answerHistoryCollection();
+        var relatedHistory = collection
+            .AsQueryable()
+            .Where(h => h.ProblemId == problemId);
+
+        return relatedHistory.Any(h => !h.Scoring);
     }
 }
 

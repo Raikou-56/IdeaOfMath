@@ -37,6 +37,10 @@ public class AnswerHistoryRepository
 
     public async Task<List<AnswerHistory>> GetHistoryByStudentIdAsync(string studentId)
     {
+        if (string.IsNullOrEmpty(studentId))
+        {
+            return new List<AnswerHistory>();
+        }
         var filter = Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, studentId);
         var result = await _collection.Find(filter).ToListAsync();
         return result;

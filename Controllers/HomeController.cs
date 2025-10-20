@@ -33,11 +33,11 @@ public class HomeController : Controller
 
     // index.cshtmlの問題読み込みメソッド
     [HttpGet]
-    public IActionResult GetProblems(int page = 1, int limit = 3)
+    public async Task<IActionResult> GetProblems(int page = 1, int limit = 3, string? studentId = null)
     {
         try
         {
-            var problems = _problemService.GetPagedProblems(page, limit);
+            var problems = _problemService.GetPagedProblems(page, limit, studentId);
             return Json(problems);
         }
         catch (Exception ex)

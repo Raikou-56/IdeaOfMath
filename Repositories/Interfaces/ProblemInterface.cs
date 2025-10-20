@@ -23,10 +23,10 @@ public class ProblemService : IProblemService
 
     public async Task<List<ProblemViewData>> GetPagedProblems(int page, int limit, string? studentId)
     {
-        var AnswerHistories = DataBaseSetup.answerHistoryCollection();
+        var AnswerHistories = DataBaseSetup.GetAnswerHistories();
         var historyList = await _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId ?? "");
         var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
-        var unscoredMap = historyList.Where(h => !h.Scoring).Select(h => h.ProblemId).ToHashSet();
+        var unscoredMap = AnswerHistories.Where(h => !h.Scoring).Select(h => h.ProblemId).ToHashSet();
         try
         {
             var problems = _repository.GetPagedProblems(page, limit);

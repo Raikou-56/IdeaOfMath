@@ -42,7 +42,8 @@ public class HomeController : Controller
         }
         catch (Exception ex)
         {
-            return Content($"GetProblemsでエラー発生: {ex.Message}");
+            Console.WriteLine("ProblemServiceエラー: " + ex.Message);
+            return StatusCode(500, $"GetProblemsでエラー発生: {ex.Message}");
         }
     }
 

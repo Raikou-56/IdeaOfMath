@@ -38,9 +38,9 @@ public class ProblemService : IProblemService
                 LatexSrc = p.ProblemLatex,
                 UserData = solvedIds.Contains(p.SerialNumber.ToString()),
                 Score = historyList
-                            .Where(h => h.ProblemId == p.SerialNumber.ToString() && h.Scoring)
-                            .OrderByDescending(h => h.Score)
-                            .FirstOrDefault()?.Score.ToString() ?? "未採点",
+                    .Where(h => h.ProblemId == p.SerialNumber.ToString() && h.Scoring)
+                    .OrderByDescending(h => h.Score)
+                    .FirstOrDefault()?.Score?.ToString() ?? "未採点",
                 Scoring = HasUnscoredAnswers(p.SerialNumber.ToString())
             }).ToList();
         }

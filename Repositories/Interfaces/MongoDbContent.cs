@@ -77,7 +77,7 @@ public class AnswerHistoryRepository
         var filter = Builders<AnswerHistory>.Filter.Eq(h => h.Scoring, false);
         var projection = Builders<AnswerHistory>.Projection.Include(h => h.ProblemId);
         var result = await _collection.Find(filter).Project<AnswerHistory>(projection).ToListAsync();
-        return result.Select(h => h.ProblemId).ToHashSet();
+        return result.Select(h => h.ProblemId).OfType<string>().ToHashSet();
     }
 }
 
@@ -93,6 +93,7 @@ public class ProblemRepository
     public async Task<List<Problem>> GetPagedProblems(int page, int limit)
     {
         return await _collection.Find(_ => true)
+            .SortBy(p => p.SerialNumber)
             .Skip((page - 1) * limit)
             .Limit(limit)
             .ToListAsync();

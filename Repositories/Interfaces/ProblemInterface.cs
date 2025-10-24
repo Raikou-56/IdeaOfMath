@@ -7,29 +7,38 @@ namespace MathSiteProject.Repositories.Interfaces;
 
 public interface IProblemService
 {
-    Task<List<ProblemViewData>> GetPagedProblems(int page, int limit, string? studentId);
+    Task<List<ProblemViewData>> GetPagedProblemsAsync(int page, int limit, string? studentId);
 }
 
 public class ProblemService : IProblemService
 {
     private readonly ProblemRepository _repository;
     private readonly AnswerHistoryRepository _answerHistoryRepo;
-
-    public ProblemService(ProblemRepository repository, AnswerHistoryRepository answerHistoryRepo)
+    
+    public ProblemService(ProblemRepository repository,
+    AnswerHistoryRepository answerHistoryRepo)
     {
         _repository = repository;
         _answerHistoryRepo = answerHistoryRepo;
     }
 
-    public async Task<List<ProblemViewData>> GetPagedProblems(int page, int limit, string? studentId)
+    public async Task<List<ProblemViewData>> GetPagedProblemsAsync(int page, int limit, string? studentId)
     {
-        var AnswerHistories = DataBaseSetup.GetAnswerHistories();
-        var historyList = await _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId ?? "");
-        var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
-        var unscoredMap = AnswerHistories.Where(h => !h.Scoring).Select(h => h.ProblemId).ToHashSet();
         try
         {
-            var problems = _repository.GetPagedProblems(page, limit);
+            // 並列で履歴と未採点データを取得
+            var historyTask = _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId ?? "");
+            var unscoredTask = _answerHistoryRepo.GetUnscoredProblemIdsAsync();
+            var problemsTask = _repository.GetPagedProblems(page, limit);
+
+            await Task.WhenAll(historyTask, unscoredTask, problemsTask);
+
+            var historyList = historyTask.Result;
+            var unscoredMap = unscoredTask.Result;
+            var problems = problemsTask.Result;
+
+            var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
+
             return problems.Select(p => new ProblemViewData
             {
                 SerialNumber = p.SerialNumber,
@@ -51,5 +60,7 @@ public class ProblemService : IProblemService
             throw;
         }
     }
+
+    
 }
 

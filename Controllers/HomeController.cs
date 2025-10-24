@@ -37,7 +37,7 @@ public class HomeController : Controller
     {
         try
         {
-            var problems = await _problemService.GetPagedProblems(page, limit, studentId);
+            var problems = await _problemService.GetPagedProblemsAsync(page, limit, studentId);
             return Json(problems);
         }
         catch (Exception ex)

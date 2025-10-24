@@ -49,7 +49,7 @@ public class AnswerHistoryRepository
             Builders<AnswerHistory>.Filter.Eq(h => h.StudentId, studentId),
             Builders<AnswerHistory>.Filter.Eq(h => h.ProblemId, problemId)
         );
-    
+
         var result = await _collection.Find(filter).SortByDescending(h => h.SolvedAt).ToListAsync();
         return result;
     }
@@ -72,6 +72,13 @@ public class AnswerHistoryRepository
         await _collection.ReplaceOneAsync(filter, history);
     }
 
+    public async Task<HashSet<string>> GetUnscoredProblemIdsAsync()
+    {
+        var filter = Builders<AnswerHistory>.Filter.Eq(h => h.Scoring, false);
+        var projection = Builders<AnswerHistory>.Projection.Include(h => h.ProblemId);
+        var result = await _collection.Find(filter).Project<AnswerHistory>(projection).ToListAsync();
+        return result.Select(h => h.ProblemId).ToHashSet();
+    }
 }
 
 public class ProblemRepository
@@ -83,12 +90,12 @@ public class ProblemRepository
         _collection = database.Problems;
     }
 
-    public List<Problem> GetPagedProblems(int page, int limit)
+    public async Task<List<Problem>> GetPagedProblems(int page, int limit)
     {
-        return _collection.Find(_ => true)
+        return await _collection.Find(_ => true)
             .Skip((page - 1) * limit)
             .Limit(limit)
-            .ToList();
+            .ToListAsync();
     }
 
     // 必要ならフィルター付きの取得も追加できるよ

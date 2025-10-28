@@ -5,9 +5,21 @@ function updateAutoSaveStatus() {
 
     const now = new Date();
     const secondsAgo = Math.floor((now - lastSavedTime) / 1000);
-    const statusText = `${secondsAgo}秒前に自動保存済み`;
+    const statusText = formatElapsedTime(secondsAgo);
 
     document.getElementById("autosaveStatus").textContent = statusText;
+}
+
+function formatElapsedTime(secondsAgo) {
+    if (secondsAgo < 60) {
+        return `${secondsAgo}秒前に自動保存済み`;
+    } else if (secondsAgo < 3600) {
+        const minutes = Math.floor(secondsAgo / 60);
+        return `${minutes}分前に自動保存済み`;
+    } else {
+        const hours = Math.floor(secondsAgo / 3600);
+        return `${hours}時間前に自動保存済み`;
+    }
 }
 
 // 自動保存処理（30秒おき）
@@ -37,7 +49,7 @@ setInterval(() => {
             console.warn("⚠️ 自動保存失敗");
         }
     });
-}, 30000); // 3分おき
+}, 180000); // 3分おき
 
 // 保存時間の表示を定期更新（毎秒）
 setInterval(updateAutoSaveStatus, 1000);

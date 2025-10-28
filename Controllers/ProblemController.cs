@@ -64,6 +64,27 @@ public class ProblemController : Controller
     }
 
     [HttpPost]
+    public async Task<IActionResult> AutoSave([FromBody] Problem updatedItem)
+    {
+        var filter = Builders<Problem>.Filter.Eq(p => p.SerialNumber, updatedItem.SerialNumber);
+        var existing = await _problemCollection.Find(filter).FirstOrDefaultAsync();
+    
+        if (existing == null) return NotFound();
+    
+        // 必要な項目だけ更新（必要に応じて絞ってもOK）
+        existing.IdNumber = updatedItem.IdNumber;
+        existing.difficulty = updatedItem.difficulty;
+        existing.category = updatedItem.category;
+        existing.ProblemLatex = updatedItem.ProblemLatex;
+        existing.AnswerLatex = updatedItem.AnswerLatex;
+        existing.Teacher = updatedItem.Teacher;
+    
+        await _problemCollection.ReplaceOneAsync(filter, existing);
+    
+        return Ok(new { message = "AutoSave successful" });
+    }
+
+    [HttpPost]
     public IActionResult SaveProb(Problem saveItem)
     {
         IMongoCollection<Problem> problemCollection = DataBaseSetup.problemCollection();

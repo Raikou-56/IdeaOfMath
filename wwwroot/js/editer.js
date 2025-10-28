@@ -1,15 +1,15 @@
 setInterval(() => {
     const data = {
-        SerialNumber: document.getElementById("SerialNumber").value,
-        IdNumber: document.getElementById("IdNumber").value,
-        difficulty: document.getElementById("difficulty").value,
-        category: document.getElementById("category").value,
-        ProblemLatex: document.getElementById("ProblemLatex").value,
-        AnswerLatex: document.getElementById("AnswerLatex").value,
-        Teacher: document.getElementById("Teacher").value
+        SerialNumber: document.querySelector('input[name="SerialNumber"]').value,
+        IdNumber: document.querySelector('[name="IdNumber"]').value,
+        difficulty: document.querySelector('[name="difficulty"]').value,
+        category: document.querySelector('[name="category"]').value,
+        ProblemLatex: document.getElementById("latexInput1").value,
+        AnswerLatex: document.getElementById("latexInput2").value,
+        Teacher: document.querySelector('[name="Teacher"]').value
     };
 
-    fetch('/YourController/AutoSave', {
+    fetch('/Problem/AutoSave', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -17,9 +17,9 @@ setInterval(() => {
         body: JSON.stringify(data)
     }).then(response => {
         if (response.ok) {
-            console.log("保存しました🌧️");
+            console.log("🌧️ 自動保存しました");
         } else {
-            console.warn("保存失敗…");
+            console.warn("⚠️ 自動保存失敗");
         }
     });
-}, 60000); // 180,000ms = 3分
+}, 30000); // 3分おき

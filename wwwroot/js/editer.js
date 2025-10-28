@@ -30,6 +30,8 @@ setInterval(() => {
         body: JSON.stringify(data)
     }).then(response => {
         if (response.ok) {
+            lastSavedTime = new Date();
+            updateAutoSaveStatus();
             console.log("🌧️ 自動保存しました");
         } else {
             console.warn("⚠️ 自動保存失敗");

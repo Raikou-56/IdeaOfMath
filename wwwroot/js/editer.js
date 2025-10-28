@@ -1,3 +1,16 @@
+let lastSavedTime = null;
+
+function updateAutoSaveStatus() {
+    if (!lastSavedTime) return;
+
+    const now = new Date();
+    const secondsAgo = Math.floor((now - lastSavedTime) / 1000);
+    const statusText = `${secondsAgo}秒前に自動保存済み`;
+
+    document.getElementById("autosaveStatus").textContent = statusText;
+}
+
+// 自動保存処理（30秒おき）
 setInterval(() => {
     const data = {
         SerialNumber: document.querySelector('input[name="SerialNumber"]').value,
@@ -23,3 +36,6 @@ setInterval(() => {
         }
     });
 }, 30000); // 3分おき
+
+// 保存時間の表示を定期更新（毎秒）
+setInterval(updateAutoSaveStatus, 1000);

@@ -31,7 +31,7 @@ function renderProblems(problems) {
                 <br>
                 <div class="dif">
                     ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category} ${scoreText}
-                    ${problem.is_public === false ? "<span style='color:red;'>[非公開]</span>" : ""}
+                    ${isHidden === false ? "<span style='color:red;'>[非公開]</span>" : ""}
                 </div>
                 <div class="latex">
                     ${problem.latexSrc}

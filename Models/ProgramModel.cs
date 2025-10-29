@@ -31,7 +31,7 @@ public class Problem
     public DateTime? PublishedAt { get; set; }
 
     [BsonElement("is_public")]
-    public bool IsPublic { get; set; } = false; // 初期値は非公開
+    public bool IsPublic { get; set; }
 }
 
 public class User

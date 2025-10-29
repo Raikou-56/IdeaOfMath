@@ -74,7 +74,7 @@ public class ProblemViewData
 
     public bool Scoring { get; set; }
 
-    public bool Is_public { get; set; }
+    public bool Is_public { get; set; } = false;
 
     public DateTime? PublishedAt { get; set; }
 }

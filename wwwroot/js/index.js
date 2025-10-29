@@ -6,6 +6,14 @@ function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
 
     problems.forEach(problem => {
+        // ログインしてない or 生徒の場合、非公開問題はスキップ
+        const role = window.currentUserRole;
+        const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
+
+        if ((!isLoggedIn || role === "Student") && problem.is_public === false) {
+            return;
+        }
+
         const div = document.createElement("div");
         div.className = "problem-item";
 

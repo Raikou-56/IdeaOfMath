@@ -26,6 +26,12 @@ public class Problem
 
     [BsonElement("teacher")]
     public string? Teacher { get; set; }
+
+    [BsonElement("published_at")]
+    public DateTime? PublishedAt { get; set; }
+
+    [BsonElement("is_public")]
+    public bool IsPublic { get; set; } = false; // 初期値は非公開
 }
 
 public class User

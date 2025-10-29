@@ -10,7 +10,7 @@ function renderProblems(problems) {
         const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
         // 非公開とみなす条件（undefined や null も含める）
-        const isHidden = problem.Is_public === false || problem.Is_public === undefined || problem.Is_public === null;
+        const isHidden = problem.is_public === false || problem.is_public === undefined || problem.is_public === null;
 
         // ログインしてない or 生徒の場合、非公開問題はスキップ
         if ((!isLoggedIn || role === "Student") && isHidden) {

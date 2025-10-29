@@ -10,7 +10,7 @@ function renderProblems(problems) {
         const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
         // 非公開とみなす条件（undefined や null も含める）
-        const isHidden = problem.is_public === false || problem.is_public === undefined || problem.is_public === null;
+        const isHidden = problem.Is_public === false || problem.Is_public === undefined || problem.Is_public === null;
 
         // ログインしてない or 生徒の場合、非公開問題はスキップ
         if ((!isLoggedIn || role === "Student") && isHidden) {
@@ -21,7 +21,7 @@ function renderProblems(problems) {
         div.className = "problem-item";
 
         // 教師・管理者には非公開スタイルを追加
-        const hiddenStyle = (problem.is_public === false && ["Teacher", "Admin"].includes(role))
+        const hiddenStyle = (problem.Is_public === false && ["Teacher", "Admin"].includes(role))
             ? "opacity: 0.5; border: 1px dashed gray;"
             : "";
 

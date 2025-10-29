@@ -73,6 +73,10 @@ public class ProblemViewData
     public string? Teacher { get; set; }
 
     public bool Scoring { get; set; }
+
+    public bool Is_public { get; set; }
+
+    public DateTime? PublishedAt { get; set; }
 }
 
 public class LoginViewModel

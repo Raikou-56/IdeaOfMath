@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using MongoDB.Bson;
 using MathSiteProject.Models;
 
 namespace MathSiteProject.Repositories;
@@ -176,6 +177,23 @@ public class DataBaseSetup
         return averageScores;
 
     }
-        
+
+    public static void InitializePublicFields()
+    {
+        var collection = problemCollection();
+
+        // is_public フィールドが存在しないドキュメントを対象に更新
+        var filter = Builders<Problem>.Filter.Exists("is_public", false);
+
+        // is_public を false に、published_at を null に設定
+        var update = Builders<Problem>.Update.Combine(
+            Builders<Problem>.Update.Set("is_public", false),
+            Builders<Problem>.Update.Set("published_at", BsonNull.Value)
+        );
+        Console.WriteLine("新フィールド追加完了");
+
+        collection.UpdateMany(filter, update);
+    }
+    
 
 }

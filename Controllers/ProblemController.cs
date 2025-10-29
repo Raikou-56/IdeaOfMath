@@ -49,16 +49,27 @@ public class ProblemController : Controller
     {
         var filter = Builders<Problem>.Filter.Eq(p => p.SerialNumber, updatedItem.SerialNumber);
         var existing = await _problemCollection.Find(filter).FirstOrDefaultAsync();
-
+    
         if (existing == null) return NotFound();
-
+    
+        // 基本情報の更新
         existing.IdNumber = updatedItem.IdNumber;
         existing.difficulty = updatedItem.difficulty;
         existing.category = updatedItem.category;
         existing.ProblemLatex = updatedItem.ProblemLatex;
         existing.AnswerLatex = updatedItem.AnswerLatex;
         existing.Teacher = updatedItem.Teacher;
-
+    
+        // 公開状態の更新
+        bool wasPublic = existing.IsPublic;
+        existing.IsPublic = updatedItem.IsPublic;
+    
+        // 初めて公開された場合、公開日時を記録
+        if (!wasPublic && updatedItem.IsPublic && existing.PublishedAt == null)
+        {
+            existing.PublishedAt = DateTime.UtcNow;
+        }
+    
         await _problemCollection.ReplaceOneAsync(filter, existing);
         return RedirectToAction("Index", "Home");
     }

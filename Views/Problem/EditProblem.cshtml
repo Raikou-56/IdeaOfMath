@@ -43,6 +43,12 @@
         <label>先生:</label>
         <input asp-for="Teacher" /><br>
 
+        <label>公開状態:</label>
+        <input type="checkbox" asp-for="IsPublic" />
+        <span id="publicStatusLabel" style="margin-left: 10px;">
+            @(Model.IsPublic ? "公開中" : "非公開")
+        </span><br>
+
         <div style="text-align: right;">
             <span id="autosaveStatus" style="margin-left: 10px; color: gray; font-size: 0.9em;"></span>
             <button class="send" type="submit">この内容に編集する</button>

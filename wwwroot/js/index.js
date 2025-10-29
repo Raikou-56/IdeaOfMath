@@ -24,10 +24,11 @@ function renderProblems(problems) {
 
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
         div.innerHTML = `
-            <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}">
+            <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty} style="${hiddenStyle}">
                 <br>
                 <div class="dif">
                     ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category} ${scoreText}
+                    ${problem.is_public === false ? "<span style='color:red;'>[非公開]</span>" : ""}
                 </div>
                 <div class="latex">
                     ${problem.latexSrc}

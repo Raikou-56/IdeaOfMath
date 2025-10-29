@@ -53,3 +53,8 @@ setInterval(() => {
 
 // 保存時間の表示を定期更新（毎秒）
 setInterval(updateAutoSaveStatus, 1000);
+
+document.getElementById("isPublicToggle").addEventListener("change", function () {
+    const label = document.getElementById("publicStatusLabel");
+    label.textContent = this.checked ? "公開中" : "非公開";
+});

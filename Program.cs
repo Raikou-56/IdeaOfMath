@@ -58,6 +58,7 @@ app.MapControllerRoute(
 try
 {
     DataBaseSetup.ShowUsers();
+    DataBaseSetup.InitializePublicFields();
 }
 catch (Exception ex)
 {

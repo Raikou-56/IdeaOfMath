@@ -6,11 +6,14 @@ function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
 
     problems.forEach(problem => {
-        // ログインしてない or 生徒の場合、非公開問題はスキップ
         const role = window.currentUserRole;
         const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
-        if ((!isLoggedIn || role === "Student") && problem.is_public === false) {
+        // 非公開とみなす条件（undefined や null も含める）
+        const isHidden = problem.is_public === false || problem.is_public === undefined || problem.is_public === null;
+
+        // ログインしてない or 生徒の場合、非公開問題はスキップ
+        if ((!isLoggedIn || role === "Student") && isHidden) {
             return;
         }
 
@@ -24,7 +27,7 @@ function renderProblems(problems) {
 
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
         div.innerHTML = `
-            <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty} style="${hiddenStyle}">
+            <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}" style="${hiddenStyle}">
                 <br>
                 <div class="dif">
                     ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category} ${scoreText}

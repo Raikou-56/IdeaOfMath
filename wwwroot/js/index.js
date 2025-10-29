@@ -17,6 +17,11 @@ function renderProblems(problems) {
         const div = document.createElement("div");
         div.className = "problem-item";
 
+        // 教師・管理者には非公開スタイルを追加
+        const hiddenStyle = (problem.is_public === false && ["Teacher", "Admin"].includes(role))
+            ? "opacity: 0.5; border: 1px dashed gray;"
+            : "";
+
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
         div.innerHTML = `
             <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}">

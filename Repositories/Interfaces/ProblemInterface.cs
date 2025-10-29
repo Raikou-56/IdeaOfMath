@@ -51,7 +51,9 @@ public class ProblemService : IProblemService
                     .Where(h => h.ProblemId == p.SerialNumber.ToString() && h.Scoring)
                     .OrderByDescending(h => h.Score)
                     .FirstOrDefault()?.Score?.ToString() ?? "未採点",
-                Scoring = unscoredMap.Contains(p.SerialNumber.ToString())
+                Scoring = unscoredMap.Contains(p.SerialNumber.ToString()),
+                Is_public = p.IsPublic,
+                PublishedAt = p.PublishedAt
             }).ToList();
         }
         catch (Exception ex)

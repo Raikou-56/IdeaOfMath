@@ -3,8 +3,14 @@ using MathSiteProject;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
 using MathSiteProject.Repositories.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "keys")))
+    .SetApplicationName("MathSiteProject");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

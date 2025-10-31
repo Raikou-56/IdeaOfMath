@@ -52,7 +52,8 @@ public class HomeController : Controller
     {
         var Tmodel = new TeacherViewModel
         {
-            ProblemsCount = DataBaseSetup.CountProblems()
+            ProblemsCount = DataBaseSetup.CountProblems(),
+            FieldCounts = DataBaseSetup.CountProblemsByField()
         };
         return View(Tmodel);
     }

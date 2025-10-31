@@ -76,6 +76,32 @@ public class DataBaseSetup
         return res;
     }
 
+    public static List<int> CountProblemsByField()
+    {
+        List<Problem> problems = GetProblems();
+        List<int> res = new List<int> {0,0,0,0};
+        foreach (var problem in problems)
+        {
+            var field = problem.IdNumber?.Split('-')[0] ?? "";
+            switch (field)
+            {
+                case "1":
+                    res[0] += 1;
+                    break;
+                case "2":
+                    res[1] += 1;
+                    break;
+                case "3":
+                    res[2] += 1;
+                    break;
+                default:
+                    res[3] += 1;
+                    break;
+            }
+        }
+        return res;
+    }
+
     public static string? GetProblemDifficulty(string? problemId)
     {
         if (string.IsNullOrEmpty(problemId) || !int.TryParse(problemId, out var serial))

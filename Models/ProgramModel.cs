@@ -91,6 +91,7 @@ public class LoginViewModel
 public class TeacherViewModel
 {
     public int ProblemsCount { get; set; }
+    public List<int>? FieldCounts { get; set; }
 }
 
 public class AnswerViewModel

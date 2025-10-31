@@ -8,6 +8,17 @@
     <p class="tst">こちらは教師専用ページです。</p><br>
     <p class="tst">現在データベースに登録されてる問題数は @Model.ProblemsCount です。</p>
 
+    @{
+        var fieldNames = new[] { "数学IA", "数学IIB", "数学III", "その他" };
+    }
+    @if (Model.FieldCounts != null)
+    {
+        @foreach (var count in Model.FieldCounts.Select((value, index) => new { value, index }))
+        {
+            <p class="tst">@fieldNames[count.index] の問題数は @count.value 件です。</p>
+        }
+    }
+
     <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">
         <button class="send">問題を投稿する</button>
     </a>

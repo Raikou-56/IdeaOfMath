@@ -36,7 +36,8 @@
     overflow-x: auto;   /* 横スクロール可能にする */
     gap: 1rem;
     padding-bottom: 0.5rem;
-    margin-top: 1rem;
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
 }
 
 .difficulty-card {
@@ -44,10 +45,10 @@
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    flex: 1 1 190px;
+    flex: 1 1 200px;
+    flex-wrap: nowrap;
     text-align: center;
     transition: transform 0.2s ease;
-    
 }
 
 .difficulty-card:hover {

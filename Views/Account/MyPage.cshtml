@@ -4,6 +4,7 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/mypage.css" />
 }
+@using MathSiteProject.Extentions;
 
 @model UserViewModel
 
@@ -15,8 +16,14 @@
             <li><i class="fas fa-user"></i> <strong>ユーザー名:</strong> @Model.UserName</li>
             <li><i class="fas fa-user-tag"></i> <strong>ロール:</strong> @Model.Role</li>
             <li><i class="fas fa-graduation-cap"></i> <strong>学年:</strong> @(Model.Grade ?? "<span class='text-muted'>学年が選択されていません</span>")</li>
-            <li><i class="fas fa-star"></i> <strong>累計点:</strong> @Model.TotalScores</li>
         </ul>
+    </div>
+
+    <div class="user-rank">
+        <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />
+        <div class="score-display @ScoreExtensions.GetScoreColorClass(Model.TotalScores)">
+            累計スコア：@Model.TotalScores 点
+        </div>
     </div>
 
 

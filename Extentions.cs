@@ -19,3 +19,25 @@ public static class ArrayExtensions
         return scoresByDifficulty.Sum();
     }
 }
+
+public static class ScoreExtensions
+    {
+    public static string GetBadgeImage(this int score)
+    {
+        if (score >= 2000) return "/img/badges/rank6.png";
+        if (score >= 1000) return "/img/badges/rank5.png";
+        if (score >= 500) return "/img/badges/rank4.png";
+        if (score >= 200) return "/img/badges/rank3.png";
+        if (score >= 100) return "/img/badges/rank2.png";
+        return "/img/badges/rank1.png";
+    }
+
+    public static string GetScoreColorClass(this int score)
+    {
+        if (score >= 2000) return "score-gold";
+        if (score >= 1000) return "score-purple";
+        if (score >= 500)  return "score-blue";
+        if (score >= 200)  return "score-green";
+        return "score-silver";
+    }
+}

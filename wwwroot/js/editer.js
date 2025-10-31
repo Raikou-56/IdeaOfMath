@@ -96,7 +96,7 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
             formData.append("problemId", document.querySelector("input[name='SerialNumber']").value);
             formData.append("fileName", altText); // altからファイル名生成
 
-            const response = await fetch("/api/Image/UploadImage", {
+            const response = await fetch("/api/Image/upload", {
                 method: "POST",
                 body: formData
             });

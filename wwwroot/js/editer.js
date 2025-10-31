@@ -58,3 +58,59 @@ document.getElementById("isPublicToggle").addEventListener("change", function ()
     const label = document.getElementById("publicStatusLabel");
     label.textContent = this.checked ? "公開中" : "非公開";
 });
+
+// 画像アップロード処理
+function extractImgTagsWithAlt(text) {
+  const regex = /<img\s[^>]*alt="([^"]+)"[^>]*>/g;
+  return [...text.matchAll(regex)]; // matchAllで全タグ取得
+}
+
+document.getElementById("uploadImageBtn").addEventListener("click", async () => {
+  const textarea = document.getElementById("latexInput2");
+  const content = textarea.value;
+  const imgTags = extractImgTagsWithAlt(content);
+
+  if (imgTags.length === 0) {
+    alert("まず <img alt=\"図1\"> のようなタグを解答欄に書いてください！");
+    return;
+  }
+
+  for (let i = 0; i < imgTags.length; i++) {
+    const altText = imgTags[i][1]; // "図1" など
+    const originalTag = imgTags[i][0];
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+
+    // ファイル選択を待つ
+    const imageUrl = await new Promise((resolve) => {
+      fileInput.onchange = async () => {
+        const file = fileInput.files[0];
+        if (!file) return resolve(null);
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("problemId", document.querySelector("input[name='SerialNumber']").value);
+        formData.append("fileName", altText); // altからファイル名生成
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        const url = await response.text();
+        resolve(url);
+      };
+
+      fileInput.click();
+    });
+
+    if (imageUrl) {
+      // タグを src付きに置き換え
+      content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
+    }
+  }
+
+  textarea.value = content;
+});

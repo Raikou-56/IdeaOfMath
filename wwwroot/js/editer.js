@@ -66,53 +66,53 @@ function extractImgTagsWithAlt(text) {
 }
 
 document.getElementById("uploadImageBtn").addEventListener("click", async () => {
-  const textarea = document.getElementById("latexInput2");
-  const content = textarea.value;
-  const teacherName = document.getElementById("teacherNameInput").value;
-  const imgTags = extractImgTagsWithAlt(content);
+    const textarea = document.getElementById("latexInput2");
+    const content = textarea.value;
+    const teacherName = document.getElementById("teacherNameInput").value;
+    const imgTags = extractImgTagsWithAlt(content);
 
-  if (imgTags.length === 0) {
-    alert("まず <img alt=\"図1\"> のようなタグを解答欄に書いてください！");
-    return;
-  }
+    if (imgTags.length === 0) {
+        alert("まず <img alt=\"図1\"> のようなタグを解答欄に書いてください！");
+        return;
+    }
 
-  for (let i = 0; i < imgTags.length; i++) {
-    const altText = imgTags[i][1]; // "図1" など
-    const originalTag = imgTags[i][0];
+    for (let i = 0; i < imgTags.length; i++) {
+        const altText = imgTags[i][1]; // "図1" など
+        const originalTag = imgTags[i][0];
 
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "image/*";
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
 
     // ファイル選択を待つ
     const imageUrl = await new Promise((resolve) => {
-      fileInput.onchange = async () => {
-        const file = fileInput.files[0];
-        if (!file) return resolve(null);
+        fileInput.onchange = async () => {
+            const file = fileInput.files[0];
+            if (!file) return resolve(null);
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("teacherName", teacherName);
-        formData.append("problemId", document.querySelector("input[name='SerialNumber']").value);
-        formData.append("fileName", altText); // altからファイル名生成
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("teacherName", teacherName);
+            formData.append("problemId", document.querySelector("input[name='SerialNumber']").value);
+            formData.append("fileName", altText); // altからファイル名生成
 
-        const response = await fetch("/api/Image/UploadFileAsync", {
-          method: "POST",
-          body: formData
-        });
+            const response = await fetch("/api/Image/UploadImage", {
+                method: "POST",
+                body: formData
+            });
 
-        const url = await response.text();
-        resolve(url);
-      };
+            const url = await response.text();
+            resolve(url);
+        };
 
-      fileInput.click();
-    });
+        fileInput.click();
+      });
 
-    if (imageUrl) {
-      // タグを src付きに置き換え
-      content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
+      if (imageUrl) {
+        // タグを src付きに置き換え
+        content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
+      }
     }
-  }
 
-  textarea.value = content;
+    textarea.value = content;
 });

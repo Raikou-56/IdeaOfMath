@@ -8,10 +8,15 @@
     <p class="tst">こちらは教師専用ページです。</p><br>
     <p class="tst">現在データベースに登録されてる問題は @Model.ProblemsCount 問です。</p>
 
-    @foreach (var pair in Model.FieldCounts ?? new Dictionary<string, int>())
-    {
-        <p class="tst">@pair.Key の問題は @pair.Value 問です。</p>
-    }
+    <div class="field-counts">
+        @foreach (var pair in Model.FieldCounts ?? new Dictionary<string, int>())
+        {
+            <div class="field-card">
+                <h3>@pair.Key</h3>
+                <p><span class="count">@pair.Value</span> 問</p>
+            </div>
+        }
+    </div>
 
     <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">
         <button class="send">問題を投稿する</button>

@@ -68,6 +68,7 @@ function extractImgTagsWithAlt(text) {
 document.getElementById("uploadImageBtn").addEventListener("click", async () => {
   const textarea = document.getElementById("latexInput2");
   const content = textarea.value;
+  const teacherName = document.getElementById("teacherNameInput").value;
   const imgTags = extractImgTagsWithAlt(content);
 
   if (imgTags.length === 0) {
@@ -91,10 +92,11 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
 
         const formData = new FormData();
         formData.append("file", file);
+        formData.append("teacherName", teacherName);
         formData.append("problemId", document.querySelector("input[name='SerialNumber']").value);
         formData.append("fileName", altText); // altからファイル名生成
 
-        const response = await fetch("/api/image/upload", {
+        const response = await fetch("/api/image/UploadFileAsync", {
           method: "POST",
           body: formData
         });

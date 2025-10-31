@@ -41,10 +41,10 @@
         </div>
 
         <label>画像アップロード:</label>
-        <button type="button" id="uploadImageBtn">画像を挿入する</button><br>
+        <button class="send" type="button" id="uploadImageBtn">画像を挿入する</button><br>
 
         <label>先生:</label>
-        <input asp-for="Teacher" /><br>
+        <input asp-for="Teacher" id="teacherNameInput" /><br>
 
         <label>公開状態:</label>
         <input type="checkbox" asp-for="IsPublic" id="isPublicToggle" />

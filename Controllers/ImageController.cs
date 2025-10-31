@@ -13,7 +13,7 @@ public class ImageController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> UploadImage(IFormFile file, string studentName, string problemId, string fileName)
+    public async Task<IActionResult> UploadImage(IFormFile file, string teacherName, string problemId, string fileName)
     {
         var tempPath = Path.GetTempFileName();
         using (var stream = System.IO.File.Create(tempPath))
@@ -21,7 +21,7 @@ public class ImageController : ControllerBase
             await file.CopyToAsync(stream);
         }
 
-        var url = await _storage.UploadFileAsync(tempPath, studentName, problemId, fileName);
+        var url = await _storage.UploadFileAsync(tempPath, teacherName, problemId, fileName);
         System.IO.File.Delete(tempPath);
         return Content(url);
     }

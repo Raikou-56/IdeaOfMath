@@ -45,6 +45,11 @@
     flex: 1 1 190px;
     text-align: center;
     transition: transform 0.2s ease;
+    display: flex;
+    flex-wrap: nowrap; /* 折り返さない */
+    overflow-x: auto;   /* 横スクロール可能にする */
+    gap: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .difficulty-card:hover {
@@ -61,6 +66,10 @@
     font-weight: bold;
     color: #007bff;
     font-size: 1.1rem;
+}
+
+.difficulty-cards::-webkit-scrollbar {
+    display: none;
 }
 
 @media screen and (max-width: 600px) {

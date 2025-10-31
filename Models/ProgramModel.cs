@@ -88,6 +88,32 @@ public class LoginViewModel
     public string? Password { get; set; }
 }
 
+public class RegisterViewModel
+{
+    [Required]
+    [EmailAddress]
+    public string? MailAddress { get; set; }
+
+    [Required]
+    public string? Username { get; set; }
+
+    [Required]
+    [MinLength(8, ErrorMessage = "パスワードは8文字以上である必要があります。")]
+    [RegularExpression(@"^(?=.*[a-zA-Z])(?=.*\d).+$", ErrorMessage = "英字と数字の両方を含めてください。")]
+    public string? Password { get; set; }
+
+    [Required]
+    [Compare("Password", ErrorMessage = "パスワードが一致しません。")]
+    public string? ConfirmPassword { get; set; }
+
+    [Required]
+    public string? Role { get; set; }
+
+    [Required]
+    public string? Grade { get; set; }
+}
+
+
 public class TeacherViewModel
 {
     public int ProblemsCount { get; set; }

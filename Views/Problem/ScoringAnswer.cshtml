@@ -20,7 +20,12 @@
         }
     }<br>
 
-    <input type="number" asp-for="Score" min="0" max="50" /><br>
+    <div class="score-input-group">
+        <label for="scoreInput"><i class="fas fa-chart-line"></i> 得点（0〜50）:</label>
+        <input type="number" asp-for="Score" id="scoreInput" min="0" max="50" class="modern-score-input" />
+        <span class="unit">点</span>
+    </div>
+<br>
     <button class="send" type="submit">採点結果を送信</button>
 </form>
 

@@ -75,8 +75,7 @@ label {
   color: rgba(0,0,0,0.4);
   border: none;
   padding: 10px 20px;
-  margin-bottom: 15px;
-  margin-left: 5px;
+  margin: 0 0 15px 5px;
   border-radius: 6px;
   font-weight: 500;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -153,11 +152,17 @@ button {
 }
 
 p.tst {
-  font-weight: 600;
-  background-color: #ffffff;
-  border-radius: 2px;
-  padding: 3px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-weight: 500;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-size: 1.05em;
+  line-height: 1.6;
+  color: #2c3e50;
+  max-width: 700px;
+  margin: 20px auto;
+  border-left: 4px solid #5dade2;
 }
 
 .user-profile {
@@ -168,4 +173,90 @@ p.tst {
   background-color: white;
 }
 
+.score-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
 
+.score-input-group label {
+    font-weight: bold;
+    color: #34495e;
+}
+
+.modern-score-input {
+    width: 100px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modern-score-input:focus {
+    border-color: #5dade2;
+    box-shadow: 0 0 5px rgba(93, 173, 226, 0.5);
+    outline: none;
+}
+
+.unit {
+    color: #7f8c8d;
+    font-size: 0.95em;
+}
+
+.modern-input {
+    margin-bottom: 20px;
+}
+
+.modern-input label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #34495e;
+}
+
+.modern-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modern-control:focus {
+    border-color: #5dade2;
+    box-shadow: 0 0 6px rgba(93, 173, 226, 0.4);
+    outline: none;
+}
+
+.register-card {
+    background: #f9f9fc;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.register-card h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-weight: 600;
+    text-align: center;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-text {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-top: 4px;
+}

@@ -1,22 +1,28 @@
 @{
     ViewData[index: "Title"] = "My Page";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/mypage.css" />
+}
 
 @model UserViewModel
 
 <div class="user-profile">
-    <h2>マイページ</h2>
-    <ul>
-        <li><strong>ユーザーID:</strong> @Model.UserId</li>
-        <li><strong>ユーザー名:</strong> @Model.UserName</li>
-        <li><strong>ロール:</strong> @Model.Role</li>
-        <li><strong>学年:</strong> @(Model.Grade ?? "学年が選択されていません")</li>
-        <li><strong>累計点:</strong> @Model.TotalScores</li>
-    </ul>
+    <div class="profile-card">
+        <h2><i class="fas fa-user-circle"></i> プロフィール</h2>
+        <ul class="profile-list">
+            <li><i class="fas fa-id-badge"></i> <strong>ユーザーID:</strong> @Model.UserId</li>
+            <li><i class="fas fa-user"></i> <strong>ユーザー名:</strong> @Model.UserName</li>
+            <li><i class="fas fa-user-tag"></i> <strong>ロール:</strong> @Model.Role</li>
+            <li><i class="fas fa-graduation-cap"></i> <strong>学年:</strong> @(Model.Grade ?? "<span class='text-muted'>学年が選択されていません</span>")</li>
+            <li><i class="fas fa-star"></i> <strong>累計点:</strong> @Model.TotalScores</li>
+        </ul>
+    </div>
+
 
     @if (Model.IntsAnsweredbyDifficulty != null && Model.IntsAnsweredbyDifficulty.Length == 5)
     {
-        <h3>難易度別の統計</h3>
+        <h3>成績</h3>
         <div class="difficulty-cards">
             @for (int i = 0; i < 5; i++)
             {

@@ -1,0 +1,24 @@
+.profile-card {
+    background: #f9f9fc;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    max-width: 500px;
+    margin: auto;
+}
+
+.profile-list {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-list li {
+    margin-bottom: 12px;
+    font-size: 1.1em;
+}
+
+.profile-list i {
+    margin-right: 8px;
+    color: #6c757d;
+}

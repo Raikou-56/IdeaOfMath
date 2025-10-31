@@ -19,16 +19,35 @@ public class AccountController : Controller
     
     // 会員登録
     [HttpPost]
-    public IActionResult Register(string mailaddress, string username, string password, string role)
+    public IActionResult Register(RegisterViewModel model)
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
 
+        var existingUser = users.Find(u => u.UserId == model.MailAddress).FirstOrDefault();
+        if (existingUser != null)
+        {
+            ModelState.AddModelError("MailAddress", "このメールアドレスはすでに登録されています。");
+            return View(model);
+        }
+
+        if (model.Password == null)
+        {
+            ModelState.AddModelError("Password", "パスワードを入力してください。");
+            return View(model);
+        }
+
+        if (model.Password != model.ConfirmPassword)
+        {
+            ModelState.AddModelError("ConfirmPassword", "パスワードが一致しません。");
+            return View(model);
+        }
         var newUser = new User
         {
-            UserId = mailaddress,
-            Username = username,
-            PassWordHash = SecurityHelper.HashPassword(password),
-            Role = role
+            UserId = model.MailAddress,
+            Username = model.Username,
+            PassWordHash = SecurityHelper.HashPassword(model.Password),
+            Role = model.Role,
+            Grade = model.Grade
         };
 
         users.InsertOne(newUser);

@@ -11,7 +11,7 @@
         <li><strong>ユーザー名:</strong> @Model.UserName</li>
         <li><strong>ロール:</strong> @Model.Role</li>
         <li><strong>学年:</strong> @(Model.Grade ?? "学年が選択されていません")</li>
-        <li><strong>累計スコア:</strong> @Model.TotalScores</li>
+        <li><strong>累計点:</strong> @Model.TotalScores</li>
     </ul>
 
     @if (Model.IntsAnsweredbyDifficulty != null && Model.IntsAnsweredbyDifficulty.Length == 5)
@@ -28,8 +28,8 @@
                 <div class="field-card difficulty-card">
                     <h4>難易度 @label</h4>
                     <p>解答数：<span class="count">@answered</span></p>
-                    <p>合計スコア：<span class="count">@totalScore</span></p>
-                    <p>平均スコア：<span class="count">@averageScore</span></p>
+                    <p>合計点：<span class="count">@totalScore</span></p>
+                    <p>平均点：<span class="count">@averageScore</span></p>
                 </div>
             }
         </div>

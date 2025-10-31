@@ -17,29 +17,24 @@
     @if (Model.IntsAnsweredbyDifficulty != null && Model.IntsAnsweredbyDifficulty.Length == 5)
     {
         <h3>難易度別の統計</h3>
-        <table class="difficulty-stats">
-            <thead>
-                <tr>
-                    <th>難易度</th>
-                    <th>解答数</th>
-                    <th>合計スコア</th>
-                    <th>平均スコア</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < 5; i++)
-                {
-                    var label = ((char)('A' + i)).ToString(); // A〜E
-                    <tr>
-                        <td>@label</td>
-                        <td>@Model.IntsAnsweredbyDifficulty[i]</td>
-                        <td>@(Model.ScoresbyDifficulty?[i] ?? 0)</td>
-                        <td>@(Model.AverageScoresbyDifficulty?[i].ToString("0.00") ?? "0.00")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="difficulty-cards">
+            @for (int i = 0; i < 5; i++)
+            {
+                var label = ((char)('A' + i)).ToString(); // A〜E
+                var answered = Model.IntsAnsweredbyDifficulty[i];
+                var totalScore = Model.ScoresbyDifficulty?[i] ?? 0;
+                var averageScore = Model.AverageScoresbyDifficulty?[i].ToString("0.00") ?? "0.00";
+    
+                <div class="field-card difficulty-card">
+                    <h4>難易度 @label</h4>
+                    <p>解答数：<span class="count">@answered</span></p>
+                    <p>合計スコア：<span class="count">@totalScore</span></p>
+                    <p>平均スコア：<span class="count">@averageScore</span></p>
+                </div>
+            }
+        </div>
     }
+
     else
     {
         <p>難易度別の統計情報はまだありません。</p>

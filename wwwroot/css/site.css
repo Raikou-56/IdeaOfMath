@@ -170,34 +170,4 @@ p.tst {
   background-color: white;
 }
 
-.field-counts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
 
-.field-card {
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    flex: 1 1 200px;
-    text-align: center;
-    transition: transform 0.2s ease;
-}
-
-.field-card:hover {
-    transform: scale(1.03);
-}
-
-.field-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.field-card .count {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #007bff;
-}

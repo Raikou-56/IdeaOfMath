@@ -32,23 +32,21 @@
 
 .difficulty-cards {
     display: flex;
-    flex-wrap: nowrap; /* 折り返さない */
-    overflow-x: auto;   /* 横スクロール可能にする */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 1rem;
-    padding-bottom: 0.5rem;
-    -ms-overflow-style: none;  /* IE/Edge */
-    scrollbar-width: none;     /* Firefox */
+    padding: 1rem;
+    -webkit-overflow-scrolling: touch;
 }
 
 .difficulty-card {
-    background: #fefefe;
-    border-radius: 10px;
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    flex: 1 1 200px;
-    flex-wrap: nowrap;
-    text-align: center;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
 }
 
 .difficulty-card:hover {

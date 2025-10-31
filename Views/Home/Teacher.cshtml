@@ -10,7 +10,7 @@
 
     @foreach (var pair in Model.FieldCounts ?? new Dictionary<string, int>())
     {
-        <p>@pair.Key の問題は @pair.Value 問です。</p>
+        <p class="tst">@pair.Key の問題は @pair.Value 問です。</p>
     }
 
     <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">

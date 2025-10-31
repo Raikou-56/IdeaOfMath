@@ -8,15 +8,9 @@
     <p class="tst">こちらは教師専用ページです。</p><br>
     <p class="tst">現在データベースに登録されてる問題は @Model.ProblemsCount 問です。</p>
 
-    @{
-        var fieldNames = new[] { "数学IA", "数学IIB", "数学III", "その他" };
-    }
-    @if (Model.FieldCounts != null)
+    @foreach (var pair in Model.FieldCounts ?? new Dictionary<string, int>())
     {
-        @foreach (var count in Model.FieldCounts.Select((value, index) => new { value, index }))
-        {
-            <p class="tst">@fieldNames[count.index] の問題は @count.value 問です。</p>
-        }
+        <p>@pair.Key の問題は @pair.Value 問です。</p>
     }
 
     <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">

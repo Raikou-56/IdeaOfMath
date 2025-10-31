@@ -76,29 +76,39 @@ public class DataBaseSetup
         return res;
     }
 
-    public static List<int> CountProblemsByField()
+    public static Dictionary<string, int> CountProblemsByField()
     {
         List<Problem> problems = GetProblems();
-        List<int> res = new List<int> {0,0,0,0};
+    
+        var res = new Dictionary<string, int>
+        {
+            { "数学IA", 0 },
+            { "数学IIB", 0 },
+            { "数学III", 0 },
+            { "その他", 0 }
+        };
+    
         foreach (var problem in problems)
         {
             var field = problem.IdNumber?.Split('-')[0] ?? "";
+    
             switch (field)
             {
                 case "1":
-                    res[0] += 1;
+                    res["数学IA"] += 1;
                     break;
                 case "2":
-                    res[1] += 1;
+                    res["数学IIB"] += 1;
                     break;
                 case "3":
-                    res[2] += 1;
+                    res["数学III"] += 1;
                     break;
                 default:
-                    res[3] += 1;
+                    res["その他"] += 1;
                     break;
             }
         }
+    
         return res;
     }
 

@@ -27,19 +27,19 @@ public class AccountController : Controller
         if (existingUser != null)
         {
             ModelState.AddModelError("MailAddress", "このメールアドレスはすでに登録されています。");
-            return View(model);
+            return View("NewUser", model);
         }
 
         if (model.Password == null)
         {
             ModelState.AddModelError("Password", "パスワードを入力してください。");
-            return View(model);
+            return View("NewUser", model);
         }
 
         if (model.Password != model.ConfirmPassword)
         {
             ModelState.AddModelError("ConfirmPassword", "パスワードが一致しません。");
-            return View(model);
+            return View("NewUser", model);
         }
         var newUser = new User
         {

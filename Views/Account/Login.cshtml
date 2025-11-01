@@ -12,22 +12,25 @@
         <img src="\img\mathimg2.png">
     </div>
 
-    <form method="post" asp-controller="Account" asp-action="Login">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div style="max-width: 600px;">
+        <form method="post" asp-controller="Account" asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group modern-input">
-            <label for="mailaddress"><i class="fas fa-envelope"></i> ユーザーID（メールアドレス）</label>
-            <input type="email" id="mailaddress" asp-for="MailAddress" required class="form-control modern-control" />
-        </div>
-        
-        <div class="form-group modern-input">
-            <label for="password"><i class="fas fa-lock"></i> パスワード</label>
-            <input type="password" id="password" asp-for="Password" required class="form-control modern-control" />
-        </div>
+            <div class="form-group modern-input">
+                <label for="mailaddress"><i class="fas fa-envelope"></i> ユーザーID（メールアドレス）</label>
+                <input type="email" id="mailaddress" asp-for="MailAddress" required class="form-control modern-control" />
+            </div>
+
+            <div class="form-group modern-input">
+                <label for="password"><i class="fas fa-lock"></i> パスワード</label>
+                <input type="password" id="password" asp-for="Password" required class="form-control modern-control" />
+            </div>
 
 
-        <button type="submit" class="send">ログインする</button>
-    </form>
-    <br>
-    <a asp-area="" asp-controller="Account" asp-action="NewUser">新規会員登録はこちら</a>
+            <button type="submit" class="send">ログインする</button>
+        </form>
+        <br>
+        <a asp-area="" asp-controller="Account" asp-action="NewUser">新規会員登録はこちら</a>
+    </div>
+    
 </div>

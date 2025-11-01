@@ -123,6 +123,8 @@ public class AccountController : Controller
             return RedirectToAction("Error", new { message = "ユーザー情報が取得できませんでした。" });
         }
 
+        Console.WriteLine(user.UserId ?? "use.UseIdがnullです", user.Username);
+
         var scoresByDifficulty = DataBaseSetup.GetScoresbyDifficulty(user?.UserId);
         var countsByDifficulty = DataBaseSetup.GetIntsAnsweredbyDifficulty(user?.UserId);
 

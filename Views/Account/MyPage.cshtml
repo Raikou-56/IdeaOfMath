@@ -9,23 +9,25 @@
 @model UserViewModel
 
 <div class="user-profile">
-    <div class="profile-card">
-        <h2><i class="fas fa-user-circle"></i> プロフィール</h2>
-        <ul class="profile-list">
-            <li><i class="fas fa-id-badge"></i> <strong>ユーザーID:</strong> @Model.UserId</li>
-            <li><i class="fas fa-user"></i> <strong>ユーザー名:</strong> @Model.UserName</li>
-            <li><i class="fas fa-user-tag"></i> <strong>ロール:</strong> @Model.Role</li>
-            <li><i class="fas fa-graduation-cap"></i> <strong>学年:</strong> @(Model.Grade ?? "<span class='text-muted'>学年が選択されていません</span>")</li>
-        </ul>
-    </div>
+    <div class="profile-section">
+        <div class="profile-card">
+            <h2><i class="fas fa-user-circle"></i> プロフィール</h2>
+            <ul class="profile-list">
+                <li><i class="fas fa-id-badge"></i> <strong>ユーザーID:</strong> @Model.UserId</li>
+                <li><i class="fas fa-user"></i> <strong>ユーザー名:</strong> @Model.UserName</li>
+                <li><i class="fas fa-user-tag"></i> <strong>ロール:</strong> @Model.Role</li>
+                <li><i class="fas fa-graduation-cap"></i> <strong>学年:</strong> @(Model.Grade ?? "<span class='text-muted'>学年が選択されていません</span>")</li>
+            </ul>
+        </div>
 
-    <div class="user-rank">
-        <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />
-        <div class="score-display @ScoreExtensions.GetScoreColorClass(Model.TotalScores)">
-            累計スコア：@Model.TotalScores 点
+        <div class="user-rank">
+            <h2><i class="fas fa-medal"></i> ランク</h2>
+            <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge-large" />
+            <div class="score-display @ScoreExtensions.GetScoreColorClass(Model.TotalScores)">
+                累計：@Model.TotalScores 点
+            </div>
         </div>
     </div>
-
 
     @if (Model.IntsAnsweredbyDifficulty != null && Model.IntsAnsweredbyDifficulty.Length == 5)
     {

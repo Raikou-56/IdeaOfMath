@@ -61,10 +61,6 @@
     <div class="container">
         <main role="main" class="pb-3">
             <div class="all">
-                @if (User.Identity != null && User.Identity.IsAuthenticated)
-                {
-                    <p>ようこそ、@User.Identity.Name さん！</p>
-                }
                 @RenderBody()
             </div>
         </main>

@@ -36,7 +36,7 @@
     padding: 8px 12px;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    display: inline-block;
+    max-width: 150px;
 }
 
 .user-rank {
@@ -45,7 +45,7 @@
 }
 
 .rank-badge-large {
-    width: 120px;
+    width: 150px;
     height: auto;
     margin-bottom: 0.5rem;
 }

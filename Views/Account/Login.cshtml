@@ -10,13 +10,6 @@
 @model LoginViewModel
 
 <div style="padding:30px;">
-    <p class="tst">こんにちは！数学の源泉運営チームです。このサイトは大学受験を控える受験生のために幅広く数学の問題を扱うサイトとなっております。
-        問題は運営メンバーの独断と偏見で5段階で難易度を表しており難易度のイメージは以下の通りです。
-    </p>
-    <div class="acc que">
-        <img src="\img\mathimg2.png">
-    </div>
-
     <div style="max-width: 600px;">
         <form method="post" asp-controller="Account" asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,8 +24,9 @@
                 <input type="password" id="password" asp-for="Password" required class="form-control modern-control" />
             </div>
 
-
-            <button type="submit" class="send">ログインする</button>
+            <div style="text-align: right;">
+                <button type="submit" class="send">ログインする</button>
+            </div>
         </form>
         <br>
         <a asp-area="" asp-controller="Account" asp-action="NewUser">新規会員登録はこちら</a>

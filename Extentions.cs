@@ -21,8 +21,8 @@ public static class ArrayExtensions
 }
 
 public static class ScoreExtensions
-    {
-    public static string GetBadgeImage(this int score)
+{
+    public static string GetBadgeImage(int score)
     {
         if (score >= 2000) return "/img/badges/rank6.png";
         if (score >= 1000) return "/img/badges/rank5.png";
@@ -32,7 +32,7 @@ public static class ScoreExtensions
         return "/img/badges/rank1.png";
     }
 
-    public static string GetScoreColorClass(this int score)
+    public static string GetScoreColorClass(int score)
     {
         if (score >= 2000) return "score-gold";
         if (score >= 1000) return "score-purple";

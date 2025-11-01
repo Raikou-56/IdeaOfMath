@@ -1,41 +1,53 @@
+@model RegisterViewModel
+
 @{
     ViewData["Title"] = "NewUser Page";
+}
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
 <div class="register-card">
     <h2><i class="fas fa-user-plus"></i> 新規登録</h2>
-    <form method="post" action="/Account/Register">
+    <form asp-action="Register" asp-controller="Account" method="post">
         <div class="form-group modern-input">
-            <label for="mailaddress"><i class="fas fa-envelope"></i> メールアドレス</label>
-            <input type="email" id="mailaddress" name="mailaddress" class="form-control modern-control" required />
+            <label asp-for="MailAddress"><i class="fas fa-envelope"></i> メールアドレス</label>
+            <input asp-for="MailAddress" class="form-control modern-control" />
+            <span asp-validation-for="MailAddress" class="text-danger"></span>
             <small class="form-text text-muted">※メールアドレスはログイン時のユーザーIDとなります。</small>
         </div>
 
         <div class="form-group modern-input">
-            <label for="username"><i class="fas fa-user"></i> ユーザー名</label>
-            <input type="text" id="username" name="username" class="form-control modern-control" required />
+            <label asp-for="Username"><i class="fas fa-user"></i> ユーザー名</label>
+            <input asp-for="Username" class="form-control modern-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
         </div>
 
         <div class="form-group modern-input">
-            <label for="password"><i class="fas fa-lock"></i> パスワード</label>
-            <input type="password" id="password" name="password" class="form-control modern-control" required />
+            <label asp-for="Password"><i class="fas fa-lock"></i> パスワード</label>
+            <input asp-for="Password" class="form-control modern-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
         <div class="form-group modern-input">
-            <label for="ConfirmPassword"><i class="fas fa-lock"></i> パスワード確認</label>
-            <input type="ConfirmPassword" id="ConfirmPassword" name="ConfirmPassword" class="form-control modern-control" required />
+            <label asp-for="ConfirmPassword"><i class="fas fa-lock"></i> パスワード確認</label>
+            <input asp-for="ConfirmPassword" class="form-control modern-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
 
         <div class="form-group modern-input">
-            <label for="role"><i class="fas fa-user-tag"></i> 区分</label>
-            <select id="role" name="role" class="form-control modern-control">
+            <label asp-for="Role"><i class="fas fa-user-tag"></i> 区分</label>
+            <select asp-for="Role" class="form-control modern-control">
                 <option value="Student">学生</option>
             </select>
+            <span asp-validation-for="Role" class="text-danger"></span>
         </div>
 
         <div class="form-group modern-input">
-            <label for="grade"><i class="fas fa-school"></i> 学年</label>
-            <select class="form-control modern-control" id="grade" name="grade" required>
+            <label asp-for="Grade"><i class="fas fa-school"></i> 学年</label>
+            <select asp-for="Grade" class="form-control modern-control">
                 <option value="">選択してください</option>
                 <option value="中学生">中学生</option>
                 <option value="高校1年生">高校1年生</option>
@@ -44,6 +56,7 @@
                 <option value="浪人生">浪人生</option>
                 <option value="大学生以上">大学生以上</option>
             </select>
+            <span asp-validation-for="Grade" class="text-danger"></span>
         </div>
 
         <div class="form-group text-end">
@@ -51,4 +64,3 @@
         </div>
     </form>
 </div>
-<br>

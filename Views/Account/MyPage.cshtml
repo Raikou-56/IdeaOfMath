@@ -1,5 +1,5 @@
 @{
-    ViewData[index: "Title"] = "My Page";
+    ViewData["Title"] = "My Page";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/mypage.css" />
@@ -36,7 +36,10 @@
                 var label = ((char)('A' + i)).ToString(); // A〜E
                 var answered = Model.IntsAnsweredbyDifficulty[i];
                 var totalScore = Model.ScoresbyDifficulty?[i] ?? 0;
-                var averageScore = Model.AverageScoresbyDifficulty?[i].ToString("0.00") ?? "0.00";
+                var averageScore = Model.AverageScoresbyDifficulty?[i] != null 
+                    ? Model.AverageScoresbyDifficulty[i].ToString("0.00") 
+                    : "0.00";
+
     
                 <div class="field-card difficulty-card">
                     <h4>難易度 @label</h4>

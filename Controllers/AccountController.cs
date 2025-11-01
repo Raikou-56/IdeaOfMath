@@ -23,6 +23,11 @@ public class AccountController : Controller
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
 
+        if (!ModelState.IsValid)
+        {
+            return View("NewUser", model);
+        }
+
         var existingUser = users.Find(u => u.UserId == model.MailAddress).FirstOrDefault();
         if (existingUser != null)
         {

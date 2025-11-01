@@ -59,10 +59,16 @@ public class HomeController : Controller
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult Error(string? message = null)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var model = new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+            Message = message ?? "予期しないエラーが発生しました。"
+        };
+        return View(model);
     }
+
 
     [HttpPost]
     public async Task<IActionResult> SubmitAnswer(string problemId, IFormFile[] imageAnswers)

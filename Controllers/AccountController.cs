@@ -117,11 +117,10 @@ public class AccountController : Controller
     public IActionResult MyPage()
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
-        var user = users.Find(u => u.UserId == User.FindFirstValue("StudentId")).FirstOrDefault();
+        var user = users.Find(u => u.UserId == User.FindFirstValue("UserId")).FirstOrDefault();
         if (user == null)
         {
-            ModelState.AddModelError("", "ユーザー情報が取得できませんでした。");
-            return View("Error"); // エラービューに遷移するなど
+            return RedirectToAction("Error", new { message = "ユーザー情報が取得できませんでした。" });
         }
 
         var scoresByDifficulty = DataBaseSetup.GetScoresbyDifficulty(user?.UserId);

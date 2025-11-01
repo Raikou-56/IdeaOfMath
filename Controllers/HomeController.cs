@@ -67,7 +67,7 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> SubmitAnswer(string problemId, IFormFile[] imageAnswers)
     {
-        var studentId = User.FindFirst("StudentId")?.Value;
+        var studentId = User.FindFirst("UserId")?.Value;
         var difficulty = DataBaseSetup.GetProblemDifficulty(problemId);
         var studentName = User.Identity?.Name ?? "UnknownStudent";
         if (string.IsNullOrEmpty(studentId)) return RedirectToAction("Login", "Account");

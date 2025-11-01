@@ -96,7 +96,7 @@ public class AccountController : Controller
         {
             new Claim(ClaimTypes.Name, user.Username ?? user.UserId),
             new Claim(ClaimTypes.Role, user.Role),
-            new Claim("StudentId", user.UserId.ToString())
+            new Claim("UserId", user.UserId.ToString())
         };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -118,6 +118,12 @@ public class AccountController : Controller
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
         var user = users.Find(u => u.UserId == User.FindFirstValue("StudentId")).FirstOrDefault();
+        if (user == null)
+        {
+            ModelState.AddModelError("", "ユーザー情報が取得できませんでした。");
+            return View("Error"); // エラービューに遷移するなど
+        }
+
         var scoresByDifficulty = DataBaseSetup.GetScoresbyDifficulty(user?.UserId);
         var countsByDifficulty = DataBaseSetup.GetIntsAnsweredbyDifficulty(user?.UserId);
 

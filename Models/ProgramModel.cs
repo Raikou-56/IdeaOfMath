@@ -48,9 +48,6 @@ public class User
     [BsonElement("passwordHash")]
     public string? PassWordHash { get; set; }
 
-    [BsonElement("SolvedList")]
-    public List<bool>? SolvedList { get; set; }
-
     [BsonElement("Roles")]
     public string? Role { get; set; }
 }

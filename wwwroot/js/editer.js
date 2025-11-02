@@ -67,7 +67,7 @@ function extractImgTagsWithAlt(text) {
 
 document.getElementById("uploadImageBtn").addEventListener("click", async () => {
     const textarea = document.getElementById("latexInput2");
-    const content = textarea.value;
+    let content = textarea.value;
     const teacherName = document.getElementById("teacherNameInput").value;
     const imgTags = extractImgTagsWithAlt(content);
 
@@ -85,7 +85,7 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
         fileInput.accept = "image/*";
 
     // ファイル選択を待つ
-    const imageUrl = await new Promise((resolve) => {
+    let imageUrl = await new Promise((resolve) => {
         fileInput.onchange = async () => {
             const file = fileInput.files[0];
             if (!file) return resolve(null);

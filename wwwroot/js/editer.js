@@ -91,16 +91,16 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
             const file = fileInput.files[0];
             if (!file) return resolve(null);
 
+            if (!teacherName || !problemId || !altText) {
+                alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
+                return resolve(null);
+            }
+
             const formData = new FormData();
             formData.append("file", file);
             formData.append("teacherName", teacherName);
             formData.append("problemId", problemId);
             formData.append("fileName", altText); // altからファイル名生成
-
-            if (!teacherName || !problemId || !altText) {
-                alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
-                return resolve(null);
-            }
 
             const response = await fetch("/api/Image/upload", {
                 method: "POST",

@@ -65,30 +65,36 @@ function extractImgTagsWithAlt(text) {
     return [...text.matchAll(regex)];
 }
 
-document.getElementById("uploadImageBtn").addEventListener("click", async () => {
-    const textarea = document.getElementById("latexInput2");
-    let content = textarea.value;
-    const teacherName = document.querySelector('[name="Teacher"]')?.value?.trim();
-    const problemId = document.querySelector('[name="SerialNumber"]')?.value?.trim();
-    const imgTags = extractImgTagsWithAlt(content);
+function setupImageUpload(buttonId, textareaId) {
+    document.getElementById(buttonId).addEventListener("click", async () => {
+        const textarea = document.getElementById(textareaId);
+        let content = textarea.value;
+        const teacherName = document.querySelector('[name="Teacher"]')?.value?.trim();
+        const problemId = document.querySelector('[name="SerialNumber"]')?.value?.trim();
+        const imgTags = extractImgTagsWithAlt(content);
 
-    if (imgTags.length === 0) {
-        alert('まず <img alt="図1"> のようなタグを解答欄に書いてください！');
-        return;
-    }
-
-    for (let i = 0; i < imgTags.length; i++) {
-        const altText = imgTags[i][1];
-        const originalTag = imgTags[i][0];
-
-        const imageUrl = await promptForImageUpload(altText, teacherName, problemId);
-        if (imageUrl) {
-            content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
+        if (imgTags.length === 0) {
+            alert('まず <img alt="図1"> のようなタグを解答欄に書いてください！');
+            return;
         }
-    }
 
-    textarea.value = content;
-});
+        for (let i = 0; i < imgTags.length; i++) {
+            const altText = imgTags[i][1];
+            const originalTag = imgTags[i][0];
+
+            const imageUrl = await promptForImageUpload(altText, teacherName, problemId);
+            if (imageUrl) {
+                content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
+            }
+        }
+
+        textarea.value = content;
+    });
+}
+
+setupImageUpload("uploadImageToProblemBtn", "latexInput1");
+setupImageUpload("uploadImageToAnswerBtn", "latexInput2");
+
 
 async function promptForImageUpload(altText, teacherName, problemId) {
     return new Promise((resolve) => {

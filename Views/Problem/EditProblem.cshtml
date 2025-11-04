@@ -41,6 +41,10 @@
             <div id="mathPreview1" class="latex">ここに数式が表示されます</div>
         </div>
 
+        <div style="margin-bottom: 20px;">
+            <button class="send" type="button" id="uploadImageToProblemBtn">問題に画像を挿入する</button>
+        </div>
+
         <div class="modern-input">
             <label for="AnswerLatex">答え（LaTeX）</label>
             <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" class="modern-control"></textarea>
@@ -52,7 +56,7 @@
         </div>
 
         <div style="margin-bottom: 20px;">
-            <button class="send" type="button" id="uploadImageBtn">画像を挿入する</button>
+            <button class="send" type="button" id="uploadImageToAnswerBtn">答えに画像を挿入する</button>
         </div>
 
         <div class="modern-input">

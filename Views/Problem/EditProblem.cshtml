@@ -9,51 +9,67 @@
 
 @model Problem
 
-<div class="que" style="padding:30px;">
+<div class="register-card">
+    <h2>問題編集ページ</h2>
     <form asp-controller="Problem" asp-action="Edit" method="post">
         <input type="hidden" name="SerialNumber" value="@Model.SerialNumber" />
-        <label>問題ID:</label>
-        <input asp-for="IdNumber" />
-        <span asp-validation-for="IdNumber"></span><br>
 
-        <label>難易度:</label>
-        <input asp-for="difficulty" /><br>
+        <div class="modern-input">
+            <label for="IdNumber">問題ID</label>
+            <input asp-for="IdNumber" class="modern-control" />
+            <span asp-validation-for="IdNumber" class="form-text"></span>
+        </div>
 
-        <label>カテゴリ:</label>
-        <input asp-for="category" /><br>
+        <div class="score-input-group">
+            <label for="difficulty">難易度</label>
+            <input asp-for="difficulty" class="modern-score-input" />
+            <span class="unit">（例：1〜5）</span>
+        </div>
 
-        <label>問題（LaTeX）:</label>
-        <textarea asp-for="ProblemLatex" id="latexInput1" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
+        <div class="modern-input">
+            <label for="category">カテゴリ</label>
+            <input asp-for="category" class="modern-control" />
+        </div>
 
-        <div style="margin-top:20px;">
-            <h4>問題文プレビュー:</h4>
+        <div class="modern-input">
+            <label for="ProblemLatex">問題（LaTeX）</label>
+            <textarea asp-for="ProblemLatex" id="latexInput1" rows="6" class="modern-control"></textarea>
+        </div>
+
+        <div style="margin-bottom: 20px;">
             <button class="send" type="button" id="previewBtn1">プレビューする</button>
             <div id="mathPreview1" class="latex">ここに数式が表示されます</div>
         </div>
 
-        <label>答え（LaTeX）:</label>
-        <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" style="width:100%; font-size:1.2em;"></textarea><br>
+        <div class="modern-input">
+            <label for="AnswerLatex">答え（LaTeX）</label>
+            <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" class="modern-control"></textarea>
+        </div>
 
-        <div style="margin-top:20px;">
-            <h4>解答プレビュー:</h4>
+        <div style="margin-bottom: 20px;">
             <button class="send" type="button" id="previewBtn2">プレビューする</button>
             <div id="mathPreview2" class="latex">ここに数式が表示されます</div>
         </div>
 
-        <label>画像アップロード:</label>
-        <button class="send" type="button" id="uploadImageBtn">画像を挿入する</button><br>
+        <div style="margin-bottom: 20px;">
+            <button class="send" type="button" id="uploadImageBtn">画像を挿入する</button>
+        </div>
 
-        <label>先生:</label>
-        <input asp-for="Teacher" id="teacherNameInput" /><br>
+        <div class="modern-input">
+            <label for="teacherNameInput">先生</label>
+            <input asp-for="Teacher" id="teacherNameInput" class="modern-control" />
+        </div>
 
-        <label>公開状態:</label>
-        <input type="checkbox" asp-for="IsPublic" id="isPublicToggle" />
-        <span id="publicStatusLabel" style="margin-left: 10px;">
-            @(Model.IsPublic ? "公開中" : "非公開")
-        </span><br>
+        <div class="checkBoxes" style="margin-bottom: 20px;">
+            <input type="checkbox" asp-for="IsPublic" id="isPublicToggle" />
+            <label for="isPublicToggle" style="margin-left: 10px;">公開状態</label>
+            <span id="publicStatusLabel" style="margin-left: 10px;">
+                @(Model.IsPublic ? "公開中" : "非公開")
+            </span>
+        </div>
 
-        <div style="text-align: right;">
-            <span id="autosaveStatus" style="margin-left: 10px; color: gray; font-size: 0.9em;"></span>
+        <div class="ans-but">
+            <span id="autosaveStatus" style="margin-right: auto; color: gray; font-size: 0.9em;"></span>
             <button class="send" type="submit">この内容に編集する</button>
         </div>
     </form>

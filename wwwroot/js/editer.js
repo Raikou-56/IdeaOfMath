@@ -95,6 +95,10 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
                 alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
                 return resolve(null);
             }
+            console.log("teacherName:", teacherName);
+            console.log("problemId:", problemId);
+            console.log("fileName:", altText);
+            console.log("file:", file);
 
             const formData = new FormData();
             formData.append("file", file);

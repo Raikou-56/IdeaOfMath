@@ -85,48 +85,50 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
         fileInput.type = "file";
         fileInput.accept = "image/*";
 
-    // ファイル選択を待つ
-    let imageUrl = await new Promise((resolve) => {
-        fileInput.onchange = async () => {
-            const file = fileInput.files[0];
-            if (!file) return resolve(null);
+        if (!teacherName || !problemId || !altText) {
+            console.log("不足情報:", { teacherName, problemId, altText });
+            alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
+            return resolve(null);
+        }
 
-            if (!teacherName || !problemId || !altText) {
-                console.log("不足情報:", { teacherName, problemId, altText });
-                alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
-                return resolve(null);
-            }
-            console.log("teacherName:", teacherName);
-            console.log("problemId:", problemId);
-            console.log("fileName:", altText);
-            console.log("file:", file);
+        console.log("teacherName:", teacherName);
+        console.log("problemId:", problemId);
+        console.log("fileName:", altText);
 
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("teacherName", teacherName);
-            formData.append("problemId", problemId);
-            formData.append("fileName", altText); // altからファイル名生成
+        // ファイル選択を待つ
+        let imageUrl = await new Promise((resolve) => {
+            fileInput.onchange = async () => {
+                const file = fileInput.files[0];
+                if (!file) return resolve(null);
 
-            const response = await fetch("/api/Image/upload", {
-                method: "POST",
-                body: formData
-            });
+                console.log("file:", file);
 
-            const url = await response.text();
-            if (!url.startsWith("http")) {
-                alert("画像のアップロードに失敗しました。サーバーから正しいURLが返ってきませんでした。");
-                return;
-            }
-            resolve(url);
-        };
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("teacherName", teacherName);
+                formData.append("problemId", problemId);
+                formData.append("fileName", altText); // altからファイル名生成
 
-        fileInput.click();
-      });
+                const response = await fetch("/api/Image/upload", {
+                    method: "POST",
+                    body: formData
+                });
 
-      if (imageUrl) {
-        // タグを src付きに置き換え
-        content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
-      }
+                const url = await response.text();
+                if (!url.startsWith("http")) {
+                    alert("画像のアップロードに失敗しました。サーバーから正しいURLが返ってきませんでした。");
+                    return;
+                }
+                resolve(url);
+            };
+
+            fileInput.click();
+        });
+
+        if (imageUrl) {
+            // タグを src付きに置き換え
+            content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
+        }
     }
 
     textarea.value = content;

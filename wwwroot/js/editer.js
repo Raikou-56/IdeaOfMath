@@ -102,6 +102,10 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
             });
 
             const url = await response.text();
+            if (!url.startsWith("http")) {
+                alert("画像のアップロードに失敗しました。サーバーから正しいURLが返ってきませんでした。");
+                return;
+            }
             resolve(url);
         };
 

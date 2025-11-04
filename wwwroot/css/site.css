@@ -130,6 +130,11 @@ label {
   font-family: "Hiragino Mincho ProN", "游明朝", "Noto Serif JP", serif;
 }
 
+.latex img {
+  max-width: 100%;
+  height: auto;
+}
+
 img.fil{
   max-height: 50px;
   object-fit: contain;

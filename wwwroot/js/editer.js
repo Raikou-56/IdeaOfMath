@@ -61,8 +61,8 @@ document.getElementById("isPublicToggle").addEventListener("change", function ()
 
 // 画像アップロード処理
 function extractImgTagsWithAlt(text) {
-  const regex = /<img\s[^>]*alt="([^"]+)"[^>]*>/g;
-  return [...text.matchAll(regex)]; // matchAllで全タグ取得
+    const regex = /<img\s[^>]*alt="([^"]+)"[^>]*>/g;
+    return [...text.matchAll(regex)];
 }
 
 document.getElementById("uploadImageBtn").addEventListener("click", async () => {
@@ -73,69 +73,75 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
     const imgTags = extractImgTagsWithAlt(content);
 
     if (imgTags.length === 0) {
-        alert("まず <img alt=\"図1\"> のようなタグを解答欄に書いてください！");
+        alert('まず <img alt="図1"> のようなタグを解答欄に書いてください！');
         return;
     }
 
     for (let i = 0; i < imgTags.length; i++) {
-        const altText = imgTags[i][1]; // "図1" など
+        const altText = imgTags[i][1];
         const originalTag = imgTags[i][0];
 
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.accept = "image/*";
-
-        // ファイル選択を待つ
-        let imageUrl = await new Promise((resolve) => {
-            fileInput.onchange = async () => {
-                try {
-                    const file = fileInput.files[0];
-                    if (!file) return resolve(null);
-                
-                    if (!teacherName || !problemId || !altText) {
-                        console.log("不足情報:", { teacherName, problemId, altText });
-                        alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
-                        return resolve(null);
-                    }
-                
-                    console.log("teacherName:", teacherName);
-                    console.log("problemId:", problemId);
-                    console.log("fileName:", altText);
-                    console.log("file:", file);
-                
-                    const formData = new FormData();
-                    formData.append("file", file);
-                    formData.append("teacherName", teacherName);
-                    formData.append("problemId", problemId);
-                    formData.append("fileName", altText);
-                
-                    const response = await fetch("/api/Image/upload", {
-                        method: "POST",
-                        body: formData
-                    });
-                
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error("アップロード失敗:", errorText);
-                        alert("画像のアップロードに失敗しました。サーバーからエラーが返されました。");
-                        return resolve(null);
-                    }
-                
-                    const url = await response.text();
-                    resolve(url);
-                } catch (err) {
-                    console.error("fetch中に例外が発生:", err);
-                    alert("画像のアップロード中にエラーが発生しました。");
-                    resolve(null);
-                }
-            };
-            fileInput.click();
-        });
-
+        const imageUrl = await promptForImageUpload(altText, teacherName, problemId);
         if (imageUrl) {
-            // タグを src付きに置き換え
             content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
         }
     }
+
     textarea.value = content;
 });
+
+async function promptForImageUpload(altText, teacherName, problemId) {
+    return new Promise((resolve) => {
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
+        fileInput.style.display = "none";
+        document.body.appendChild(fileInput);
+
+        fileInput.onchange = async () => {
+            try {
+                const file = fileInput.files[0];
+                fileInput.remove(); // 選択後に削除
+
+                if (!file) return resolve(null);
+                if (!teacherName || !problemId || !altText) {
+                    console.log("不足情報:", { teacherName, problemId, altText });
+                    alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
+                    return resolve(null);
+                }
+
+                console.log("teacherName:", teacherName);
+                console.log("problemId:", problemId);
+                console.log("fileName:", altText);
+                console.log("file:", file);
+
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("teacherName", teacherName);
+                formData.append("problemId", problemId);
+                formData.append("fileName", altText);
+
+                const response = await fetch("/api/Image/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("アップロード失敗:", errorText);
+                    alert("画像のアップロードに失敗しました。サーバーからエラーが返されました。");
+                    return resolve(null);
+                }
+
+                const url = await response.text();
+                resolve(url);
+            } catch (err) {
+                console.error("fetch中に例外が発生:", err);
+                alert("画像のアップロード中にエラーが発生しました。");
+                resolve(null);
+            }
+        };
+
+        fileInput.click();
+    });
+}

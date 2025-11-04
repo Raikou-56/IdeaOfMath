@@ -68,8 +68,8 @@ function extractImgTagsWithAlt(text) {
 document.getElementById("uploadImageBtn").addEventListener("click", async () => {
     const textarea = document.getElementById("latexInput2");
     let content = textarea.value;
-    const teacherName = document.getElementById("teacherNameInput")?.value?.trim();
-    const problemId = document.querySelector("input[name='SerialNumber']")?.value?.trim();
+    const teacherName = document.querySelector('[name="Teacher"]')?.value?.trim();
+    const problemId = document.querySelector('[name="SerialNumber"]')?.value?.trim();
     const imgTags = extractImgTagsWithAlt(content);
 
     if (imgTags.length === 0) {

@@ -3,6 +3,7 @@ using MathSiteProject;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
 using MathSiteProject.Repositories.Interfaces;
+using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
 using System.IO;
 
@@ -32,6 +33,8 @@ builder.Services.AddSingleton<AnswerHistoryRepository>();
 builder.Services.AddScoped<ProblemRepository>();
 
 builder.Services.AddScoped<IProblemService, ProblemService>();
+
+builder.Services.AddTransient<CloudinaryStorageService>();
 
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";

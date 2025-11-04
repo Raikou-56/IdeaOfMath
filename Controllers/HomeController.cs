@@ -87,12 +87,7 @@ public class HomeController : Controller
             throw new InvalidOperationException("Cloudinary の環境変数が正しく設定されていません。");
         }
         
-        var cloudinaryService = new CloudinaryStorageService(
-            cloudName,
-            apiKey,
-            apiSecret,
-            "MathSite"
-        );
+        var cloudinaryService = new CloudinaryStorageService();
 
         int counter = 0;
         List<string> imageUrls = new List<string>();

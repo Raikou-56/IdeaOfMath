@@ -8,11 +8,20 @@ public class CloudinaryStorageService
     private readonly Cloudinary _cloudinary;
     private readonly string _rootFolder;
 
-    public CloudinaryStorageService(string cloudName, string apiKey, string apiSecret, string rootFolder = "MathSite")
+    public CloudinaryStorageService()
     {
+        var cloudName = Environment.GetEnvironmentVariable("CLOUD_CLOUD_NAME");
+        var apiKey = Environment.GetEnvironmentVariable("CLOUD_API_KEY");
+        var apiSecret = Environment.GetEnvironmentVariable("CLOUD_API_SECRET");
+        _rootFolder = Environment.GetEnvironmentVariable("CLOUD_ROOT_FOLDER") ?? "MathSite";
+
+        if (string.IsNullOrEmpty(cloudName) || string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(apiSecret))
+        {
+            throw new InvalidOperationException("Cloudinary の環境変数が正しく設定されていません。");
+        }
+
         var account = new Account(cloudName, apiKey, apiSecret);
         _cloudinary = new Cloudinary(account);
-        _rootFolder = rootFolder;
     }
 
     public async Task<string> UploadFileAsync(string localPath, string studentName, string problemId, string fileName)

@@ -92,6 +92,7 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
             if (!file) return resolve(null);
 
             if (!teacherName || !problemId || !altText) {
+                console.log("不足情報:", { teacherName, problemId, altText });
                 alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
                 return resolve(null);
             }

@@ -13,10 +13,15 @@ public class ImageController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> UploadImage(IFormFile file, string teacherName, string problemId, string fileName)
+    public async Task<IActionResult> UploadImage(
+        [FromForm] IFormFile file,
+        [FromForm] string teacherName,
+        [FromForm] string problemId,
+        [FromForm] string fileName)
     {
         try
         {
+            Console.WriteLine(file);
             if (file == null)
             {
                 return BadRequest("ファイルがありません");

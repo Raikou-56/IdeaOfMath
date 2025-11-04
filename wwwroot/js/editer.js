@@ -88,49 +88,47 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
         // ファイル選択を待つ
         let imageUrl = await new Promise((resolve) => {
             fileInput.onchange = async () => {
-            try {
-                const file = fileInput.files[0];
-                if (!file) return resolve(null);
-            
-                if (!teacherName || !problemId || !altText) {
-                    console.log("不足情報:", { teacherName, problemId, altText });
-                    alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
-                    return resolve(null);
+                try {
+                    const file = fileInput.files[0];
+                    if (!file) return resolve(null);
+                
+                    if (!teacherName || !problemId || !altText) {
+                        console.log("不足情報:", { teacherName, problemId, altText });
+                        alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
+                        return resolve(null);
+                    }
+                
+                    console.log("teacherName:", teacherName);
+                    console.log("problemId:", problemId);
+                    console.log("fileName:", altText);
+                    console.log("file:", file);
+                
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    formData.append("teacherName", teacherName);
+                    formData.append("problemId", problemId);
+                    formData.append("fileName", altText);
+                
+                    const response = await fetch("/api/Image/upload", {
+                        method: "POST",
+                        body: formData
+                    });
+                
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error("アップロード失敗:", errorText);
+                        alert("画像のアップロードに失敗しました。サーバーからエラーが返されました。");
+                        return resolve(null);
+                    }
+                
+                    const url = await response.text();
+                    resolve(url);
+                } catch (err) {
+                    console.error("fetch中に例外が発生:", err);
+                    alert("画像のアップロード中にエラーが発生しました。");
+                    resolve(null);
                 }
-            
-                console.log("teacherName:", teacherName);
-                console.log("problemId:", problemId);
-                console.log("fileName:", altText);
-                console.log("file:", file);
-            
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("teacherName", teacherName);
-                formData.append("problemId", problemId);
-                formData.append("fileName", altText);
-            
-                const response = await fetch("/api/Image/upload", {
-                    method: "POST",
-                    body: formData
-                });
-            
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error("アップロード失敗:", errorText);
-                    alert("画像のアップロードに失敗しました。サーバーからエラーが返されました。");
-                    return resolve(null);
-                }
-            
-                const url = await response.text();
-                resolve(url);
-            } catch (err) {
-                console.error("fetch中に例外が発生:", err);
-                alert("画像のアップロード中にエラーが発生しました。");
-                resolve(null);
-            }
-        };
-
-
+            };
             fileInput.click();
         });
 
@@ -139,6 +137,5 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
             content = content.replace(originalTag, `<img src="${imageUrl}" alt="${altText}">`);
         }
     }
-
     textarea.value = content;
 });

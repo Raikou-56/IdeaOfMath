@@ -23,7 +23,7 @@
         <div class="score-input-group">
             <label for="difficulty">難易度</label>
             <input asp-for="difficulty" class="modern-score-input" />
-            <span class="unit">（例：1〜5）</span>
+            <span class="unit">（A~E）</span>
         </div>
 
         <div class="modern-input">
@@ -61,8 +61,8 @@
         </div>
 
         <div class="checkBoxes" style="margin-bottom: 20px;">
-            <input type="checkbox" asp-for="IsPublic" id="isPublicToggle" />
             <label for="isPublicToggle" style="margin-left: 10px;">公開状態</label>
+            <input type="checkbox" asp-for="IsPublic" id="isPublicToggle" />
             <span id="publicStatusLabel" style="margin-left: 10px;">
                 @(Model.IsPublic ? "公開中" : "非公開")
             </span>

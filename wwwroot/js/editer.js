@@ -68,7 +68,8 @@ function extractImgTagsWithAlt(text) {
 document.getElementById("uploadImageBtn").addEventListener("click", async () => {
     const textarea = document.getElementById("latexInput2");
     let content = textarea.value;
-    const teacherName = document.getElementById("teacherNameInput").value;
+    const teacherName = document.getElementById("teacherNameInput")?.value?.trim();
+    const problemId = document.querySelector("input[name='SerialNumber']")?.value?.trim();
     const imgTags = extractImgTagsWithAlt(content);
 
     if (imgTags.length === 0) {
@@ -93,8 +94,13 @@ document.getElementById("uploadImageBtn").addEventListener("click", async () => 
             const formData = new FormData();
             formData.append("file", file);
             formData.append("teacherName", teacherName);
-            formData.append("problemId", document.querySelector("input[name='SerialNumber']").value);
+            formData.append("problemId", problemId);
             formData.append("fileName", altText); // altからファイル名生成
+
+            if (!teacherName || !problemId || !altText) {
+                alert("必要な情報が不足しています。画像タグの alt、先生名、問題IDを確認してください。");
+                return resolve(null);
+            }
 
             const response = await fetch("/api/Image/upload", {
                 method: "POST",

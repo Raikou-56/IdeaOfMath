@@ -38,7 +38,6 @@
 /* 下りてくるパネル */
 #filterPanel {
   position: fixed;
-  top: 60px; /* 看板の高さ分下げる */
   left: 0;
   width: 100%;
   background: #f9f9f9;

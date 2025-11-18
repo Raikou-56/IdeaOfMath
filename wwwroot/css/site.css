@@ -110,16 +110,6 @@ label {
   border-radius: 4px;
 }
 
-.che {
-  background-color: white;
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
-  text-align: left;
-  padding: 10px;
-  display: none;
-  width: 0;
-  height: 0;
-}
-
 .latex {
   background-color: white;
   border-radius: 5px;

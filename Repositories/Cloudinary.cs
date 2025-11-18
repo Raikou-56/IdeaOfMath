@@ -26,7 +26,8 @@ public class CloudinaryStorageService
 
     public async Task<string> UploadFileAsync(string localPath, string studentName, string problemId, string fileName)
     {
-        var publicId = $"{_rootFolder}/{studentName}/{problemId}/{fileName}";
+        var date = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+        var publicId = $"{_rootFolder}/{studentName}/{problemId}/{fileName}/{date}";
 
         var uploadParams = new ImageUploadParams()
         {

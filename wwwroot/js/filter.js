@@ -1,31 +1,14 @@
 $(document).ready(function() {
-    $("#toggleButton").click(function() {
-        $(this).toggleClass("active");
-        toggleContainer($("#checkboxContainer1"));
-        toggleContainer($("#checkboxContainer2"));
-    });
-    setupFilter("field1", "field");
-    setupFilter("field2", "dif");
+  // 吊るし看板クリックでパネルをスライド表示
+  $("#signboard").click(function() {
+    $("#filterPanel").slideToggle(300);
+  });
+
+  // フィルター処理は既存のまま
+  setupFilter("field1", "field");
+  setupFilter("field2", "dif");
 });
 
-function toggleContainer($container) {
-  const isClosed = $container.height() === 0;
-
-  if (isClosed) {
-    $container.css("display", "block");
-    $container.animate({ 
-      height: $container.get(0).scrollHeight + 5, 
-      width: $container.get(0).scrollWidth + 5 
-    }, 500);
-  } else {
-    $container.animate({ 
-      height: 0, 
-      width: 0 
-    }, 500, function() {
-      $container.css("display", "none");
-    });
-  }
-}
 
 function setupFilter(name) {
   $(`input[name="${name}"]`).on('change', function() {

@@ -1,0 +1,99 @@
+/* 吊るし看板風ヘッダー */
+#filterHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+
+#signboard {
+  display: inline-block;
+  background: #1e90ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+}
+
+/* 吊るし紐っぽい演出 */
+#signboard::before,
+#signboard::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  width: 2px;
+  height: 15px;
+  background: #555;
+}
+
+#signboard::before {
+  left: 10px;
+}
+#signboard::after {
+  right: 10px;
+}
+
+/* 下りてくるパネル */
+#filterPanel {
+  position: fixed;
+  top: 60px; /* 看板の高さ分下げる */
+  left: 0;
+  width: 100%;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ccc;
+  display: none;
+  z-index: 999;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* 近代的チェックボックス */
+.custom-check {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #87cefa;
+  border-radius: 9999px;
+  padding: 6px 12px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #e6f7ff;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.custom-check input[type="checkbox"] {
+  display: none;
+}
+
+.custom-check .circle {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #87cefa;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: relative;
+}
+
+.custom-check input[type="checkbox"]:checked + .circle {
+  background-color: #1e90ff;
+  border-color: #1e90ff;
+}
+
+.custom-check input[type="checkbox"]:checked ~ * {
+  color: #fff;
+}
+
+.custom-check input[type="checkbox"]:checked ~ .circle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+}

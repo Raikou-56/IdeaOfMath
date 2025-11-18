@@ -1,7 +1,9 @@
 ﻿@{
     ViewData[index: "Title"] = "Home Page";
 }
-
+@section Styles {
+    <link rel="stylesheet" href="~/css/index.css" />
+}
 @section Scripts {
     <script src="~/js/index.js"></script>
     <script src="~/js/filter.js"></script>
@@ -11,21 +13,50 @@
     </script>
 }
 
-<div style="display: flex; justify-content: flex-end; align-items: flex-start;">
-    <button id="toggleButton">
-        <img src="\img\srcbut.png"  class="fil">
-    </button>
+<!-- 固定ヘッダー -->
+<!-- 吊るし看板風ヘッダー -->
+<div id="filterHeader">
+  <div id="signboard">
+    <span>絞り込み条件</span>
+  </div>
+</div>
+
+<!-- スライドで出てくるフィルター部分 -->
+<div id="filterPanel">
     <div class="checkBoxes">
         <div id="checkboxContainer1" class="che">
-            <label>分野</label><br>
-            <label><input type="checkbox" name="field1" value="場合の数"> 場合の数</label><br>
-            <label><input type="checkbox" name="field1" value="確率"> 確率</label><br>
-            <label><input type="checkbox" name="field1" value="微積"> 微積</label><br>
-            <label><input type="checkbox" name="field1" value="整数"> 整数</label><br>
-            <label><input type="checkbox" name="field1" value="極限"> 極限</label><br>
-            <label><input type="checkbox" name="field1" value="数列"> 数列</label><br>
-            <label><input type="checkbox" name="field1" value="幾何学"> 幾何学</label><br>
-            <label><input type="checkbox" name="field1" value="all" checked> すべて表示</label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="場合の数">
+                <span class="circle"></span> 場合の数
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="確率">
+                <span class="circle"></span> 確率
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="微積">
+                <span class="circle"></span> 微積
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="整数">
+                <span class="circle"></span> 整数
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="数列">
+                <span class="circle"></span> 数列
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="極限">
+                <span class="circle"></span> 極限
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="図形">
+                <span class="circle"></span> 図形
+            </label>
+            <label class="custom-check">
+                <input type="checkbox" name="field1" value="all" checked>
+                <span class="circle"></span> すべて表示
+            </label>
         </div>
         <div id="checkboxContainer2" class="che">
             <label>難易度</label><br>
@@ -38,6 +69,7 @@
         </div>
     </div>
 </div>
+
 
 <div id="problemContainer"></div>
 

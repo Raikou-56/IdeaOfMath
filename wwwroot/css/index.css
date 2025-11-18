@@ -4,7 +4,7 @@
   width: 100%;
   text-align: center;
   z-index: 1000;
-  transition: top 0.3s ease;
+  transition: top 0.1s ease;
 }
 
 #signboard {

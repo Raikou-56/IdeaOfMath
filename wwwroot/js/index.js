@@ -128,7 +128,7 @@ window.addEventListener("scroll", function() {
     const header = document.getElementById("filterHeader");
     const scrollY = window.scrollY;
 
-    if (scrollY > 50) {  
+    if (scrollY > 140) {  
         // layoutヘッダーが消えるタイミングに合わせて
         header.style.top = "0px";
     } else {

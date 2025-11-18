@@ -1,10 +1,17 @@
 /* 吊るし看板風ヘッダー */
-#filterHeader {
-  position: fixed;
+#signboard {
+  position: sticky;   /* スクロールに追従して固定 */
+  top: 60px;          /* navbarの高さ分だけ下に配置 */
   width: 100%;
+  background: #1e90ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 0 0 8px 8px;
   text-align: center;
-  z-index: 1000;
+  cursor: pointer;
+  z-index: 1000;      /* コンテンツより前面に */
 }
+
 
 #signboard {
   display: inline-block;

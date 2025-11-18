@@ -33,48 +33,20 @@ function getSelectedFields(name) {
 }
 
 function filterProblems() {
-  const selected1 = getSelectedFields("field1");
-  const selected2 = getSelectedFields("field2");
-  
-  const fields1 = selected1.filter(val => val !== "all");
-  const fields2 = selected2.filter(val => val !== "all");
+  const selected1 = getSelectedFields("field1").filter(val => val !== "all");
+  const selected2 = getSelectedFields("field2").filter(val => val !== "all");
 
-  if (fields1.length === 0) {
-    if (fields2.length === 0) {
-      $(".que").show();
+  $('.que').each(function() {
+    const field1 = $(this).data("field");
+    const field2 = $(this).data("dif");
+
+    const matchField1 = selected1.length === 0 || selected1.includes(field1);
+    const matchField2 = selected2.length === 0 || selected2.includes(field2);
+
+    if (matchField1 && matchField2) {
+      $(this).show();
+    } else {
+      $(this).hide();
     }
-    else {
-      $('.que').each(function() {
-        const field2 = $(this).data("dif");
-        if (selected2.includes(field2)) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
-    }
-  }
-  else {
-    if (fields2.length === 0) {
-      $('.que').each(function() {
-        const field1 = $(this).data("field");
-        if (selected1.includes(field1)) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
-    }
-    else {
-      $('.que').each(function() {
-        const field1 = $(this).data("field");
-        const field2 = $(this).data("dif");
-        if (selected1.includes(field1) && selected2.includes(field2)) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
-    }
-  }
+  });
 }

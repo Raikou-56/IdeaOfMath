@@ -1,8 +1,14 @@
 /* 吊るし看板風ヘッダー */
+#filterHeader {
+  position: sticky;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
 
 #signboard {
   position: sticky;   /* スクロールに追従して固定 */
-  width: 100%;
+  width: 10%;
   background: #1e90ff;
   color: #fff;
   padding: 10px 20px;

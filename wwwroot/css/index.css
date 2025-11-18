@@ -19,27 +19,8 @@
   z-index: 1000;      /* コンテンツより前面に */
 }
 
-/* 吊るし紐っぽい演出 */
-#signboard::before,
-#signboard::after {
-  content: "";
-  position: absolute;
-  top: -15px;
-  width: 2px;
-  height: 15px;
-  background: #555;
-}
-
-#signboard::before {
-  left: 10px;
-}
-#signboard::after {
-  right: 10px;
-}
-
 /* 下りてくるパネル */
 #filterPanel {
-  position: fixed;
   left: 0;
   width: 100%;
   background: #f9f9f9;

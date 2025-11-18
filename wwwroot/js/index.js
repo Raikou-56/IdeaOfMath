@@ -133,6 +133,6 @@ window.addEventListener("scroll", function() {
         header.style.top = "0px";
     } else {
         // ページ最上部では少し下に配置
-        header.style.top = "60px"; // layoutヘッダーの高さ
+        header.style.top = "140px"; // layoutヘッダーの高さ
     }
 });

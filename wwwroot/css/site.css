@@ -32,12 +32,12 @@ label {
 }
 
 .all {
+  overflow: visible;
   background-color: rgba(0, 238, 255, 0.4);
   justify-content: center;
   position: relative;
   border: 1px solid rgba(0, 238, 255, 0.2);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  min-height: auto;
 }
 
 .dif, .answer-block {

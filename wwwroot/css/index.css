@@ -9,12 +9,11 @@
   width: 100%;
   text-align: center;
   z-index: 1000;
-  transition: top 0.1s ease;
 }
 
 #signboard {
   display: inline-block;
-  width: 10%;
+  width: 20%;
   background: #1e90ff;
   color: #fff;
   padding: 10px 20px;

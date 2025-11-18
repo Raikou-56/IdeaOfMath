@@ -7,7 +7,7 @@
 }
 
 #signboard {
-  position: sticky;   /* スクロールに追従して固定 */
+  position: fixed;   /* スクロールに追従して固定 */
   width: 10%;
   background: #1e90ff;
   color: #fff;

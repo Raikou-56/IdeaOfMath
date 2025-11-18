@@ -1,6 +1,7 @@
 /* 吊るし看板風ヘッダー */
 #filterHeader {
   top: 0;
+  left: 0;
   width: 100%;
   text-align: center;
   z-index: 1000;
@@ -12,7 +13,7 @@
 
 #signboard {
   display: inline-block;
-  width: 20%;
+  width: auto;
   background: #1e90ff;
   color: #fff;
   padding: 10px 20px;

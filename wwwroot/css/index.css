@@ -1,4 +1,11 @@
 /* 吊るし看板風ヘッダー */
+#filterHeader {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+
 #signboard {
   position: sticky;   /* スクロールに追従して固定 */
   top: 60px;          /* navbarの高さ分だけ下に配置 */
@@ -10,18 +17,6 @@
   text-align: center;
   cursor: pointer;
   z-index: 1000;      /* コンテンツより前面に */
-}
-
-
-#signboard {
-  display: inline-block;
-  background: #1e90ff;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
 }
 
 /* 吊るし紐っぽい演出 */

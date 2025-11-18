@@ -123,3 +123,16 @@ function loadProblems() {
 window.addEventListener("DOMContentLoaded", () => {
     loadProblems(); // 最初の読み込みだけ
 });
+
+window.addEventListener("scroll", function() {
+    const header = document.getElementById("filterHeader");
+    const scrollY = window.scrollY;
+
+    if (scrollY > 50) {  
+        // layoutヘッダーが消えるタイミングに合わせて
+        header.style.top = "0px";
+    } else {
+        // ページ最上部では少し下に配置
+        header.style.top = "60px"; // layoutヘッダーの高さ
+    }
+});

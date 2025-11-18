@@ -124,3 +124,16 @@ window.addEventListener("DOMContentLoaded", () => {
     loadProblems(); // 最初の読み込みだけ
 });
 
+$(function() {
+  var nav = $('#filterHeader');       // 固定対象
+  var navTop = nav.offset().top;      // 要素の初期位置を取得
+
+  $(window).scroll(function () {
+    var winTop = $(this).scrollTop();
+    if (winTop >= navTop) {
+      nav.addClass('fixed');
+    } else {
+      nav.removeClass('fixed');
+    }
+  });
+});

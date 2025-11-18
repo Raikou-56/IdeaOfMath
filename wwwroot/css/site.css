@@ -61,10 +61,6 @@ label {
   margin-right: 5px;
 }
 
-.checkBoxes {
-  display: inline-flex;
-}
-
 .ans-but {
   display: flex;
   justify-content: flex-end;

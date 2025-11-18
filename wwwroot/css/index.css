@@ -1,14 +1,13 @@
-.filterWrapper {
-    overflow: visible; /* stickyが効くようにする */
-}
-
 /* 吊るし看板風ヘッダー */
 #filterHeader {
-  position: sticky;
   top: 0;
   width: 100%;
   text-align: center;
   z-index: 1000;
+}
+
+.fixed{
+  position: fixed;
 }
 
 #signboard {

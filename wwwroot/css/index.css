@@ -11,9 +11,16 @@
   position: fixed;
 }
 
+.fixed-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .fixed-button {
   display: inline-block;
   width: auto;
+  margin: 0;
   background: #1e90ff;
   color: #fff;
   padding: 10px 20px;

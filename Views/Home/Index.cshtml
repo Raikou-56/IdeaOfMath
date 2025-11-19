@@ -101,31 +101,31 @@
             {
                 <form asp-controller="Account" asp-action="Logout" method="post">
                     <div class="fixed-button">
-                        <button class="nav-link text-dark" type="submit">ログアウト</button>
+                        <button type="submit">ログアウト</button>
                     </div>
                 </form>
             }
             else
             {
                 <div class="fixed-button">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">ログイン・新規会員登録</a>
+                    <a asp-area="" asp-controller="Account" asp-action="Login">ログイン・新規会員登録</a>
                 </div>
             }
 
             @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
             {
                 <div class="fixed-button">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
                 </div>
             }
             @if (User.Identity != null && (User.IsInRole("Admin")))
             {
                 <div class="fixed-button">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Development" asp-action="TestPage">Test</a>
+                    <a asp-area="" asp-controller="Development" asp-action="TestPage">Test</a>
                 </div>
             }
             <div class="fixed-button">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
+                <a asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
             </div>
         </div>
     </div>

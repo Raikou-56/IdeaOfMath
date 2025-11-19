@@ -30,6 +30,18 @@
   z-index: 1000;      /* コンテンツより前面に */
 }
 
+.fixed-button a {
+  text-decoration: none;   /* 下線を消す */
+  color: #fff;             /* 文字色を白に */
+}
+
+/* ホバー時の効果 */
+.fixed-button:hover {
+  background: #4682b4;     /* 少し濃い青に */
+  color: #fff;             /* 文字色はそのまま白 */
+}
+
+
 /* 下りてくるパネル */
 #filterPanel {
   left: 0;

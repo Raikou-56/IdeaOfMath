@@ -20,7 +20,7 @@
     <div id="filterPanel">
         <div class="checkBoxes">
             <div id="checkboxContainer1">
-                <label>分野</label><br>
+                <label class="check-label">分野</label><br>
                 <label class="custom-check">
                     <input type="checkbox" name="field1" value="場合の数">
                     <span class="circle"></span> 場合の数
@@ -50,12 +50,16 @@
                     <span class="circle"></span> 図形
                 </label>
                 <label class="custom-check">
+                    <input type="checkbox" name="field1" value="行列">
+                    <span class="circle"></span> 行列
+                </label>
+                <label class="custom-check">
                     <input type="checkbox" name="field1" value="all" checked>
                     <span class="circle"></span> すべて表示
                 </label>
             </div><br>
             <div id="checkboxContainer2">
-                <label>難易度</label><br>
+                <label class="check-label">難易度</label><br>
                 <label class="custom-check">
                     <input type="checkbox" name="field2" value="A">
                     <span class="circle"></span> A
@@ -88,8 +92,42 @@
         </div>
     </div>
     
-    <div id="signboard">
-        <span>絞り込み条件</span>
+    <div>
+        <div id="signboard" class="fixed-button">
+            <span>絞り込み条件</span>
+        </div>
+        <div>
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <div class="fixed-button">
+                        <button class="nav-link text-dark" type="submit">ログアウト</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="fixed-button">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">ログイン・新規会員登録</a>
+                </div>
+            }
+
+            @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
+            {
+                <div class="fixed-button">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
+                </div>
+            }
+            @if (User.Identity != null && (User.IsInRole("Admin")))
+            {
+                <div class="fixed-button">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Development" asp-action="TestPage">Test</a>
+                </div>
+            }
+            <div class="fixed-button">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -11,7 +11,7 @@
   position: fixed;
 }
 
-#signboard {
+.fixed-button {
   display: inline-block;
   width: auto;
   background: #1e90ff;
@@ -80,4 +80,15 @@
   height: 6px;
   background: #fff;
   border-radius: 50%;
+}
+
+.check-label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1e90ff;          /* サインボードと統一感 */
+  margin-bottom: 8px;
+  padding: 4px 0;
+  border-bottom: 2px solid #87cefa; /* 下線で区切り */
+  letter-spacing: 0.05em;  /* 少し広げて見やすく */
 }

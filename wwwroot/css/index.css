@@ -18,7 +18,7 @@
   text-align: center;
 }
 
-.fixed-link {
+.fixed-button{
   display: inline-block;
   background: #1e90ff;
   color: #fff;
@@ -26,6 +26,12 @@
   border-radius: 0 0 8px 8px;
   text-align: center;
   cursor: pointer;
+  line-height: 20px;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.fixed-link {
   line-height: 20px;
   vertical-align: middle;
   text-decoration: none;

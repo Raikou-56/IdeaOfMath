@@ -3,6 +3,7 @@
   width: 100%;
   max-width: 636px;
   text-align: center;
+  margin: 0 auto;
   z-index: 1000;
 }
 
@@ -31,16 +32,8 @@
 }
 
 .fixed-button form button {
-  border: none;        /* デフォルト枠線だけ消す */
-  background: #1e90ff; /* リンクと同じ背景色 */
   color: #fff;
-  padding: 10px 20px;
-  border-radius: 0 0 8px 8px;
-  text-align: center;
-  cursor: pointer;
-  display: inline-block; /* 中央寄せに必要 */
 }
-
 
 .fixed-button a {
   text-decoration: none;   /* 下線を消す */
@@ -48,8 +41,7 @@
 }
 
 /* ホバー時の効果 */
-.fixed-button a:hover,
-.fixed-button form button:hover {
+.fixed-button:hover{
   background: #4682b4;
   color: #fff;
 }

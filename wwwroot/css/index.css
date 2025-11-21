@@ -1,8 +1,5 @@
 /* 吊るし看板風ヘッダー */
 #filterHeader {
-  top: 0;
-  left: 50%;             /* 画面幅の中央を基準に */
-  transform: translateX(-50%);
   width: 100%;
   max-width: 636px;
   text-align: center;
@@ -11,6 +8,9 @@
 
 .fixed{
   position: fixed;
+  top: 0;
+  left: 50%;             /* 画面幅の中央を基準に */
+  transform: translateX(-50%);
 }
 
 .fixed-buttons {

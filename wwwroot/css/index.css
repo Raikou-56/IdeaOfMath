@@ -28,17 +28,14 @@
 }
 
 .fixed-button form button {
-  all: unset;              /* ブラウザのデフォルトをリセット */
-  display: inline-block;
-  width: auto;
-  margin: 0;
-  background: #1e90ff;
+  border: none;        /* デフォルト枠線だけ消す */
+  background: #1e90ff; /* リンクと同じ背景色 */
   color: #fff;
   padding: 10px 20px;
   border-radius: 0 0 8px 8px;
   text-align: center;
   cursor: pointer;
-  z-index: 1000;
+  display: inline-block; /* 中央寄せに必要 */
 }
 
 

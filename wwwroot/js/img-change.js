@@ -1,13 +1,11 @@
-function zoomImage(imgId, scaleFactor) {
+function zoomImage(imgId, factor) {
     var img = document.getElementById(imgId);
-    // 現在の拡大率を取得（なければ1）
-    var currentScale = img.dataset.scale ? parseFloat(img.dataset.scale) : 1;
-    var newScale = currentScale * scaleFactor;
+    var currentWidth = img.clientWidth;
+    var newWidth = currentWidth * factor;
 
-    // 拡大率の上限・下限を設定（例: 0.5〜3倍）
-    if (newScale < 0.5) newScale = 0.5;
-    if (newScale > 3) newScale = 3;
+    // 上限・下限を設定
+    if (newWidth < 100) newWidth = 100;
+    if (newWidth > 800) newWidth = 800;
 
-    img.style.transform = "scale(" + newScale + ")";
-    img.dataset.scale = newScale; // 現在の倍率を保存
+    img.style.width = newWidth + "px";
 }

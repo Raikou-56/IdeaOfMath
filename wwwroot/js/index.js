@@ -25,10 +25,23 @@ function renderProblems(problems) {
             ? "opacity: 0.5; border: 1px dashed gray;"
             : "";
 
+        // --- NEW 判定 ---
+        let newBadge = "";
+        if (problem.publishedAt) {
+            const publishedDate = new Date(problem.publishedAt);
+            const now = new Date();
+            const diffMs = now - publishedDate;
+            const diffDays = diffMs / (1000 * 60 * 60 * 24);
+            if (diffDays <= 3) {
+                newBadge = `<span style="font-size:0.7em; color:orange; font-weight:bold; margin-right:4px;">NEW</span>`;
+            }
+        }
+
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
         div.innerHTML = `
             <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}" style="${hiddenStyle}">
                 <br>
+                ${newBadge}
                 <div class="dif">
                     ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category} ${scoreText}
                     ${isHidden ? "<span style='color:red;'>[非公開]</span>" : ""}

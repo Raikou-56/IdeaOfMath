@@ -1,7 +1,6 @@
 /* 吊るし看板風ヘッダー */
 #filterHeader {
   top: 0;
-  left: 0;
   width: 100%;
   text-align: center;
   z-index: 1000;
@@ -12,10 +11,7 @@
 }
 
 .fixed-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
+  text-align: center;
 }
 
 .fixed-button {
@@ -31,15 +27,31 @@
   z-index: 1000;      /* コンテンツより前面に */
 }
 
+.fixed-button form button {
+  all: unset;              /* ブラウザのデフォルトをリセット */
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  background: #1e90ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 0 0 8px 8px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+
 .fixed-button a {
   text-decoration: none;   /* 下線を消す */
   color: #fff;             /* 文字色を白に */
 }
 
 /* ホバー時の効果 */
-.fixed-button:hover {
-  background: #4682b4;     /* 少し濃い青に */
-  color: #fff;             /* 文字色はそのまま白 */
+.fixed-button a:hover,
+.fixed-button form button:hover {
+  background: #4682b4;
+  color: #fff;
 }
 
 

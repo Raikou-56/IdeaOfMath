@@ -18,9 +18,7 @@
   text-align: center;
 }
 
-.fixed-button,
-.fixed-button a,
-.fixed-button button {
+.fixed-button{
   display: inline-block;
   background: #1e90ff;
   color: #fff;
@@ -30,6 +28,7 @@
   cursor: pointer;
   line-height: 20px;
   vertical-align: middle;
+  text-decoration: none;
 }
 
 

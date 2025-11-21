@@ -1,6 +1,9 @@
 @{
     ViewData[index: "Title"] = "Scoring Page";
 }
+@section Scripts {
+    <script src="~/js/img-change.js"></script>
+}
 
 @model AnswerHistory
 
@@ -16,7 +19,13 @@
     {
         @foreach (string url in Model.CloudinaryUrls)
         {
-            <img src="@url" alt="解答画像" style="max-width:200px; margin:10px;" />
+            <div class="image-wrapper">
+                <img src="@url" alt="解答画像" class="answer-image" id="img-@url.GetHashCode()" />
+                <div class="zoom-controls">
+                    <button type="button" onclick="zoomImage('img-@url.GetHashCode()', 1.5)">拡大</button>
+                    <button type="button" onclick="zoomImage('img-@url.GetHashCode()', 0.75)">縮小</button>
+                </div>
+            </div>
         }
     }<br>
 
@@ -29,3 +38,7 @@
     <button class="send" type="submit">採点結果を送信</button>
 </form>
 
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>

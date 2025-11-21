@@ -18,7 +18,7 @@
   text-align: center;
 }
 
-.fixed-button{
+.fixed-link {
   display: inline-block;
   background: #1e90ff;
   color: #fff;
@@ -29,7 +29,9 @@
   line-height: 20px;
   vertical-align: middle;
   text-decoration: none;
+  border: none;
 }
+
 
 
 /* ホバー時の効果 */

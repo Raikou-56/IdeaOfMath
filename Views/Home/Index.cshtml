@@ -100,31 +100,31 @@
         {
             <div class="fixed-button">
                 <form asp-controller="Account" asp-action="Logout" method="post">
-                    <button type="submit">ログアウト</button>
+                    <button class="fixed-link" type="submit">ログアウト</button>
                 </form>
             </div>
         }
         else
         {
             <div class="fixed-button">
-                <a asp-area="" asp-controller="Account" asp-action="Login">ログイン・新規会員登録</a>
+                <a class="fixed-link" class="fixed-link" asp-area="" asp-controller="Account" asp-action="Login">ログイン・新規会員登録</a>
             </div>
         }
 
         @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
         {
             <div class="fixed-button">
-                <a asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
+                <a class="fixed-link" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
             </div>
         }
         @if (User.Identity != null && (User.IsInRole("Admin")))
         {
             <div class="fixed-button">
-                <a asp-area="" asp-controller="Development" asp-action="TestPage">Test</a>
+                <a class="fixed-link" asp-area="" asp-controller="Development" asp-action="TestPage">Test</a>
             </div>
         }
         <div class="fixed-button">
-            <a asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
+            <a class="fixed-link" asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
         </div>
     </div>
 </div>

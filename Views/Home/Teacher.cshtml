@@ -4,10 +4,15 @@
 
 @model TeacherViewModel
 
-<div style="padding:30px;">
+<div style="padding:30px; max-width:650px; margin:auto;">
     <p class="tst">こちらは教師専用ページです。</p><br>
     <p class="tst">現在データベースに登録されてる問題は @Model.ProblemsCount 問です。</p>
 
+    <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">
+        <button class="send">問題を投稿する</button>
+    </a>
+
+    <br />
     <div class="field-counts">
         @foreach (var pair in Model.FieldCounts ?? new Dictionary<string, int>())
         {
@@ -18,8 +23,4 @@
         }
     </div>
     <br>
-
-    <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">
-        <button class="send">問題を投稿する</button>
-    </a>
 </div>

@@ -1,0 +1,46 @@
+<svg viewBox="0 0 300 120" width="300" height="120" xmlns="http://www.w3.org/2000/svg">
+  <!-- pill型の枠 -->
+  <rect x="5" y="5" width="290" height="110" rx="70" fill="url(#bgGradient)" stroke="#9ec9ff" stroke-width="3"/>
+  
+  <!-- 背景グラデーション -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1a3a"/>
+      <stop offset="100%" stop-color="#2a0f3d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 星座線（アンドロメダ座のイメージ） -->
+  <polyline points="60,80 100,60 140,70 180,50 220,80"
+            fill="none" stroke="#aee3ff" stroke-width="2" stroke-linecap="round"
+            stroke-dasharray="200" stroke-dashoffset="200">
+    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2s" fill="freeze"/>
+  </polyline>
+
+  <!-- 星 -->
+  <circle cx="60" cy="80" r="4" fill="#fff" class="twinkle"/>
+  <circle cx="100" cy="60" r="4" fill="#fff" class="twinkle delay1"/>
+  <circle cx="140" cy="70" r="4" fill="#fff" class="twinkle delay2"/>
+  <circle cx="180" cy="50" r="4" fill="#fff" class="twinkle delay3"/>
+  <circle cx="220" cy="80" r="4" fill="#fff" class="twinkle delay4"/>
+
+  <!-- ランク番号 -->
+  <text x="150" y="120" text-anchor="middle" font-size="28" fill="#9ec9ff" font-family="sans-serif" font-weight="bold">
+    Rank 1
+  </text>
+
+  <!-- CSS風アニメーション -->
+  <style>
+    .twinkle {
+      animation: twinkle 2.4s ease-in-out infinite;
+    }
+    .delay1 { animation-delay: 0.4s; }
+    .delay2 { animation-delay: 0.8s; }
+    .delay3 { animation-delay: 1.2s; }
+    .delay4 { animation-delay: 1.6s; }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+  </style>
+</svg>

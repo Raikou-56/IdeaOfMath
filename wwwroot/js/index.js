@@ -150,3 +150,11 @@ $(function() {
     }
   });
 });
+
+document.querySelectorAll('.subject-toggle').forEach(toggle => {
+  toggle.addEventListener('click', () => {
+    const group = toggle.parentElement;
+    group.classList.toggle('active');
+  });
+});
+

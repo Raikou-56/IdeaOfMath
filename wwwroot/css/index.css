@@ -94,17 +94,6 @@
   color: #fff;
 }
 
-.custom-check input[type="checkbox"]:checked ~ .circle::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 6px;
-  height: 6px;
-  background: #fff;
-  border-radius: 50%;
-}
-
 .check-label {
   display: block;
   font-size: 16px;
@@ -114,6 +103,23 @@
   padding: 4px 0;
   border-bottom: 2px solid #87cefa; /* 下線で区切り */
   letter-spacing: 0.05em;  /* 少し広げて見やすく */
+}
+
+.custom-check .circle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%); /* 中央に配置 */
+  display: none; /* 初期は非表示 */
+}
+
+.custom-check input[type="checkbox"]:checked + .circle::after {
+  display: block; /* チェック時に表示 */
 }
 
 @media (max-width: 600px) {
@@ -131,6 +137,11 @@
     border-width: 1.5px;
   }
 
+  .custom-check .circle::after {
+    width: 5px;
+    height: 5px;
+  }
+
   .check-label {
     font-size: 14px;        /* ラベルも少し小さく */
   }
@@ -139,7 +150,6 @@
 .subject-group {
   margin-bottom: 16px;
   padding: 8px;
-  border-left: 4px solid #1e90ff;
   background: #f9fcff;
 }
 
@@ -148,4 +158,14 @@
   font-weight: bold;
   color: #1e90ff;
   margin-bottom: 8px;
+}
+
+.subject-fields {
+  display: none;              /* 初期は非表示 */
+  flex-wrap: wrap;            /* 横並びにする */
+  gap: 8px;                   /* 間隔を空ける */
+}
+
+.subject-group.active .subject-fields {
+  display: flex;              /* 親がactiveなら横に展開 */
 }

@@ -25,7 +25,7 @@
 
         <div class="modern-input">
             <label for="category">カテゴリ</label>
-            <input asp-for="category" class="modern-control" />
+            <select asp-for="category" asp-items="ViewBag.CategoryList" class="modern-control"></select>
         </div>
 
         <div class="modern-input">
@@ -40,7 +40,12 @@
 
         <div class="modern-input">
             <label for="AnswerLatex">答え（LaTeX）</label>
-            <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" class="modern-control"></textarea>
+            <textarea asp-for="AnswerLatex" id="latexInput2" rows="6" class="modern-control">
+                \(\quad \)講評<br>
+                
+                <br>
+                <hr style="border: none; border-top: 1px dashed;">
+            </textarea>
         </div>
 
         <div style="margin-bottom: 20px;">

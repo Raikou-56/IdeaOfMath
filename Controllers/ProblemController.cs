@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Mvc;
 using MathSiteProject.Models;
@@ -17,6 +18,26 @@ public class ProblemController : Controller
     }
     public IActionResult SaveProblem()
     {
+        ViewBag.CategoryList = new SelectList(new List<string>
+        {
+            // 数IA
+            "場合の数",
+            "確率",
+            "整数",
+            "集合と論理",
+
+            // 数IIB
+            "微積",
+            "数列",
+            "図形と方程式",
+            "ベクトル",
+
+            // 数IIIC
+            "極限",
+            "微積",
+            "複素数平面",
+            "行列"
+        });
         return View();
     }
 
@@ -30,6 +51,26 @@ public class ProblemController : Controller
             var match = problemsData.FirstOrDefault(p => p.SerialNumber == number);
             if (match != null)
             {
+                ViewBag.CategoryList = new SelectList(new List<string>
+                {
+                    // 数IA
+                    "場合の数",
+                    "確率",
+                    "整数",
+                    "集合と論理",
+
+                    // 数IIB
+                    "微積",
+                    "数列",
+                    "図形と方程式",
+                    "ベクトル",
+
+                    // 数IIIC
+                    "極限",
+                    "微積",
+                    "複素数平面",
+                    "行列"
+                }, match.category);
                 return View(match);
             }
             else

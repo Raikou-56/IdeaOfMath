@@ -5,6 +5,9 @@
 @model AnswerViewModel
 
 <div class="que">
+    <div style="text-align: center;">
+        <button class="send" onclick="window.print()">印刷</button>
+    </div>
     <br>
     <div class="latex">
         @Html.Raw(Model.Problem)

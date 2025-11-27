@@ -25,6 +25,19 @@ body {
   text-align: start;
 }
 
+@media print {
+  body {
+    font-size: 14pt;
+    line-height: 1.6;
+  }
+  nav, .no-print {
+    display: none; /* ナビバーや印刷不要な要素を隠す */
+  }
+  .latex {
+    page-break-inside: avoid; /* 数式が途中で切れないように */
+  }
+}
+
 /* 自分で指定した分です */
 label {
   white-space: nowrap;

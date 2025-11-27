@@ -115,3 +115,37 @@
   border-bottom: 2px solid #87cefa; /* 下線で区切り */
   letter-spacing: 0.05em;  /* 少し広げて見やすく */
 }
+
+@media (max-width: 600px) {
+  .custom-check {
+    padding: 4px 8px;       /* 内側余白を小さく */
+    margin: 3px;            /* 外側余白も縮小 */
+    font-size: 12px;        /* 文字サイズを小さく */
+    border-width: 1.5px;    /* 枠線を少し細く */
+  }
+
+  .custom-check .circle {
+    width: 12px;            /* 円のサイズを小さく */
+    height: 12px;
+    margin-right: 6px;
+    border-width: 1.5px;
+  }
+
+  .check-label {
+    font-size: 14px;        /* ラベルも少し小さく */
+  }
+}
+
+.subject-group {
+  margin-bottom: 16px;
+  padding: 8px;
+  border-left: 4px solid #1e90ff;
+  background: #f9fcff;
+}
+
+.subject-group h3 {
+  font-size: 15px;
+  font-weight: bold;
+  color: #1e90ff;
+  margin-bottom: 8px;
+}

@@ -28,7 +28,7 @@
 
         <div class="modern-input">
             <label for="category">カテゴリ</label>
-            <input asp-for="category" class="modern-control" />
+            <select asp-for="category" asp-items="ViewBag.CategoryList" class="modern-control"></select>
         </div>
 
         <div class="modern-input">

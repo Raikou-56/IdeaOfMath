@@ -33,6 +33,11 @@ body {
     line-height: 1.6;
   }
 
+  .MathJax, .MathJax_SVG, .mjx-chtml {
+    visibility: visible !important;
+    display: inline !important;
+  }
+
   /* 問題と解答だけ表示 */
   .latex {
     visibility: visible;

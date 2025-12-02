@@ -60,7 +60,7 @@
 
 /* 近代的チェックボックス */
 .custom-check {
-  display: none;
+  display: inline-flex;
   align-items: center;
   border: 2px solid #87cefa;
   border-radius: 9999px;
@@ -72,9 +72,18 @@
   font-size: 14px;
 }
 
-.subject-group.active .subject-fields .custom-check {
-  display: inline-flex; /* IAを押したら表示 */
+.subject-fields .custom-check {
+  opacity: 0;
+  max-height: 0;
+  overflow-x: auto;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
 }
+
+.subject-group.active .subject-fields .custom-check {
+  opacity: 1;
+  max-height: 50px; /* チェックボックスの高さに合わせる */
+}
+
 
 .custom-check input[type="checkbox"] {
   display: none;

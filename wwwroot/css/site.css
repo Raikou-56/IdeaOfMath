@@ -42,10 +42,22 @@ body {
     line-height: 1.6;
   }
 
-  /* MathJaxを確実に表示 */
-  .latex .MathJax, .latex .MathJax_SVG, .latex .mjx-chtml {
-    display: inline !important;
+  .latex .MathJax, 
+  .latex .MathJax_SVG, 
+  .latex .mjx-chtml {
     visibility: visible !important;
+  }
+
+  /* インラインはそのまま */
+  .latex .MathJax {
+    display: inline !important;
+  }
+
+  /* ブロック数式は block に */
+  .latex .MathJax_Display {
+    display: block !important;
+    text-align: center;   /* 中央寄せしたい場合 */
+    margin: 1em 0;        /* 上下に余白 */
   }
 }
 

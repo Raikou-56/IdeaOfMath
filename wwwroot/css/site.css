@@ -26,17 +26,27 @@ body {
 }
 
 @media print {
-  body {
+  /* 全体を一旦非表示 */
+  body * {
+    visibility: hidden;
     font-size: 14pt;
     line-height: 1.6;
   }
-  nav, .no-print {
-    display: none; /* ナビバーや印刷不要な要素を隠す */
-  }
+
+  /* 問題と解答だけ表示 */
   .latex {
-    page-break-inside: avoid; /* 数式が途中で切れないように */
+    visibility: visible;
+  }
+
+  /* レイアウトを整えるために印刷対象を全幅に */
+  .latex {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
   }
 }
+
 
 /* 自分で指定した分です */
 label {

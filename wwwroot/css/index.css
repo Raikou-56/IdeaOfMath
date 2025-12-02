@@ -150,6 +150,7 @@
 .subject-group {
   margin-bottom: 1px;
   padding: 0 5px;
+  min-height: 47px;
   display: flex;
   flex-direction: row;   /* 横並び */
   flex-wrap: nowrap;     /* 折り返さない */

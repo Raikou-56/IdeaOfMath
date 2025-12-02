@@ -26,42 +26,17 @@ body {
 }
 
 @media print {
-  /* 印刷不要部分を非表示 */
-  header, nav, footer, .sidebar {
-    display: none;
-  }
-
-  /* 問題と解答だけ表示 */
-  .latex {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+  body {
     font-size: 14pt;
     line-height: 1.6;
   }
-
-  .latex .MathJax, 
-  .latex .MathJax_SVG, 
-  .latex .mjx-chtml {
-    visibility: visible !important;
+  nav, .no-print {
+    display: none; /* ナビバーや印刷不要な要素を隠す */
   }
-
-  /* インラインはそのまま */
-  .latex .MathJax {
-    display: inline !important;
-  }
-
-  /* ブロック数式は block に */
-  .latex .MathJax_Display {
-    display: block !important;
-    text-align: center;   /* 中央寄せしたい場合 */
-    margin: 1em 0;        /* 上下に余白 */
+  .latex {
+    width: 100% !important;
   }
 }
-
-
 
 /* 自分で指定した分です */
 label {

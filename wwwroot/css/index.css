@@ -72,7 +72,7 @@
   font-size: 14px;
 }
 
-.subject-fields.active .custom-check {
+.subject-fields.active .custom-check .custom-check {
   display: inline-flex; /* IAを押したら表示 */
 }
 

@@ -149,15 +149,22 @@
 
 .subject-group {
   margin-bottom: 16px;
-  padding: 8px;
+  padding: 0 5px;
+  display: flex;
+  flex-direction: row;   /* 横並び */
+  flex-wrap: nowrap;     /* 折り返さない */
   background: #f9fcff;
+  overflow-x: auto;      /* グループ全体を横スクロール可能に */
+  white-space: nowrap;   /* 改行させない */
+  gap: 12px;             /* タイトルと科目の間隔 */
 }
 
 .subject-group h3 {
   font-size: 15px;
   font-weight: bold;
   color: #1e90ff;
-  margin-bottom: 8px;
+  margin-bottom: auto 0;
+  flex-shrink: 0;
 }
 
 .subject-fields {

@@ -47,8 +47,8 @@
 
 .rank-badge {
   position: absolute;
-  top: -10px;          /* スコアの上に配置 */
-  left: 0px;         /* 左にずらす */
+  top: -35px;          /* スコアの上に配置 */
+  left: -3px;         /* 左にずらす */
   width: 60px;         /* 小さめにする */
   transform: rotate(-15deg); /* 傾ける */
   z-index: 10;         /* 前面に出す */

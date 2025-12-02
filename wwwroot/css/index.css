@@ -161,11 +161,15 @@
 }
 
 .subject-fields {
-  display: none;              /* 初期は非表示 */
-  flex-wrap: wrap;            /* 横並びにする */
-  gap: 8px;                   /* 間隔を空ける */
+  max-width: 0;              /* 初期は幅ゼロ */
+  overflow: hidden;          /* はみ出し非表示 */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+  transition: max-width 0.5s ease; /* 横に広がるアニメーション */
 }
-
 .subject-group.active .subject-fields {
-  display: flex;              /* 親がactiveなら横に展開 */
+  max-width: 100%; 
+  display: flex;          /* active時に横並びで展開 */
 }

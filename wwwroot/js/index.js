@@ -151,11 +151,5 @@ $(function() {
   });
 });
 
-document.querySelectorAll('.subject-toggle').forEach(toggle => {
-  toggle.addEventListener('click', () => {
-    const group = toggle.closest('.subject-group'); // ここを修正
-    group.classList.toggle('active');
-  });
-});
 
 

@@ -72,19 +72,6 @@
   font-size: 14px;
 }
 
-.subject-fields .custom-check {
-  opacity: 0;
-  max-height: 0;
-  overflow-x: auto;
-  transition: opacity 0.3s ease, max-height 0.3s ease;
-}
-
-.subject-group.active .subject-fields .custom-check {
-  opacity: 1;
-  max-height: 50px; /* チェックボックスの高さに合わせる */
-}
-
-
 .custom-check input[type="checkbox"] {
   display: none;
 }
@@ -137,7 +124,7 @@
 
 @media (max-width: 600px) {
   .custom-check {
-    display: none;
+    display: inline-flex;
     padding: 4px 8px;       /* 内側余白を小さく */
     margin: 3px;            /* 外側余白も縮小 */
     font-size: 12px;        /* 文字サイズを小さく */
@@ -186,13 +173,10 @@
 }
 
 .subject-fields {
-  max-width: 0;              /* 初期は幅ゼロ */
-  max-height: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 12px;
-  transition: max-width 0.5s ease; /* 横に広がるアニメーション */
 }
 .subject-group.active .subject-fields {
   max-width: 100%; 
@@ -204,41 +188,4 @@
   flex-shrink: 0; /* チェックボックスが縮まないように */
 }
 
-/* ねじ風アイコン */
-.toggle-icon {
-  display: inline-block;
-  position: relative;
-  width: 14px;
-  height: 14px;
-  margin-left: 6px;
-  border: 2px solid #1e90ff;
-  border-radius: 50%;
-  transform: rotate(45deg); /* 初期は右向き矢印っぽい */
-  transition: transform 0.5s ease; /* 回転アニメーション */
-}
-
-/* 開いたとき：ネジが時計回りに回る */
-.subject-group.active .toggle-icon {
-  transform: rotate(225deg); /* 下向き矢印っぽい＋回転 */
-}
-
-.toggle-icon::before,
-.toggle-icon::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: #1e90ff;
-  transform: translate(-50%, -50%);
-}
-
-.toggle-icon::before {
-  width: 2px;
-  height: 8px;   /* 縦棒 */
-}
-
-.toggle-icon::after {
-  width: 8px;
-  height: 2px;   /* 横棒 */
-}
 

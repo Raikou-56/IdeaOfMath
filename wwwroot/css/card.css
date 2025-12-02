@@ -48,6 +48,7 @@
     flex-wrap: nowrap;
     text-align: center;
     transition: transform 0.2s ease;
+    flex-shrink: 0;
 }
 
 .difficulty-card h4 {

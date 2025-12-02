@@ -148,7 +148,7 @@
 }
 
 .subject-group {
-  margin-bottom: 16px;
+  margin-bottom: 1px;
   padding: 0 5px;
   display: flex;
   flex-direction: row;   /* 横並び */
@@ -159,6 +159,7 @@
   gap: 12px;             /* タイトルと科目の間隔 */
   cursor: pointer;
   user-select: none;
+  scrollbar-width: none;
 }
 
 .subject-group h3 {
@@ -171,6 +172,7 @@
 
 .subject-fields {
   max-width: 0;              /* 初期は幅ゼロ */
+  max-height: 0;
   overflow: hidden;          /* はみ出し非表示 */
   display: flex;
   flex-direction: row;
@@ -180,7 +182,12 @@
 }
 .subject-group.active .subject-fields {
   max-width: 100%; 
+  max-height: 200px;        /* 展開時の最大高さ */
   display: flex;          /* active時に横並びで展開 */
+}
+
+.subject-fields label {
+  flex-shrink: 0; /* チェックボックスが縮まないように */
 }
 
 /* ねじ風アイコン */

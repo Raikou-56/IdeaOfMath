@@ -21,8 +21,7 @@
         </div>
 
         <div class="user-rank">
-            <h2><i class="fas fa-medal"></i> ランク</h2>
-            <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge-large" />
+            <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />
             <div class="score-display @ScoreExtensions.GetScoreColorClass(Model.TotalScores)">
                 累計：@Model.TotalScores 点
             </div>

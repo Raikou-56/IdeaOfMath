@@ -26,37 +26,44 @@ body {
 }
 
 @media print {
-  /* 印刷不要部分を非表示 */
-  header, nav, footer, .sidebar {
-    display: none;
+  /* 不要部分を非表示 */
+  header, nav, footer, .sidebar, .send {
+    display: none !important;
   }
 
-  /* 問題と解答だけ表示 */
-  .latex {
-    display: block;
-    width: 100%;
-    font-size: 14pt;
-    line-height: 1.6;
+  /* 画面用装飾をリセット */
+  * {
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #000 !important;   /* 印刷は白黒前提 */
   }
 
-  .latex .MathJax, 
-  .latex .MathJax_SVG, 
-  .latex .mjx-chtml {
-    visibility: visible !important;
+  /* 親要素の影響を完全リセット */
+  body, .container, .main, .latex {
+    all: unset;               /* 既存スタイルをリセット */
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 14pt !important;
+    line-height: 1.6 !important;
   }
 
   /* インライン数式 */
   .latex .MathJax {
     display: inline !important;
+    visibility: visible !important;
   }
 
   /* ブロック数式 */
   .latex .MathJax_Display {
     display: block !important;
-    text-align: center;
-    margin: 1em 0;
+    text-align: center !important;
+    margin: 1em 0 !important;
+    visibility: visible !important;
   }
 }
+
 
 
 /* 自分で指定した分です */

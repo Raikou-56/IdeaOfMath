@@ -1,7 +1,4 @@
 .profile-section {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
     align-items: flex-start;
 }
 
@@ -11,8 +8,8 @@
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    max-width: 500px;
-    margin: auto;
+    max-width: 700px;
+    margin: 50px auto;
 }
 
 .profile-list {
@@ -44,13 +41,14 @@
 .user-rank {
     position: relative;
     text-align: center;
-    flex: 1;
+    width: 200px;
+    margin: 0 auto;
 }
 
 .rank-badge {
   position: absolute;
   top: -10px;          /* スコアの上に配置 */
-  left: -10px;         /* 左にずらす */
+  left: 0px;         /* 左にずらす */
   width: 60px;         /* 小さめにする */
   transform: rotate(-15deg); /* 傾ける */
   z-index: 10;         /* 前面に出す */

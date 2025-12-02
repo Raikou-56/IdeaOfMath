@@ -62,7 +62,7 @@ public class ProblemController : Controller
                     // 数IIB
                     "微積",
                     "数列",
-                    "図形と方程式",
+                    "図形",
                     "ベクトル",
 
                     // 数IIIC

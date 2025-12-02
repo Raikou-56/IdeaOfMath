@@ -157,13 +157,15 @@
   overflow-x: auto;      /* グループ全体を横スクロール可能に */
   white-space: nowrap;   /* 改行させない */
   gap: 12px;             /* タイトルと科目の間隔 */
+  cursor: pointer;
+  user-select: none;
 }
 
 .subject-group h3 {
   font-size: 15px;
   font-weight: bold;
   color: #1e90ff;
-  margin-bottom: auto 0;
+  margin: auto 0;
   flex-shrink: 0;
 }
 
@@ -179,4 +181,25 @@
 .subject-group.active .subject-fields {
   max-width: 100%; 
   display: flex;          /* active時に横並びで展開 */
+}
+
+/* ねじ風アイコン */
+.toggle-icon {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #1e90ff;
+  border-radius: 50%; /* ネジの頭っぽい丸 */
+  position: relative;
+  transition: transform 0.5s ease;
+}
+
+.toggle-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 8px;
+  background: #1e90ff;
+  transform: translate(-50%, -50%);
 }

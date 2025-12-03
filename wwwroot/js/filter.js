@@ -8,6 +8,7 @@ $(document).ready(function() {
   // フィルター処理は既存のまま
   setupFilter("field1");
   setupFilter("field2");
+  setupFilter("extra");
 });
 
 

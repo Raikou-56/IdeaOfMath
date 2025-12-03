@@ -50,17 +50,17 @@ body {
   }
 
   /* インライン数式 */
-  .latex .MathJax {
+  .latex mjx-container[display="false"] {
     display: inline !important;
-    visibility: visible !important;
+    text-align: left !important;
+    margin: 0 !important;
   }
-
+  
   /* ブロック数式 */
-  .latex .MathJax_Display {
+  .latex mjx-container[display="true"] {
     display: block !important;
     text-align: center !important;
     margin: 1em 0 !important;
-    visibility: visible !important;
   }
 }
 

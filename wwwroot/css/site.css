@@ -25,6 +25,7 @@ body {
   text-align: start;
 }
 
+/* 印刷用 */
 @media print {
   /* 不要部分を非表示 */
   header, nav, footer, .sidebar, .send {
@@ -61,6 +62,14 @@ body {
     display: block !important;
     text-align: center !important;
     margin: 1em 0 !important;
+  }
+
+  .latex.question {
+    border: 2px solid #333;      /* 枠線の太さと色 */
+    border-radius: 8px;          /* 角丸 */
+    padding: 1em;                /* 内側余白 */
+    margin: 1em 0;               /* 上下の余白 */
+    background-color: #f9f9f9;   /* 薄い背景で見やすく */
   }
 }
 
@@ -107,6 +116,7 @@ label {
   justify-content: flex-end;
 }
 
+/* めちゃ使うボタン サイト内はこれで統一でもいいかな */
 .send {
   background-color: #7fffd4;
   color: rgba(0,0,0,0.4);
@@ -118,11 +128,9 @@ label {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease;
 }
-
 .send:hover {
   background-color: #75f5ca;
 }
-
 @media (max-width: 480px) {
   .send {
     padding: 8px 14px;
@@ -130,6 +138,7 @@ label {
   }
 }
 
+/* 問題表示部分の幅とかを指定するだけ */
 .que {
   max-width: 636px;
   margin: auto;
@@ -147,6 +156,7 @@ label {
   border-radius: 4px;
 }
 
+/* 問題及び解答部分のスタイル */
 .latex {
   background-color: white;
   border-radius: 5px;
@@ -166,17 +176,6 @@ img.fil{
   max-height: 50px;
   object-fit: contain;
 }
-
-#toggleButton{
-  float: right;
-  position: relative;
-  padding: 0;
-  /* transition: transform 0.3s ease, margin 0.3s ease; */
-}
-
-/* #toggleButton.active{
-  transform: translateX(-20px);
-} */
 
 button {
   border: none;

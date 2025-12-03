@@ -39,7 +39,13 @@ function renderProblems(problems) {
 
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
         div.innerHTML = `
-            <div class="que under" data-field="${problem.category}" data-dif="${problem.difficulty}" style="${hiddenStyle}">
+            <div class="que under"
+                data-field="${problem.category}"
+                data-dif="${problem.difficulty}"
+                style="${hiddenStyle}"
+                data-new="${isNew}"
+                data-hidden="${isHidden}"
+                style="${hiddenStyle}">
                 <br>
                 ${newBadge}
                 <div class="dif">

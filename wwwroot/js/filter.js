@@ -35,15 +35,22 @@ function getSelectedFields(name) {
 function filterProblems() {
   const selected1 = getSelectedFields("field1").filter(val => val !== "all");
   const selected2 = getSelectedFields("field2").filter(val => val !== "all");
+  const selectedExtra = getSelectedFields("extra");
 
   $('.que').each(function() {
     const field1 = $(this).data("field");
     const field2 = $(this).data("dif");
+    const isNew = $(this).data("new") === true || $(this).data("new") === "true";
+    const isHidden = $(this).data("hidden") === true || $(this).data("hidden") === "true";
 
     const matchField1 = selected1.length === 0 || selected1.includes(field1);
     const matchField2 = selected2.length === 0 || selected2.includes(field2);
 
-    if (matchField1 && matchField2) {
+    let matchExtra = true;
+    if (selectedExtra.includes("new") && !isNew) matchExtra = false;
+    if (selectedExtra.includes("hidden") && !isHidden) matchExtra = false;
+
+    if (matchField1 && matchField2 && matchExtra) {
       $(this).show();
     } else {
       $(this).hide();

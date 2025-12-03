@@ -27,12 +27,14 @@ function renderProblems(problems) {
 
         // --- NEW 判定 ---
         let newBadge = "";
+        let isNew = false;
         if (problem.publishedAt) {
             const publishedDate = new Date(problem.publishedAt);
             const now = new Date();
             const diffMs = now - publishedDate;
             const diffDays = diffMs / (1000 * 60 * 60 * 24);
-            if (diffDays <= 3) {
+            isNew = diffDays <= 3;
+            if (isNew) {
                 newBadge = `<span style="font-size:0.7em; color:orange; font-weight:bold; margin-right:4px;">NEW</span>`;
             }
         }

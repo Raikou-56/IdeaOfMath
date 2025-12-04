@@ -143,7 +143,7 @@ public class ProblemController : Controller
 
         var newProblem = new Problem
         {
-            SerialNumber = DataBaseSetup.CountProblems() + 1,
+            SerialNumber = DataBaseSetup.CountProblems()[0] + 1,
             IdNumber = saveItem.IdNumber,
             difficulty = saveItem.difficulty,
             category = saveItem.category,

@@ -69,10 +69,12 @@ public class DataBaseSetup
         }
     }
 
-    public static int CountProblems()
+    public static int[] CountProblems()
     {
         List<Problem> problems = GetProblems();
-        int res = problems.Count();
+        int[] res = new int[2];
+        res[0] = problems.Count();
+        res[1] = problems.Where(p => p.IsPublic == true).Count();
         return res;
     }
 

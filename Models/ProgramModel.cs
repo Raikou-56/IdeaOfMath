@@ -113,7 +113,7 @@ public class RegisterViewModel
 
 public class TeacherViewModel
 {
-    public int ProblemsCount { get; set; }
+    public int[]? ProblemsCount { get; set; }
     public Dictionary<string, int>? FieldCounts { get; set; }
 }
 

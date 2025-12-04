@@ -6,7 +6,10 @@
 
 <div style="padding:30px; max-width:650px; margin:auto;">
     <p class="tst">こちらは教師専用ページです。</p><br>
-    <p class="tst">現在データベースに登録されてる問題は @Model.ProblemsCount 問です。</p>
+    <p class="tst">
+        現在データベースに登録されてる問題は @(Model.ProblemsCount != null ? Model.ProblemsCount[0] : 0) 問です
+        (@(Model.ProblemsCount != null ? Model.ProblemsCount[1] : 0) 問公開中)
+    </p>
 
     <a class="nav-link text-dark" asp-area="" asp-controller="Problem" asp-action="SaveProblem">
         <button class="send">問題を投稿する</button>

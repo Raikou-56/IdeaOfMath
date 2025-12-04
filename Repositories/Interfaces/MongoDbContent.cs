@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using MathSiteProject.Models;
 
+// データベース接続と操作のためのクラス 主にデータ編集
 namespace MathSiteProject.Repositories.Data;
 
 public class MongoDbContext

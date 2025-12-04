@@ -36,6 +36,8 @@ builder.Services.AddScoped<IProblemService, ProblemService>();
 
 builder.Services.AddTransient<CloudinaryStorageService>();
 
+builder.Services.AddScoped<UserRepository>();
+
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");

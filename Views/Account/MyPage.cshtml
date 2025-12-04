@@ -19,6 +19,18 @@
                 <li><i class="fas fa-graduation-cap"></i> <strong>学年:</strong> @(Model.Grade ?? "<span class='text-muted'>学年が選択されていません</span>")</li>
             </ul>
         </div>
+        <!-- 編集フォーム -->
+        <form asp-action="UpdateProfile" method="post">
+            <div class="form-group">
+                <label for="UserName">ユーザー名</label>
+                <input type="text" id="UserName" name="UserName" value="@Model.UserName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Grade">学年</label>
+                <input type="text" id="Grade" name="Grade" value="@Model.Grade" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">更新</button>
+        </form>
 
         <div class="user-rank">
             <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />

@@ -2,16 +2,23 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Mvc;
 using MathSiteProject.Extentions;
 using MathSiteProject.Models;
+using MathSiteProject.Repositories;
+using MathSiteProject.Repositories.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using MathSiteProject.Repositories;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MathSiteProject.Controllers;
 
 public class AccountController : Controller
 {
+    private readonly UserRepository _userRepository;
+
+    public AccountController(UserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
     public IActionResult NewUser()
     {
         return View();
@@ -141,6 +148,20 @@ public class AccountController : Controller
             TotalScores = ArrayExtensions.TotalScores(scoresByDifficulty)
         };
         return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateProfile(UserViewModel model)
+    {
+        var user = await _userRepository.GetByIdAsync(model.UserId ?? "");
+        if (user == null) return NotFound();
+
+        user.Username = model.UserName;
+        user.Grade = model.Grade;
+
+        await _userRepository.UpdateAsync(user);
+
+        return RedirectToAction("Profile");
     }
 
     // ログアウト

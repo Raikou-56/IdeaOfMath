@@ -27,9 +27,8 @@ public class ProblemController : Controller
             "集合と論理",
 
             // 数IIB
-            "微積",
             "数列",
-            "図形と方程式",
+            "図形",
             "ベクトル",
 
             // 数IIIC
@@ -60,7 +59,6 @@ public class ProblemController : Controller
                     "集合と論理",
 
                     // 数IIB
-                    "微積",
                     "数列",
                     "図形",
                     "ベクトル",

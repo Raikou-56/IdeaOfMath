@@ -6,13 +6,14 @@
 
 <div class="que">
     <div style="text-align: right; margin-top: 10px;">
-        <button class="send" onclick="window.print()">印刷</button>
+        <button class="send" onclick="setPrintMode('problem')">問題のみ印刷</button>
+        <button class="send" onclick="setPrintMode('all')">印刷</button>
     </div>
     <br>
     <div class="latex question">
         @Html.Raw(Model.Problem)
     </div><br>
-    <div class="latex">
+    <div class="latex answer">
         @Html.Raw(Model.Answer)
     </div><br>
     <p style="display: flex; justify-content: flex-end;">編集者：@Model.Teacher</p><br>

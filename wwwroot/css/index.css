@@ -64,12 +64,12 @@
   align-items: center;
   border: 2px solid #87cefa;
   border-radius: 9999px;
-  padding: 6px 12px;
+  padding: 4px 12px;
   margin: 5px;
   cursor: pointer;
   background-color: #e6f7ff;
   transition: all 0.3s ease;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .custom-check input[type="checkbox"] {

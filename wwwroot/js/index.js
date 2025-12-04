@@ -4,11 +4,10 @@ let autoLoadInterval;
 
 function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
+    const role = window.currentUserRole;
+    const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
     problems.forEach(problem => {
-        const role = window.currentUserRole;
-        const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
-
         // 非公開とみなす条件（undefined や null も含める）
         const isHidden = problem.is_public === false || problem.is_public === undefined || problem.is_public === null;
 
@@ -19,11 +18,6 @@ function renderProblems(problems) {
 
         const div = document.createElement("div");
         div.className = "problem-item";
-
-        // 教師・管理者には非公開スタイルを追加
-        const hiddenStyle = (problem.Is_public === false && ["Teacher", "Admin"].includes(role))
-            ? "opacity: 0.5; border: 1px dashed gray;"
-            : "";
 
         // --- NEW 判定 ---
         let newBadge = "";
@@ -40,14 +34,14 @@ function renderProblems(problems) {
         }
 
         const scoreText = problem.userData ? `${problem.score}/50` : "未回答";
+        const isUnanswered = !problem.userData;
         div.innerHTML = `
             <div class="que under"
                 data-field="${problem.category}"
                 data-dif="${problem.difficulty}"
-                style="${hiddenStyle}"
                 data-new="${isNew}"
                 data-hidden="${isHidden}"
-                style="${hiddenStyle}">
+                data-unanswered="${isUnanswered}">
                 <br>
                 ${newBadge}
                 <div class="dif">

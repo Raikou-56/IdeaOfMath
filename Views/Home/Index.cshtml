@@ -132,6 +132,13 @@
                         <span class="circle"></span> 非公開のみ
                     </label>
                 }
+                @if (User.Identity != null && (User.IsInRole("Student")))
+                {
+                    <label class="custom-check">
+                        <input type="checkbox" name="extra" value="unanswered">
+                        <span class="circle"></span> 未回答のみ
+                    </label>
+                }
             </div>
         </div>
     </div>

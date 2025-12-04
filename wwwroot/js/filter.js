@@ -15,7 +15,6 @@ $(document).ready(function() {
 function setupFilter(name) {
   $(`input[name="${name}"]`).on('change', function() {
     if ($(this).val() !== "all") {
-      console.log("all以外が押されました")
       $(`input[name="${name}"][value="all"]`).prop("checked", false);
     }
     else {
@@ -43,6 +42,7 @@ function filterProblems() {
     const field2 = $(this).data("dif");
     const isNew = $(this).data("new") === true || $(this).data("new") === "true";
     const isHidden = $(this).data("hidden") === true || $(this).data("hidden") === "true";
+    const isUnanswered = $(this).data("unanswered") === true || $(this).data("unanswered") === "true";
 
     const matchField1 = selected1.length === 0 || selected1.includes(field1);
     const matchField2 = selected2.length === 0 || selected2.includes(field2);
@@ -50,6 +50,7 @@ function filterProblems() {
     let matchExtra = true;
     if (selectedExtra.includes("new") && !isNew) matchExtra = false;
     if (selectedExtra.includes("hidden") && !isHidden) matchExtra = false;
+    if (selectedExtra.includes("unanswered") && !isUnanswered) matchExtra = false;
 
     if (matchField1 && matchField2 && matchExtra) {
       $(this).show();

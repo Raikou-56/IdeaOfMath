@@ -23,7 +23,7 @@
             </ul>
             <button id="editBtn" class="send">編集</button>
             <div id="editForm" class="update-form hidden">
-                <form asp-action="UpdateProfile" method="post">
+                <form asp-controller="Account" asp-action="UpdateProfile" method="post">
                     <div class="form-group">
                         <label for="UserName">ユーザー名</label>
                         <input type="text" id="UserName" name="UserName" value="@Model.UserName" class="form-control" />
@@ -38,7 +38,7 @@
         </div>
         <!-- 編集フォーム -->
         
-        <br
+        <br />
 
         <div class="user-rank">
             <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />

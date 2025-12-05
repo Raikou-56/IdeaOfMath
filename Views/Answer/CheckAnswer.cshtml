@@ -4,7 +4,7 @@
 
 @model AnswerHistory
 
-<p>@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
+<p class="tst">@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
 
 @if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
 {

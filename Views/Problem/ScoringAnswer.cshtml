@@ -7,13 +7,13 @@
 
 @model AnswerHistory
 
-<p>@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
+<p class="tst">@Model.StudentId @Model.SolvedAt.ToString(format: "yyyy/MM/dd")</p>
 
 <form asp-area="" asp-controller="Answer" asp-action="ScoreAnswer" method="post">
     <input type="hidden" name="historyId" value="@Model.Id" />
     @if (Model.CloudinaryUrls == null || Model.CloudinaryUrls.Count == 0)
     {
-        <p>解答画像がありません。</p>
+        <p class="tst">解答画像がありません。</p>
     }
     else
     {

@@ -121,7 +121,6 @@
                      68% 57%, 79% 91%, 50% 70%, 
                      21% 91%, 32% 57%, 2% 35%, 
                      39% 35%);
-  animation: fly 2s ease-out 1;
 }
 
 /* 星の飛び出しアニメーション */
@@ -141,7 +140,7 @@
   animation-delay: 0.6s;
 }
 
-.score-display:hover .star {
+.score-display:hover.score-gold .star {
   animation: fly 2s ease-out infinite;
 }
 

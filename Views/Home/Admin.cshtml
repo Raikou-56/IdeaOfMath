@@ -13,16 +13,10 @@
             <span class="scor">ロール: @user.Role</span>
         </div>
         <div>
-            <form asp-controller="Admin" asp-action="EditUser" method="get">
+            <form asp-controller="Account" asp-action="EditUser" method="get">
                 <input type="hidden" name="userId" value="@user.UserId" />
                 <button type="submit" class="send" style="margin: 0px 5px;">編集する</button>
             </form>
-        </div>
-        <div>
-            @if (user.Role == "Admin")
-            {
-                <img src="/img/crown.png" alt="管理者" style="width:30px; vertical-align:middle;" />
-            }
         </div>
     </div>
 }

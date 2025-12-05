@@ -25,7 +25,7 @@ public class AccountController : Controller
         return View();
     }
     
-    public IActionResult Index()
+    public IActionResult Admin()
     {
         var users = _userRepository.GetAllUsers();
         return View(users);

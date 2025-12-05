@@ -16,14 +16,18 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly AnswerHistoryRepository _answerHistoryRepo;
     private readonly IProblemService _problemService;
+    private readonly UserRepository _userRepository;
+
 
     public HomeController(ILogger<HomeController> logger,
                         AnswerHistoryRepository answerHistoryRepo,
-                        IProblemService problemService)
+                        IProblemService problemService,
+                        UserRepository userRepository)
     {
         _logger = logger;
         _answerHistoryRepo = answerHistoryRepo;
         _problemService = problemService;
+        _userRepository = userRepository;
     }
 
     public IActionResult Index()
@@ -61,7 +65,8 @@ public class HomeController : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Admin()
     {
-        return View();
+        var users = _userRepository.GetAllUsers;
+        return View(users);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

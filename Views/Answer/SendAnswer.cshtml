@@ -6,14 +6,22 @@
     <script src="~/js/SendAnswer.js"></script>
 }
 
-<p>@ViewBag.Message 番の解答を送信する</p>
+<div class="register-card">
+    <h2>@ViewBag.Message 番の解答を送信する</h2>
 
-@if (User.Identity != null && User.IsInRole(role: "Student"))
-{
-    <form asp-controller="Home" asp-action="SubmitAnswer" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="problemId" value="@ViewBag.Message" />
-        <input type="file" id="fileInput" name="imageAnswers" accept="image/*" multiple/>
-        <div id="previewArea"></div>
-        <button class="send" type="submit">画像で解答する</button>
-    </form>
-}
+    @if (User.Identity != null && User.IsInRole("Student"))
+    {
+        <form asp-controller="Home" asp-action="SubmitAnswer" method="post" enctype="multipart/form-data">
+            <div class="modern-input">
+                <input type="hidden" name="problemId" value="@ViewBag.Message" />
+                <input type="file" id="fileInput" name="imageAnswers" accept="image/*" multiple />
+                <div id="previewArea"></div>
+                <button id="submitBtn" class="send" type="submit" disabled>画像で解答する</button>
+            </div>
+
+            <div class="ans-but">
+                <button class="send" type="submit">画像で解答する</button>
+            </div>
+        </form>
+    }
+</div>

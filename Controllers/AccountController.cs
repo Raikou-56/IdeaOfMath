@@ -24,12 +24,6 @@ public class AccountController : Controller
     {
         return View();
     }
-    
-    public IActionResult Admin()
-    {
-        var users = _userRepository.GetAllUsers();
-        return View(users);
-    }
 
     // 会員登録
     [HttpPost]

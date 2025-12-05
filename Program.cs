@@ -24,6 +24,9 @@ builder.Services.AddAuthentication("Cookies")
         options.AccessDeniedPath = "/Account/AccessDenied";
     });
 
+// appsettings.jsonの読み込みを無視
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddSingleton<MongoDbContext>();

@@ -30,13 +30,13 @@
                 プロフィールを編集
             </button>
             <div id="editForm" class="update-form">
-                <input type="hidden" name="UserId" value="@Model.UserId" />
                 <form asp-controller="Account" asp-action="UpdateProfile" method="post">
+                    <input type="hidden" name="UserId" value="@Model.UserId" />
                     <div class="form-group">
                         <label for="UserName">ユーザー名</label>
                         <input type="text" id="UserName" name="UserName" value="@Model.UserName" class="form-control" />
-                    </div>
-                    <div class="form-group">
+                        <br />
+                        <label for="Grade">学年</label>
                         <select asp-for="Grade" asp-items="Model.GradeOptions" class="form-control modern-control">
                             <option value="">選択してください</option>
                         </select>

@@ -65,7 +65,7 @@ public class HomeController : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Admin()
     {
-        var users = _userRepository.GetAllUsers;
+        var users = _userRepository.GetAllUsers();
         return View(users);
     }
 

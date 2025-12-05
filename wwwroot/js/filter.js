@@ -2,9 +2,9 @@ $(document).ready(function() {
     // 吊るし看板クリックでパネルをスライド表示
     $("#signboard").click(function() {
         $("#filterPanel").slideToggle(300);
-        const nav = document.querySelector('#nav-placeholder');
+        var nav = document.querySelector('#nav-placeholder');
         if (nav) {
-            const navHeight = $('#filterHeader').outerHeight();
+            var navHeight = $('#filterHeader').outerHeight();
             nav.style.height = navHeight + "px";
         }
     });

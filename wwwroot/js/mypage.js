@@ -1,6 +1,7 @@
 const editBtn = document.getElementById("editBtn");
 const form = document.getElementById("editForm");
 const gear = document.querySelector(".gear-icon");
+const btnText = document.getElementById("btnText");
 
 editBtn.addEventListener("click", () => {
     gear.classList.toggle("rotate");

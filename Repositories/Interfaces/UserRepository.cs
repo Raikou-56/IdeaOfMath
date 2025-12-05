@@ -15,15 +15,13 @@ public class UserRepository
 
     public async Task<User?> GetByIdAsync(string id)
     {
-        var filter = Builders<User>.Filter.Eq("_id", ObjectId.Parse(id));
+        var filter = Builders<User>.Filter.Eq("_id", id);
         return await _collection.Find(filter).FirstOrDefaultAsync();
     }
 
     public async Task UpdateAsync(User user)
     {
-        Console.WriteLine(user.UserId);
-        var objectId = new ObjectId(user.UserId);
-        var filter = Builders<User>.Filter.Eq("_id", objectId);
+        var filter = Builders<User>.Filter.Eq("_id", user.UserId);
         await _collection.ReplaceOneAsync(filter, user);
     }
 

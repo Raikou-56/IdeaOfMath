@@ -21,8 +21,14 @@
                 <li><i class="fas fa-user-tag"></i> <strong>ロール:</strong> @Model.Role</li>
                 <li><i class="fas fa-graduation-cap"></i> <strong>学年:</strong> @(Model.Grade ?? "<span class='text-muted'>学年が選択されていません</span>")</li>
             </ul>
-            <button id="editBtn" class="send">編集</button>
-            <div id="editForm" class="update-form hidden">
+            <button id="editBtn" class="send">
+                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="black" stroke-width="2" fill="none"/>
+                    <line x1="12" y1="6" x2="12" y2="18" stroke="black" stroke-width="2"/>
+                    <line x1="6" y1="12" x2="18" y2="12" stroke="black" stroke-width="2"/>
+                </svg>
+                プロフィールを編集</button>
+            <div id="editForm" class="update-form">
                 <form asp-controller="Account" asp-action="UpdateProfile" method="post">
                     <div class="form-group">
                         <label for="UserName">ユーザー名</label>
@@ -32,7 +38,7 @@
                         <label for="Grade">学年</label>
                         <input type="text" id="Grade" name="Grade" value="@Model.Grade" class="form-control" />
                     </div>
-                    <button type="submit" class="btn btn-primary">更新</button>
+                    <button type="submit" class="send">更新</button>
                 </form>
             </div>
         </div>

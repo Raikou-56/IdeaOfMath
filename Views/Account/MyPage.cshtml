@@ -27,8 +27,10 @@
                     <line x1="12" y1="6" x2="12" y2="18" stroke="black" stroke-width="2"/>
                     <line x1="6" y1="12" x2="18" y2="12" stroke="black" stroke-width="2"/>
                 </svg>
-                プロフィールを編集</button>
+                プロフィールを編集
+            </button>
             <div id="editForm" class="update-form">
+                <input type="hidden" name="UserId" value="@Model.UserId" />
                 <form asp-controller="Account" asp-action="UpdateProfile" method="post">
                     <div class="form-group">
                         <label for="UserName">ユーザー名</label>

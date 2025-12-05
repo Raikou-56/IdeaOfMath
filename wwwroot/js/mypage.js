@@ -3,8 +3,7 @@ const form = document.getElementById("editForm");
 const gear = document.querySelector(".gear-icon");
 
 editBtn.addEventListener("click", () => {
-    gear.classList.add("rotate");
-    setTimeout(() => gear.classList.remove("rotate"), 600);
+    gear.classList.toggle("rotate");
     if (form.classList.contains("show")) {
         // 閉じるとき
         form.style.maxHeight = "0";

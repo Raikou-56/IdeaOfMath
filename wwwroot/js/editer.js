@@ -115,11 +115,6 @@ async function promptForImageUpload(altText, teacherName, problemId) {
                     return resolve(null);
                 }
 
-                console.log("teacherName:", teacherName);
-                console.log("problemId:", problemId);
-                console.log("fileName:", altText);
-                console.log("file:", file);
-
                 const formData = new FormData();
                 formData.append("file", file);
                 formData.append("teacherName", teacherName);

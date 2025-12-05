@@ -43,7 +43,6 @@ public class ProblemController : Controller
     public IActionResult EditProblem(string serial)
     {
         List<Problem> problemsData = DataBaseSetup.GetProblems();
-        Console.WriteLine(problemsData.Count);
 
         if (int.TryParse(serial.ToString(), out int number))
         {

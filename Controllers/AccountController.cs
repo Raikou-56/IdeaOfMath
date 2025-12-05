@@ -164,7 +164,6 @@ public class AccountController : Controller
     public async Task<IActionResult> UpdateProfile(UserViewModel model)
     {
         var user = await _userRepository.GetByIdAsync(model.UserId ?? "");
-        Console.WriteLine("更新処理実行", user?.UserId);
         if (user == null) return NotFound();
 
         user.Username = model.UserName;

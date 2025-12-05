@@ -2,9 +2,6 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Mvc;
 using MathSiteProject.Extentions;
 using MathSiteProject.Models;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -76,8 +73,6 @@ public class AnswerController : Controller
         var history = await _answerHistoryRepo.GetByIdAsync(historyId);
         if (history == null) return NotFound($"ID {historyId} の履歴が見つかりません");
 
-        Console.WriteLine(Score);
-
         // スコアの保存（ここは設計次第で柔軟に）
         history.Scoring = true;
         history.Score = Score; // 合計でも平均でもOK
@@ -91,8 +86,6 @@ public class AnswerController : Controller
     [HttpPost]
     public async Task<IActionResult> CheckAnswer(string serial, string studentId)
     {
-        Console.WriteLine($"answerId: {serial}, studentId: {studentId}");
-
         var historyList = await _answerHistoryRepo.GetHistoryByStudentAndProblemAsync(serial, studentId);
         var history = historyList.FirstOrDefault();
         if (history == null)

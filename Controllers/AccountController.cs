@@ -172,7 +172,7 @@ public class AccountController : Controller
 
         await _userRepository.UpdateAsync(user);
 
-        return RedirectToAction("Profile");
+        return RedirectToAction("MyPage");
     }
 
     // ログアウト

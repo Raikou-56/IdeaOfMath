@@ -6,7 +6,7 @@ const btnText = document.getElementById("btnText");
 editBtn.addEventListener("click", () => {
     const isOpen = form.classList.contains("show");
     gear.classList.toggle("rotate");
-    btnText.textContent = isOpen ? "プロフィールを編集（開く）" : "プロフィールを編集（閉じる）";
+    btnText.textContent = isOpen ? "編集メニューを開く" : "編集メニューを閉じる";
     if (form.classList.contains("show")) {
         // 閉じるとき
         form.style.maxHeight = "0";

@@ -1,6 +1,8 @@
 .field-counts {
     display: flex;
     gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 
 .field-card {
@@ -11,10 +13,7 @@
     flex: 1 1 200px;
     text-align: center;
     transition: transform 0.2s ease;
-}
-
-.field-card:hover {
-    transform: scale(1.03);
+    flex-shrink: 0;
 }
 
 .field-card h3 {
@@ -44,7 +43,7 @@
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    flex: 1 1 200px;
+    flex: 1 1 20px;
     flex-wrap: nowrap;
     text-align: center;
     transition: transform 0.2s ease;

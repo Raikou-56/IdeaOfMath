@@ -168,12 +168,6 @@
                 <a class="fixed-link" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
             </div>
         }
-        @if (User.Identity != null && (User.IsInRole("Admin")))
-        {
-            <div class="fixed-button">
-                <a class="fixed-link" asp-area="" asp-controller="Development" asp-action="TestPage">Test</a>
-            </div>
-        }
         <div class="fixed-button">
             <a class="fixed-link" asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
         </div>

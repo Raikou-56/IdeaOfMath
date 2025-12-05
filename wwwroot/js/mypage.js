@@ -4,6 +4,7 @@ const gear = document.querySelector(".gear-icon");
 const btnText = document.getElementById("btnText");
 
 editBtn.addEventListener("click", () => {
+    const isOpen = form.classList.contains("show");
     gear.classList.toggle("rotate");
     btnText.textContent = isOpen ? "プロフィールを編集（開く）" : "プロフィールを編集（閉じる）";
     if (form.classList.contains("show")) {

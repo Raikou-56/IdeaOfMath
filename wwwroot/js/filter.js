@@ -1,14 +1,13 @@
 $(document).ready(function() {
-  // 吊るし看板クリックでパネルをスライド表示
-  $("#signboard").click(function() {
-    console.log("吊るし看板がクリックされました");
-    $("#filterPanel").slideToggle(300);
-  });
+    // 吊るし看板クリックでパネルをスライド表示
+    $("#signboard").click(function() {
+        $("#filterPanel").slideToggle(300);
+    });
 
-  // フィルター処理は既存のまま
-  setupFilter("field1");
-  setupFilter("field2");
-  setupFilter("extra");
+    // フィルター処理は既存のまま
+    setupFilter("field1");
+    setupFilter("field2");
+    setupFilter("extra");
 });
 
 

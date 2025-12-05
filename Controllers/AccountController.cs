@@ -25,6 +25,12 @@ public class AccountController : Controller
         return View();
     }
     
+    public IActionResult Index()
+    {
+        var users = _userRepository.GetAllUsers();
+        return View(users);
+    }
+
     // 会員登録
     [HttpPost]
     public IActionResult Register(RegisterViewModel model)

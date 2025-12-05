@@ -71,13 +71,78 @@
 }
 
 .score-gold {
-    background-color: #fff8e1;
-    color: #f9a825;
+  position: relative;
+  background: #fff8e1;
+  color: #6d4c41;
+  font-weight: bold;
+  border: 3px solid #ffd700;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px rgba(249,168,37,0.6);
 }
 
 .score-silver {
     background-color: #eceff1;
     color: #607d8b;
+}
+
+/* ゴールド：強い輝き */
+@keyframes shine-gold {
+  0%   { box-shadow: 0 0 0 rgba(249,168,37,0); }
+  50%  { box-shadow: 0 0 20px rgba(249,168,37,0.8); }
+  100% { box-shadow: 0 0 0 rgba(249,168,37,0); }
+}
+
+/* ブルー：冷たい光 */
+@keyframes shine-blue {
+  0%   { box-shadow: 0 0 0 rgba(21,101,192,0); }
+  50%  { box-shadow: 0 0 15px rgba(21,101,192,0.7); }
+  100% { box-shadow: 0 0 0 rgba(21,101,192,0); }
+}
+
+/* パープル：妖しい光 */
+@keyframes shine-purple {
+  0%   { box-shadow: 0 0 0 rgba(106,27,154,0); }
+  50%  { box-shadow: 0 0 18px rgba(106,27,154,0.7); }
+  100% { box-shadow: 0 0 0 rgba(106,27,154,0); }
+}
+
+.score-gold:hover   { animation: shine-gold 2s ease-in-out; }
+.score-blue:hover   { animation: shine-blue 2s ease-in-out; }
+.score-purple:hover { animation: shine-purple 2s ease-in-out; }
+
+.star {
+  opacity: 0;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: gold;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 
+                     68% 57%, 79% 91%, 50% 70%, 
+                     21% 91%, 32% 57%, 2% 35%, 
+                     39% 35%);
+  animation: fly 2s ease-out 1;
+}
+
+/* 星の飛び出しアニメーション */
+@keyframes fly {
+  0%   { transform: translate(0,0) scale(0.5); opacity: 0; }
+  20%  { opacity: 1; } /* 動き始めで見えるように */
+  100% { transform: translate(50px,-50px) scale(1.2); opacity: 0; }
+}
+
+/* 星ごとに位置と遅延を変える */
+.star:nth-child(2) {
+  left: 20px; top: -5px;
+  animation-delay: 0.3s;
+}
+.star:nth-child(3) {
+  right: 10px; top: 5px;
+  animation-delay: 0.6s;
+}
+
+.score-display:hover .star {
+  animation: fly 2s ease-out infinite;
 }
 
 .update-form {
@@ -96,5 +161,5 @@
     transform-origin: center center;
 }
 .gear-icon.rotate {
-    transform: rotate(360deg);
+    transform: rotate(90deg);
 }

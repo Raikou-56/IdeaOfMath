@@ -13,6 +13,11 @@ public class UserRepository
         _collection = database.GetCollection<User>("Users");
     }
 
+    public List<User> GetAllUsers()
+    {
+        return _collection.Find(_ => true).ToList();
+    }
+
     public async Task<User?> GetByIdAsync(string id)
     {
         var filter = Builders<User>.Filter.Eq("_id", id);

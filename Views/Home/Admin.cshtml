@@ -2,5 +2,27 @@
     ViewData["Title"] = "Admin Page";
 }
 
-<h1>管理者ページへようこそ</h1>
-<p>ここでは管理者専用の機能を利用できます。</p>
+@model List<User>
+
+@foreach (var user in Model)
+{
+    <div class="user-block blsp d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
+        <div>
+            <span class="scor">ユーザー名: @user.Username</span>
+            <span class="scor">学年: @user.Grade</span>
+            <span class="scor">ロール: @user.Role</span>
+        </div>
+        <div>
+            <form asp-controller="Admin" asp-action="EditUser" method="get">
+                <input type="hidden" name="userId" value="@user.UserId" />
+                <button type="submit" class="send" style="margin: 0px 5px;">編集する</button>
+            </form>
+        </div>
+        <div>
+            @if (user.Role == "Admin")
+            {
+                <img src="/img/crown.png" alt="管理者" style="width:30px; vertical-align:middle;" />
+            }
+        </div>
+    </div>
+}

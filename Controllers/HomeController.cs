@@ -58,6 +58,12 @@ public class HomeController : Controller
         return View(Tmodel);
     }
 
+    [Authorize(Roles = "Admin")]
+    public IActionResult Admin()
+    {
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error(string? message = null)
     {

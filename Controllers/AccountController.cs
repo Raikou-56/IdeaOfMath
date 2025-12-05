@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MathSiteProject.Controllers;
 
@@ -145,7 +146,16 @@ public class AccountController : Controller
             IntsAnsweredbyDifficulty = countsByDifficulty,
             AverageScoresbyDifficulty = DataBaseSetup
                 .GetAverageScoresbyDifficulty(scoresByDifficulty, countsByDifficulty),
-            TotalScores = ArrayExtensions.TotalScores(scoresByDifficulty)
+            TotalScores = ArrayExtensions.TotalScores(scoresByDifficulty),
+            GradeOptions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "中学生以下", Text = "中学生以下" },
+                new SelectListItem { Value = "高校1年生", Text = "高校1年生" },
+                new SelectListItem { Value = "高校2年生", Text = "高校2年生" },
+                new SelectListItem { Value = "高校3年生", Text = "高校3年生" },
+                new SelectListItem { Value = "浪人生", Text = "浪人生" },
+                new SelectListItem { Value = "大学生以上", Text = "大学生以上" }
+            }
         };
         return View(model);
     }
@@ -154,6 +164,7 @@ public class AccountController : Controller
     public async Task<IActionResult> UpdateProfile(UserViewModel model)
     {
         var user = await _userRepository.GetByIdAsync(model.UserId ?? "");
+        Console.WriteLine("更新処理実行", user?.UserId);
         if (user == null) return NotFound();
 
         user.Username = model.UserName;

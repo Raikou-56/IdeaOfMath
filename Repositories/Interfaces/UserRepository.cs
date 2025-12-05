@@ -21,6 +21,7 @@ public class UserRepository
 
     public async Task UpdateAsync(User user)
     {
+        Console.WriteLine(user.UserId);
         var objectId = new ObjectId(user.UserId);
         var filter = Builders<User>.Filter.Eq("_id", objectId);
         await _collection.ReplaceOneAsync(filter, user);

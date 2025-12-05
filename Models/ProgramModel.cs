@@ -1,6 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MathSiteProject.Models;
 
@@ -169,4 +170,5 @@ public class UserViewModel
     public int[]? IntsAnsweredbyDifficulty { get; set; }
     public float[]? AverageScoresbyDifficulty { get; set; }
     public int TotalScores { get; set; }
+    public List<SelectListItem>? GradeOptions { get; set; }
 }

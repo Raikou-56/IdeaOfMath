@@ -5,6 +5,8 @@ using MathSiteProject.Repositories.Data;
 using MathSiteProject.Repositories.Interfaces;
 using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.FileProviders;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,7 +63,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+    RequestPath = ""
+});
 
 app.MapControllerRoute(
     name: "default",

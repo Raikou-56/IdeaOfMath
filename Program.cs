@@ -5,7 +5,6 @@ using MathSiteProject.Repositories.Data;
 using MathSiteProject.Repositories.Interfaces;
 using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,8 +25,7 @@ builder.Services.AddAuthentication("Cookies")
 
 // appsettings.jsonの読み込みを無視
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
-
-builder.Services.AddAuthorization();
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false);
 
 builder.Services.AddSingleton<MongoDbContext>();
 

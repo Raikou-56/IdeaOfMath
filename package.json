@@ -1,0 +1,24 @@
+{
+  "name": "mathsiteproject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raikou-56/IdeaOfMath.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raikou-56/IdeaOfMath/issues"
+  },
+  "homepage": "https://github.com/Raikou-56/IdeaOfMath#readme",
+  "description": "",
+  "dependencies": {
+    "jquery-validation": "^1.21.0",
+    "jquery-validation-unobtrusive": "^4.0.0"
+  }
+}

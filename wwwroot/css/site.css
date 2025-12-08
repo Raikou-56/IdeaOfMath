@@ -128,7 +128,7 @@ label {
 }
 
 .scor {
-  margin-right: 0 5px;
+  margin-right: 10px;
 }
 
 .ans-but {
@@ -313,6 +313,11 @@ p.tst {
 }
 
 /* 採点ページUI */
+.image-wrapper {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 .answer-image {
   width: 350px;
   margin: 10px;

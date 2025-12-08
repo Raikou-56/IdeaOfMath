@@ -4,6 +4,7 @@
   top: 0;
   left: 50%;              /* 親要素の幅の中央を基準に */
   transform: translateX(-50%);
+  z-index: 1000;
 }
 
 #filterHeader.fixed{
@@ -11,6 +12,7 @@
   top: 0;
   left: 50%;             /* 画面幅の中央を基準に */
   transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .fixed-buttons {
@@ -28,7 +30,8 @@
 }
 
 .fixed-link {
-  display: block;
+  display: inline-block;
+  white-space: nowrap;
   color: #fff;
   width: 100%;
   height: 100%;
@@ -40,8 +43,9 @@
 
 /* ホバー時の効果 */
 .fixed-button:hover{
-  background: #4682b4;
-  color: #fff;
+  background: #fff;
+  color: #1e90ff;
+  border: #1e90ff 2px solid;
 }
 
 

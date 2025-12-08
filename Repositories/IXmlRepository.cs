@@ -17,12 +17,17 @@ public class MongoXmlRepository : IXmlRepository
     public IReadOnlyCollection<XElement> GetAllElements()
     {
         var docs = _collection.Find(FilterDefinition<BsonDocument>.Empty).ToList();
+    
+        // ログ出力（件数とキーの内容の一部を確認）
+        Console.WriteLine($"MongoXmlRepository.GetAllElements 呼び出し: {docs.Count} 件のキーを読み込みました");
+    
+        foreach (var doc in docs)
+        {
+            Console.WriteLine($"キー: {doc.ToJson()}");
+        }
+    
         return docs
-            .Select(d =>
-            {
-                var xml = d.GetValue("Xml").AsString;
-                return XElement.Parse(xml);
-            })
+            .Select(d => XElement.Parse(d["Xml"].AsString))
             .ToList()
             .AsReadOnly();
     }

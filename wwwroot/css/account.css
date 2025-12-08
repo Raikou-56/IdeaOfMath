@@ -14,7 +14,7 @@
   width: 100%;                 /* 横幅いっぱい */
   max-width: 636px;            /* answer-block と揃える */
   cursor: pointer;             /* クリックできる感じ */
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.1s ease, transform 0.1s ease;
 }
 
 .role-bar:hover {
@@ -22,7 +22,8 @@
 }
 
 .role-bar:active{
-  transform: translateY(-2px); /* ホバーで浮く感じ */
+  transform: translateY(1px);
+  transform: translateX(1px);
 }
 
 .role-users {

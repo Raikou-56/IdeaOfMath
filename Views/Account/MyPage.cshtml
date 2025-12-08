@@ -53,7 +53,10 @@
         <br />
 
         <div class="user-rank">
-            <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />
+            @if (!string.IsNullOrEmpty(ScoreExtensions.GetBadgeImage(Model.TotalScores)))
+            {
+                <img src="@ScoreExtensions.GetBadgeImage(Model.TotalScores)" alt="ランクバッジ" class="rank-badge" />
+            }
             <div class="score-display @ScoreExtensions.GetScoreColorClass(Model.TotalScores)">
                 累計：@Model.TotalScores 点
                 <span class="star"></span>

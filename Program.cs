@@ -67,7 +67,7 @@ if (!app.Environment.IsDevelopment())
 
 
 // ミドルウェア
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthentication();

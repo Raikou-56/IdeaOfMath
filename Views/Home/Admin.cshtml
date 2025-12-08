@@ -1,22 +1,47 @@
 @{
     ViewData["Title"] = "Admin Page";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/account.css" />
+}
+@section Scripts {
+    <script src="~/js/admin.js"></script>
+}
 
 @model List<User>
 
-@foreach (var user in Model)
-{
-    <div class="user-block blsp d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
-        <div>
-            <span class="scor">ユーザー名: @user.Username</span>
-            <span class="scor">学年: @user.Grade</span>
-            <span class="scor">ロール: @user.Role</span>
-        </div>
-        <div>
-            <form asp-controller="Account" asp-action="EditUser" method="get">
-                <input type="hidden" name="userId" value="@user.UserId" />
-                <button type="submit" class="send" style="margin: 0px 5px;">編集する</button>
-            </form>
-        </div>
+<div class="role-section">
+    <div class="role-bar" data-role="Admin">Admin</div>
+    <div class="role-users">
+        @foreach (var user in Model.Where(u => u.Role == "Admin"))
+        {
+            <div class="user-block p-2 answer-block">
+                ユーザー名: @user.Username / 学年: @user.Grade
+            </div>
+        }
     </div>
-}
+</div>
+
+<div class="role-section">
+    <div class="role-bar" data-role="Teacher">Teacher</div>
+    <div class="role-users">
+        @foreach (var user in Model.Where(u => u.Role == "Teacher"))
+        {
+            <div class="user-block p-2 answer-block">
+                ユーザー名: @user.Username / 学年: @user.Grade
+            </div>
+        }
+    </div>
+</div>
+
+<div class="role-section">
+    <div class="role-bar" data-role="Student">Student</div>
+    <div class="role-users">
+        @foreach (var user in Model.Where(u => u.Role == "Student"))
+        {
+            <div class="user-block p-2 answer-block">
+                ユーザー名: @user.Username / 学年: @user.Grade
+            </div>
+        }
+    </div>
+</div>

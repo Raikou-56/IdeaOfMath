@@ -22,14 +22,13 @@ public static class ArrayExtensions
 
 public static class ScoreExtensions
 {
-    public static string GetBadgeImage(int score)
+    public static string? GetBadgeImage(int score)
     {
-        if (score >= 2000) return "/img/badges/rank6.png";
-        if (score >= 1000) return "/img/badges/rank5.png";
-        if (score >= 500) return "/img/badges/rank4.png";
-        if (score >= 200) return "/img/badges/rank3.png";
-        if (score >= 100) return "/img/badges/rank2.png";
-        return "/img/badges/rank1.png";
+        if (score >= 2000) return "/img/badges/rank5.png";
+        if (score >= 1000) return "/img/badges/rank4.png";
+        if (score >= 500) return "/img/badges/rank3.png";
+        if (score >= 200) return "/img/badges/rank2.png";
+        return null;
     }
 
     public static string GetScoreColorClass(int score)

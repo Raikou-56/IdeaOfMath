@@ -141,20 +141,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
 $(function() {
     var nav = $('#filterHeader');
-    var navTop = nav.offset().top;
+    var navTop = nav.offset().top; // ヘッダーの初期位置を取得
 
     $(window).scroll(function () {
         var winTop = $(this).scrollTop();
         if (winTop >= navTop) {
-            var navHeight = nav.outerHeight();
-            nav.addClass('fixed');
-            // プレースホルダーを追加
-            if (!$('#nav-placeholder').length) {
-                nav.after('<div id="nav-placeholder" style="height:' + navHeight + 'px"></div>');
-            }
+            nav.removeClass('absolute').addClass('fixed');
         } else {
-            nav.removeClass('fixed');
-            $('#nav-placeholder').remove();
+            nav.removeClass('fixed').addClass('absolute');
         }
     });
 });

@@ -1,0 +1,29 @@
+.role-header {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.role-bar {
+  background-color: #7fffd4;   /* ボタン色に統一 */
+  color: rgba(0,0,0,0.8);      /* 読みやすい文字色 */
+  font-weight: 600;            /* 少し強調 */
+  padding: 10px 15px;          /* 内側余白 */
+  margin: 10px auto;           /* 上下に余白、中央寄せ */
+  border-radius: 5px;          /* 角丸 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* ほんのり影 */
+  width: 100%;                 /* 横幅いっぱい */
+  max-width: 636px;            /* answer-block と揃える */
+  cursor: pointer;             /* クリックできる感じ */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.role-bar:hover {
+  background-color: #6fe6c0;   /* 少し濃いめに変化 */
+  transform: translateY(-2px); /* ホバーで浮く感じ */
+}
+
+.role-users {
+  display: none;               /* 初期は閉じる */
+  margin: 0 auto;
+  max-width: 636px;
+}

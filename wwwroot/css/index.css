@@ -1,13 +1,12 @@
 /* 吊るし看板風ヘッダー */
-#filterHeader {
-  width: 100%;
-  max-width: 636px;
-  text-align: center;
-  margin: 0 auto;
-  z-index: 1000;
+#filterHeader.absolute {
+  position: absolute;
+  top: 0;
+  left: 50%;              /* 親要素の幅の中央を基準に */
+  transform: translateX(-50%);
 }
 
-.fixed{
+#filterHeader.fixed{
   position: fixed;
   top: 0;
   left: 50%;             /* 画面幅の中央を基準に */

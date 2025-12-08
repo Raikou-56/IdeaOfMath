@@ -36,6 +36,8 @@
     padding: 0.5rem 0;
     -ms-overflow-style: none;  /* IE/Edge */
     scrollbar-width: none;     /* Firefox */
+    margin: 0 auto;
+    max-width: 800px;
 }
 
 .difficulty-card {
@@ -48,6 +50,7 @@
     text-align: center;
     transition: transform 0.2s ease;
     flex-shrink: 0;
+    min-width: 140px;
 }
 
 .difficulty-card h4 {

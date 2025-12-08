@@ -19,6 +19,9 @@
 
 .role-bar:hover {
   background-color: #6fe6c0;   /* 少し濃いめに変化 */
+}
+
+.role-bar:active{
   transform: translateY(-2px); /* ホバーで浮く感じ */
 }
 

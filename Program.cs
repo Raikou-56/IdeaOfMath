@@ -16,7 +16,7 @@ var mongoDatabase = mongoClient.GetDatabase("MathProjectDB");
 var keysCollection = mongoDatabase.GetCollection<BsonDocument>("DataProtectionKeys");
 
 builder.Services.AddDataProtection()
-    .SetApplicationName("MathProjectDB")
+    .SetApplicationName("MathSiteProject")
     .AddKeyManagementOptions(o =>
     {
         o.XmlRepository = new MongoXmlRepository(keysCollection);

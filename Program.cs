@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using MongoDB.Bson;
 using MathSiteProject;
 using MathSiteProject.Repositories;
 using MathSiteProject.Repositories.Data;
@@ -6,13 +7,22 @@ using MathSiteProject.Repositories.Interfaces;
 using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.FileProviders;
-
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI"));
+var mongoDatabase = mongoClient.GetDatabase("MathProjectDB");
+var keysCollection = mongoDatabase.GetCollection<BsonDocument>("DataProtectionKeys");
+
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "keys")))
-    .SetApplicationName("MathSiteProject");
+    .SetApplicationName("MathProjectDB")
+    .AddKeyManagementOptions(o =>
+    {
+        o.XmlRepository = new MongoXmlRepository(keysCollection);
+        // 鍵のロールオーバー間隔など、必要ならここで調整可能
+        // o.NewKeyLifetime = TimeSpan.FromDays(90);
+    });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -36,8 +36,18 @@ builder.Services.AddDataProtection()
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-
+// ログイン, Cookie
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+            ? CookieSecurePolicy.None
+            : CookieSecurePolicy.Always;
+        options.Cookie.SameSite = SameSiteMode.Lax;
+    });
 
 // appsettings.jsonの読み込みを無視
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
@@ -59,19 +69,6 @@ var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");
 
 var app = builder.Build();
-
-// ログイン, Cookie
-builder.Services.AddAuthentication("Cookies")
-    .AddCookie("Cookies", options =>
-    {
-        options.LoginPath = "/Account/Login";
-        options.AccessDeniedPath = "/Account/AccessDenied";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = app.Environment.IsDevelopment()
-            ? CookieSecurePolicy.None
-            : CookieSecurePolicy.Always;
-        options.Cookie.SameSite = SameSiteMode.Lax; // フローに合わせて調整
-    });
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

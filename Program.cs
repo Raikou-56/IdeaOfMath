@@ -11,8 +11,8 @@ using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var mongoClient = new MongoClient(builder.Configuration.GetConnectionString("MongoDb"));
-var database = mongoClient.GetDatabase("MathSiteProject");
+var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI"));
+var database = mongoClient.GetDatabase("MathProjectDB");
 var collection = database.GetCollection<BsonDocument>("DataProtectionKeys");
 
 builder.Services.AddDataProtection()

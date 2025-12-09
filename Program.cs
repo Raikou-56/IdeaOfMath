@@ -15,12 +15,20 @@ var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_UR
 var mongoDatabase = mongoClient.GetDatabase("MathProjectDB");
 var keysCollection = mongoDatabase.GetCollection<BsonDocument>("DataProtectionKeys");
 
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.Name = "__Host-AntiForgeryV2";
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // HTTPS環境用
+    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.Cookie.HttpOnly = true;
+});
+
 builder.Services.AddDataProtection()
-    .SetApplicationName("MathProjectDB")
+    .SetApplicationName("MathSiteProject")
     .AddKeyManagementOptions(o =>
     {
         o.XmlRepository = new MongoXmlRepository(keysCollection);
-        // 鍵のロールオーバー間隔など、必要ならここで調整可能
+        // 必要ならキー寿命調整
         // o.NewKeyLifetime = TimeSpan.FromDays(90);
     });
 

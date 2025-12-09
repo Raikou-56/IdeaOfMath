@@ -78,6 +78,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var km = scope.ServiceProvider.GetRequiredService<IKeyManager>();
+    foreach (var k in km.GetAllKeys())
+        Console.WriteLine($"Key in ring: {k.KeyId} created={k.CreationDate} expires={k.ExpirationDate}");
+}
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto

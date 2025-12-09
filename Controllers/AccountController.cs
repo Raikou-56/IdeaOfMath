@@ -110,7 +110,7 @@ public class AccountController : Controller
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
 
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        await HttpContext.SignInAsync("Cookies", principal);
 
         return user.Role switch
         {

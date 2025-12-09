@@ -16,14 +16,6 @@ var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_UR
 var mongoDatabase = mongoClient.GetDatabase("MathProjectDB");
 var keysCollection = mongoDatabase.GetCollection<BsonDocument>("DataProtectionKeys");
 
-builder.Services.AddAntiforgery(options =>
-{
-    options.Cookie.Name = "__Host-AntiForgeryV2";
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // HTTPS環境用
-    options.Cookie.SameSite = SameSiteMode.Lax;
-    options.Cookie.HttpOnly = true;
-});
-
 builder.Services.AddDataProtection()
     .SetApplicationName("MathSiteProject")
     .AddKeyManagementOptions(o =>
@@ -33,10 +25,6 @@ builder.Services.AddDataProtection()
         // o.NewKeyLifetime = TimeSpan.FromDays(90);
     });
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-// ログイン, Cookie
 builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>
     {
@@ -48,6 +36,20 @@ builder.Services.AddAuthentication("Cookies")
             : CookieSecurePolicy.Always;
         options.Cookie.SameSite = SameSiteMode.Lax;
     });
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// ログイン, Cookie
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.Name = "__Host-AntiForgeryV2";
+    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+        ? CookieSecurePolicy.None
+        : CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.Cookie.HttpOnly = true;
+});
 
 // appsettings.jsonの読み込みを無視
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
@@ -70,6 +72,13 @@ builder.WebHost.UseUrls($"http://*:{port}");
 
 var app = builder.Build();
 
+var forwardOptions = new ForwardedHeadersOptions {
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+};
+forwardOptions.KnownNetworks.Clear();
+forwardOptions.KnownProxies.Clear();
+app.UseForwardedHeaders(forwardOptions);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -85,9 +94,6 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine($"Key in ring: {k.KeyId} created={k.CreationDate} expires={k.ExpirationDate}");
 }
 
-app.UseForwardedHeaders(new ForwardedHeadersOptions {
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
 // ミドルウェア
 app.UseHttpsRedirection();
 app.UseRouting();

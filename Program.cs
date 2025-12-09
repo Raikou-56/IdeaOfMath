@@ -6,12 +6,21 @@ using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.HttpOverrides;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DataProtection → デフォルトのファイルシステム保存に戻す
+var mongoClient = new MongoClient(builder.Configuration.GetConnectionString("MongoDb"));
+var database = mongoClient.GetDatabase("MathSiteProject");
+var collection = database.GetCollection<BsonDocument>("DataProtectionKeys");
+
 builder.Services.AddDataProtection()
-    .SetApplicationName("MathSiteProject");
+    .SetApplicationName("MathSiteProject")
+    .AddKeyManagementOptions(options =>
+    {
+        options.XmlRepository = new MongoXmlRepository(collection);
+    });
 
 builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>

@@ -68,7 +68,6 @@ public class AccountController : Controller
         return RedirectToAction("Login", "Account");  // 登録後にログインページへ
     }
 
-    // ログイン
     [HttpGet]
     public IActionResult Login()
     {
@@ -78,45 +77,51 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
-        IMongoCollection<User> users = DataBaseSetup.userCollection();
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
 
+        var users = DataBaseSetup.userCollection();
         var user = users.Find(u => u.UserId == model.MailAddress).FirstOrDefault();
 
-        if (user == null || model.Password == null || user.PassWordHash != SecurityHelper.HashPassword(model.Password))
+        // ユーザー存在チェック & パスワード検証
+        if (user == null || model.Password == null || user.PassWordHash != SecurityHelper.HashPassword(model.Password)) 
+        { ModelState.AddModelError(string.Empty, "ユーザーIDまたはパスワードが違います"); 
+            return View(model); 
+        } 
+        if (user == null || user.UserId == null || user.PassWordHash != SecurityHelper.HashPassword(model.Password)) 
+        { ModelState.AddModelError("", "ユーザーIDまたはパスワードが違います"); 
+            return View(model); 
+        }
+
+        // Role 未設定チェック
+        if (string.IsNullOrEmpty(user.Role))
         {
-            ModelState.AddModelError(string.Empty, "ユーザーIDまたはパスワードが違います");
+            ModelState.AddModelError("", "登録区分が登録されていません。運営に確認してください。");
             return View(model);
         }
 
-        if (user == null || user.UserId == null || user.PassWordHash != SecurityHelper.HashPassword(model.Password))
-        {
-            ModelState.AddModelError("", "ユーザーIDまたはパスワードが違います");
-            return View(model);
-        }
-
-        if (user.Role == null)
-        {
-            ModelState.AddModelError("", "登録区分が登録されてません運営に確認してください。");
-            return View(model);
-        }
-
+        // クレーム作成
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.Username ?? user.UserId),
             new Claim(ClaimTypes.Role, user.Role),
-            new Claim("UserId", user.UserId.ToString())
+            new Claim("UserId", user.UserId ?? "")
         };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
 
-        await HttpContext.SignInAsync("Cookies", principal);
+        // Cookie 認証でサインイン
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+        // Role に応じてリダイレクト
         return user.Role switch
         {
             "Student" => RedirectToAction("Index", "Home"),
             "Teacher" => RedirectToAction("Teacher", "Home"),
-            "Admin" => RedirectToAction("Teacher", "Home"),
+            "Admin"   => RedirectToAction("Admin", "Home"),
             _         => RedirectToAction("Login", "Account"),
         };
     }

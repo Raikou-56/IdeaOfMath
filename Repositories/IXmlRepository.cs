@@ -17,15 +17,15 @@ public class MongoXmlRepository : IXmlRepository
     public IReadOnlyCollection<XElement> GetAllElements()
     {
         var docs = _collection.Find(FilterDefinition<BsonDocument>.Empty).ToList();
-    
+
         // ログ出力（件数とキーの内容の一部を確認）
         Console.WriteLine($"MongoXmlRepository.GetAllElements 呼び出し: {docs.Count} 件のキーを読み込みました");
-    
+
         foreach (var doc in docs)
         {
             Console.WriteLine($"キー: {doc.ToJson()}");
         }
-    
+
         return docs
             .Select(d => XElement.Parse(d["Xml"].AsString))
             .ToList()
@@ -34,6 +34,7 @@ public class MongoXmlRepository : IXmlRepository
 
     public void StoreElement(XElement element, string friendlyName)
     {
+        Console.WriteLine($"MongoXmlRepository.StoreElement 呼び出し: 鍵を保存します");
         var doc = new BsonDocument
         {
             { "FriendlyName", friendlyName ?? string.Empty },

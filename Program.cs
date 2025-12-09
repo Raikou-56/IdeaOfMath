@@ -16,7 +16,7 @@ var mongoDatabase = mongoClient.GetDatabase("MathProjectDB");
 var keysCollection = mongoDatabase.GetCollection<BsonDocument>("DataProtectionKeys");
 
 builder.Services.AddDataProtection()
-    .SetApplicationName("MathSiteProject")
+    .SetApplicationName("MathProjectDB")
     .AddKeyManagementOptions(o =>
     {
         o.XmlRepository = new MongoXmlRepository(keysCollection);
@@ -37,7 +37,6 @@ builder.Services.AddAuthentication("Cookies")
 
 // appsettings.jsonの読み込みを無視
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
-builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false);
 
 builder.Services.AddSingleton<MongoDbContext>();
 
@@ -67,7 +66,7 @@ if (!app.Environment.IsDevelopment())
 
 
 // ミドルウェア
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthentication();

@@ -6,21 +6,20 @@ using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.HttpOverrides;
-using MongoDB.Driver;
-using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("MONGODB_URI"));
-var database = mongoClient.GetDatabase("MathProjectDB");
-var collection = database.GetCollection<BsonDocument>("DataProtectionKeys");
+// DataProtection → デフォルトのファイルシステム保存に戻す
+var keyPath = "/opt/render/keys";
+if (!Directory.Exists(keyPath))
+{
+    Directory.CreateDirectory(keyPath);
+    // 必要なら権限設定をここで行う（環境に応じて）
+}
 
 builder.Services.AddDataProtection()
-    .SetApplicationName("MathSiteProject")
-    .AddKeyManagementOptions(options =>
-    {
-        options.XmlRepository = new MongoXmlRepository(collection);
-    });
+    .PersistKeysToFileSystem(new DirectoryInfo(keyPath))
+    .SetApplicationName("MathSiteProject");
 
 builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>
@@ -41,11 +40,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAntiforgery(options =>
 {
     options.Cookie.Name = "__Host-AntiForgery";
-    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
-        ? CookieSecurePolicy.None
-        : CookieSecurePolicy.Always;
-    options.Cookie.SameSite = SameSiteMode.Lax;
-    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
 // appsettings.jsonの読み込みを無視

@@ -114,7 +114,7 @@ public class AccountController : Controller
         var principal = new ClaimsPrincipal(identity);
 
         // Cookie 認証でサインイン
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        await HttpContext.SignInAsync("Cookies", principal);
 
         // Role に応じてリダイレクト
         return user.Role switch

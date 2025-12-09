@@ -27,7 +27,6 @@ public class AccountController : Controller
 
     // 会員登録
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public IActionResult Register(RegisterViewModel model)
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
@@ -77,7 +76,6 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         IMongoCollection<User> users = DataBaseSetup.userCollection();
@@ -161,7 +159,6 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateProfile(UserViewModel model)
     {
         var user = await _userRepository.GetByIdAsync(model.UserId ?? "");

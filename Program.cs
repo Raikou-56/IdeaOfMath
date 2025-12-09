@@ -11,11 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DataProtection → デフォルトのファイルシステム保存に戻す
 var keyPath = "/opt/render/keys";
-if (!Directory.Exists(keyPath))
-{
-    Directory.CreateDirectory(keyPath);
-    // 必要なら権限設定をここで行う（環境に応じて）
-}
 
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(keyPath))
@@ -26,23 +21,10 @@ builder.Services.AddAuthentication("Cookies")
     {
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
-            ? CookieSecurePolicy.None
-            : CookieSecurePolicy.Always;
-        options.Cookie.SameSite = SameSiteMode.Lax;
     });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-// Antiforgery 設定
-builder.Services.AddAntiforgery(options =>
-{
-    options.Cookie.Name = "__Host-AntiForgery";
-    options.Cookie.SameSite = SameSiteMode.None;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-});
 
 // appsettings.jsonの読み込みを無視
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
@@ -58,13 +40,6 @@ var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");
 
 var app = builder.Build();
-
-var forwardOptions = new ForwardedHeadersOptions {
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-};
-forwardOptions.KnownNetworks.Clear();
-forwardOptions.KnownProxies.Clear();
-app.UseForwardedHeaders(forwardOptions);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

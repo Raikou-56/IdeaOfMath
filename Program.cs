@@ -15,7 +15,7 @@ builder.Services.AddAuthentication("Cookies")
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
         options.Cookie.SameSite = SameSiteMode.Lax;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.None;
     });
 
 // Add services to the container.
@@ -45,6 +45,7 @@ if (!app.Environment.IsDevelopment())
 
 // ミドルウェア
 app.UseHttpsRedirection();
+
 app.UseRouting();
 
 app.UseAuthentication();

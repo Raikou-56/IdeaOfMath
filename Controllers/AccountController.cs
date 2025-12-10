@@ -116,7 +116,7 @@ public class AccountController : Controller
             new Claim("UserId", user.UserId ?? "")
         };
 
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var identity = new ClaimsIdentity(claims, "Cookies");
         var principal = new ClaimsPrincipal(identity);
 
         // Cookie 認証でサインイン

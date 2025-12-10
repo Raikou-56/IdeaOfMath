@@ -9,10 +9,6 @@ using Microsoft.Extensions.FileProviders;
 var builder = WebApplication.CreateBuilder(args);
 
 // DataProtection → デフォルトのファイルシステム保存に戻す
-
-builder.Services.AddDataProtection()
-    .SetApplicationName("MathSiteProject");
-
 builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>
     {

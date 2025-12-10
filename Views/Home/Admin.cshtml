@@ -10,6 +10,8 @@
 
 @model List<User>
 
+<div class="title-bar">ユーザー 一覧</div>
+
 <div class="role-section">
     <div class="role-bar" data-role="Admin">Admin</div>
     <div class="role-users">
@@ -22,10 +24,7 @@
                     <span class="scor">ロール: @user.Role</span>
                 </div>
                 <div>
-                    <form asp-controller="Account" asp-action="EditUser" method="get">
-                        <input type="hidden" name="userId" value="@user.UserId" />
-                        <button type="submit" class="send" style="margin: 0px 5px;">編集する</button>
-                    </form>
+                    <button type="button" class="send edit-btn" data-userid="@user.UserId">編集する</button>
                 </div>
             </div>
         }

@@ -1,3 +1,17 @@
+.title-bar {
+  border-left: #7fffd4;
+  border-right: #7fffd4;
+  color: rgba(0,0,0,0.8);      /* 読みやすい文字色 */
+  font-weight: 600;            /* 少し強調 */
+  padding: 10px 15px;          /* 内側余白 */
+  margin: 30px auto;           /* 上下に余白、中央寄せ */
+  border-radius: 5px;          /* 角丸 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* ほんのり影 */
+  width: 100%;                 /* 横幅いっぱい */
+  max-width: 636px;            /* answer-block と揃える */
+  cursor: pointer;             /* クリックできる感じ */
+}
+
 .role-header {
     cursor: pointer;
     font-weight: bold;
@@ -8,10 +22,10 @@
   color: rgba(0,0,0,0.8);      /* 読みやすい文字色 */
   font-weight: 600;            /* 少し強調 */
   padding: 10px 15px;          /* 内側余白 */
-  margin: 10px auto;           /* 上下に余白、中央寄せ */
+  margin: 30px auto;           /* 上下に余白、中央寄せ */
   border-radius: 5px;          /* 角丸 */
   box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* ほんのり影 */
-  width: 100%;                 /* 横幅いっぱい */
+  width: 80%;                 /* 横幅いっぱい */
   max-width: 636px;            /* answer-block と揃える */
   cursor: pointer;             /* クリックできる感じ */
   transition: background-color 0.1s ease, transform 0.1s ease;
@@ -30,4 +44,17 @@
   display: none;               /* 初期は閉じる */
   margin: 0 auto;
   max-width: 636px;
+}
+
+.user-block.selected {
+    border: 2px solid #007bff; /* 青枠 */
+    background-color: #eef6ff; /* 少し背景色を変える */
+}
+
+.edit-form {
+    margin-top: 10px;
+    padding: 10px;
+    background: #fff;
+    border: 1px dashed #007bff;
+    border-radius: 5px;
 }

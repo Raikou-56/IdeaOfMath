@@ -69,6 +69,20 @@ public class HomeController : Controller
         return View(users);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> EditUser(User updatedUser)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(updatedUser); // バリデーションエラーがあれば再表示
+        }
+    
+        await _userRepository.UpdateAsync(updatedUser);
+    
+        return RedirectToAction("Admin", "Home"); // Adminページなどに戻す
+    }
+
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error(string? message = null)
     {

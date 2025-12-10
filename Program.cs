@@ -6,6 +6,7 @@ using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,12 @@ builder.Services.AddAuthentication("Cookies")
     });
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation();
+
+
+// Antiforgery を無効化する例
+builder.Services.AddAntiforgery(options => options.SuppressXFrameOptionsHeader = true);
 
 // appsettings.jsonの読み込みを無視
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);

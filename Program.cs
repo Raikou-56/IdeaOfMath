@@ -5,15 +5,12 @@ using MathSiteProject.Repositories.Interfaces;
 using MathSiteProject.Repositories.Storage;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // DataProtection → デフォルトのファイルシステム保存に戻す
-var keyPath = "/opt/render/keys";
 
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(keyPath))
     .SetApplicationName("MathSiteProject");
 
 builder.Services.AddAuthentication("Cookies")
@@ -21,6 +18,8 @@ builder.Services.AddAuthentication("Cookies")
     {
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     });
 
 // Add services to the container.

@@ -85,6 +85,8 @@ public class AccountController : Controller
         var users = DataBaseSetup.userCollection();
         var user = users.Find(u => u.UserId == model.MailAddress).FirstOrDefault();
 
+        Console.WriteLine("Attempting login for user: " + model.MailAddress);
+
         // ユーザー存在チェック & パスワード検証
         if (user == null || model.Password == null || user.PassWordHash != SecurityHelper.HashPassword(model.Password)) 
         { ModelState.AddModelError(string.Empty, "ユーザーIDまたはパスワードが違います"); 
@@ -95,12 +97,16 @@ public class AccountController : Controller
             return View(model); 
         }
 
+        Console.WriteLine("User found: " + user.UserId);
+
         // Role 未設定チェック
         if (string.IsNullOrEmpty(user.Role))
         {
             ModelState.AddModelError("", "登録区分が登録されていません。運営に確認してください。");
             return View(model);
         }
+
+        Console.WriteLine("User role: " + user.Role);
 
         // クレーム作成
         var claims = new List<Claim>
@@ -115,6 +121,7 @@ public class AccountController : Controller
 
         // Cookie 認証でサインイン
         await HttpContext.SignInAsync("Cookies", principal);
+        Console.WriteLine("Signed in user at Cookies: " + user.UserId);
 
         // Role に応じてリダイレクト
         return user.Role switch

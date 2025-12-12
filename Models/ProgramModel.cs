@@ -23,9 +23,7 @@ public class Problem
     public string? ProblemLatex { get; set; }
 
     [BsonElement("answer")]
-    public string? AnswerLatex { get; set; } = @"\(\quad \)講評<br>
-        <br>
-        <hr style=""border: none; border-top: 1px dashed;"">";
+    public string? AnswerLatex { get; set; }
 
     [BsonElement("teacher")]
     public string? Teacher { get; set; }

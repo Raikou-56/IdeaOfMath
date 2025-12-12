@@ -37,7 +37,14 @@ public class ProblemController : Controller
             "複素数平面",
             "行列"
         });
-        return View();
+        var model = new Problem
+        {
+            AnswerLatex = @"\(\quad \)講評<br>
+
+            <br>
+            <hr style=""border: none; border-top: 1px dashed;"">"
+        };
+        return View(model);
     }
 
     public IActionResult EditProblem(string serial)

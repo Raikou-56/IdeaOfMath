@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let block = btn.closest(".user-block");
             block.classList.add("selected");
 
-            let infoDiv = block.querySelector("div");
+            let infoDiv = block.querySelector(".user-info");
 
             // 編集フォームを作成
             let userId = btn.dataset.userid;

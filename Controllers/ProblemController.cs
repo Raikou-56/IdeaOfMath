@@ -39,10 +39,7 @@ public class ProblemController : Controller
         });
         var model = new Problem
         {
-            AnswerLatex = @"\(\quad \)講評<br>
-
-            <br>
-            <hr style=""border: none; border-top: 1px dashed;"">"
+            AnswerLatex = @"\(\quad \)講評<br><br><hr style=""border: none; border-top: 1px dashed;"">"
         };
         return View(model);
     }

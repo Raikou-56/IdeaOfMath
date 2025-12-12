@@ -1,7 +1,7 @@
 .title-bar {
   background-color: #fff;   /* ボタン色に統一 */
-  border-left: #7fffd4;
-  border-right: #7fffd4;
+  border-left: #7fffd4 4px solid;
+  border-right: #7fffd4 4px solid;
   color: rgba(0,0,0,0.8);      /* 読みやすい文字色 */
   font-weight: 600;            /* 少し強調 */
   padding: 10px 15px;          /* 内側余白 */

@@ -177,6 +177,17 @@ public class AccountController : Controller
         return RedirectToAction("MyPage");
     }
 
+    // Admin用ユーザー編集
+    [HttpPost]
+    public async Task<IActionResult> EditUser(User user)
+    {
+        // RepositoryのUpdateAsyncを呼ぶ
+        await _userRepository.UpdateAsync(user);
+
+        // 更新後はAdminPageにリダイレクト
+        return RedirectToAction("Home", "Admin");
+    }
+
     // ログアウト
     public async Task<IActionResult> Logout()
     {

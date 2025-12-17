@@ -88,6 +88,10 @@ label {
   font-size: 16px;
 }
 
+input, textarea {
+  caret-color: black; /* 好きな色に変更可能 */
+}
+
 .all {
   overflow: visible;
   background-color: rgba(0, 238, 255, 0.4);

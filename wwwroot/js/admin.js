@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     </form>
                 </div>
             `;
-            block.insertAdjacentHTML("beforeend", formHtml);
-            let form = block.querySelector(".edit-form");
+            block.insertAdjacentHTML("afterend", formHtml);
+            let form = block.nextElementSibling;
             requestAnimationFrame(() => {
                 form.classList.add("open");
             });

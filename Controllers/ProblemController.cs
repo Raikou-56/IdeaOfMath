@@ -21,6 +21,7 @@ public class ProblemController : Controller
         ViewBag.CategoryList = new SelectList(new List<string>
         {
             // 数IA
+            "数と式",
             "場合の数",
             "確率",
             "整数",

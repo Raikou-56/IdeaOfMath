@@ -19,8 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let block = btn.closest(".user-block");
             block.classList.add("selected");
 
-            let infoDiv = block.querySelector(".user-info");
-
             // 編集フォームを作成
             let userId = btn.dataset.userid;
             let formHtml = `
@@ -43,7 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     </form>
                 </div>
             `;
-            infoDiv.insertAdjacentHTML("afterend", formHtml);
+            block.insertAdjacentHTML("beforeend", formHtml);
+            let form = block.querySelector(".edit-form");
+            requestAnimationFrame(() => {
+                form.classList.add("open");
+            });
         });
     });
 });

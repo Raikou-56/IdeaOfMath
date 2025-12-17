@@ -58,4 +58,11 @@
     background: #fff;
     border: 1px dashed #007bff;
     border-radius: 5px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+}
+
+.edit-form.open {
+    max-height: 500px; /* フォームの高さより十分大きければOK */
 }

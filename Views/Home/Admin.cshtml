@@ -42,11 +42,8 @@
                     <span class="scor">学年: @user.Grade</span>
                     <span class="scor">ロール: @user.Role</span>
                 </div>
-                <div>
-                    <form asp-controller="Account" asp-action="EditUser" method="get">
-                        <input type="hidden" name="userId" value="@user.UserId" />
-                        <button type="submit" class="send" style="margin: 0px 5px;">編集する</button>
-                    </form>
+                <div  class="user-actions mt-2">
+                    <button type="button" class="send edit-btn" data-userid="@user.UserId">編集する</button>
                 </div>
             </div>
         }
@@ -64,11 +61,8 @@
                     <span class="scor">学年: @user.Grade</span>
                     <span class="scor">ロール: @user.Role</span>
                 </div>
-                <div>
-                    <form asp-controller="Account" asp-action="EditUser" method="get">
-                        <input type="hidden" name="userId" value="@user.UserId" />
-                        <button type="submit" class="send" style="margin: 0px 5px;">編集する</button>
-                    </form>
+                <div  class="user-actions mt-2">
+                    <button type="button" class="send edit-btn" data-userid="@user.UserId">編集する</button>
                 </div>
             </div>
         }

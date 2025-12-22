@@ -25,17 +25,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="edit-form">
                     <form action="/Account/EditUser" method="post">
                         <input type="hidden" name="UserId" value="${userId}" />
-                        <div>
-                            <label>ユーザー名</label>
-                            <input type="text" name="Username" value="${block.querySelector('.scor').innerText.replace('ユーザー名: ', '')}" />
+                        <div class="modern-input">
+                            <label style="font-weight: bolder;">ユーザー名</label>
+                            <input class="modern-control" type="text" name="Username" value="${block.querySelector('.scor').innerText.replace('ユーザー名: ', '')}" />
                         </div>
-                        <div>
-                            <label>学年</label>
-                            <input type="text" name="Grade" value="${block.querySelectorAll('.scor')[1].innerText.replace('学年: ', '')}" />
+                        <div class="modern-input">
+                            <label style="font-weight: bolder;">学年</label>
+                            <input class="modern-control" type="text" name="Grade" value="${block.querySelectorAll('.scor')[1].innerText.replace('学年: ', '')}" />
                         </div>
-                        <div>
-                            <label>ロール</label>
-                            <input type="text" name="Role" value="${block.querySelectorAll('.scor')[2].innerText.replace('ロール: ', '')}" />
+                        <div class="modern-input">
+                            <label style="font-weight: bolder;">ロール</label>
+                            <input class="modern-control" type="text" name="Role" value="${block.querySelectorAll('.scor')[2].innerText.replace('ロール: ', '')}" />
                         </div>
                         <button type="submit" class="send">保存</button>
                     </form>

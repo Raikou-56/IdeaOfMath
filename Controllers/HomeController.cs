@@ -97,7 +97,7 @@ public class HomeController : Controller
 
         await _userRepository.UpdateAsync(user);
 
-        return RedirectToAction("Home", "Admin"); // Adminページなどに戻す
+        return RedirectToAction("Admin", "Home"); // Adminページなどに戻す
     }
 
 

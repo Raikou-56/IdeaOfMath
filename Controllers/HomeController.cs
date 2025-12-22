@@ -35,6 +35,8 @@ public class HomeController : Controller
         return View();
     }
 
+    
+
     // index.cshtmlの問題読み込みメソッド
     [HttpGet]
     public async Task<IActionResult> GetProblems(int page = 1, int limit = 3, string? studentId = null)
@@ -42,6 +44,7 @@ public class HomeController : Controller
         try
         {
             var problems = await _problemService.GetPagedProblemsAsync(page, limit, studentId);
+
             return Json(problems);
         }
         catch (Exception ex)
@@ -76,9 +79,24 @@ public class HomeController : Controller
         {
             return View(updatedUser); // バリデーションエラーがあれば再表示
         }
-    
-        await _userRepository.UpdateAsync(updatedUser);
-    
+
+        if (string.IsNullOrEmpty(updatedUser.UserId))
+        {
+            return BadRequest("ユーザーIDが必要です。");
+        }
+
+        var user = await _userRepository.GetByIdAsync(updatedUser.UserId);
+        if (user == null)
+        {
+            return NotFound("ユーザーが見つかりません。");
+        }
+
+        user.Username = updatedUser.Username; 
+        user.Grade = updatedUser.Grade; 
+        user.Role = updatedUser.Role;
+
+        await _userRepository.UpdateAsync(user);
+
         return RedirectToAction("Home", "Admin"); // Adminページなどに戻す
     }
 

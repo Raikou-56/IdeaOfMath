@@ -33,7 +33,7 @@ public class UserRepository
     // ユーザー名だけ更新したい場合
     public async Task UpdateUserNameAsync(string id, string newName)
     {
-        var filter = Builders<User>.Filter.Eq("_id", ObjectId.Parse(id));
+        var filter = Builders<User>.Filter.Eq("_id", id);
         var update = Builders<User>.Update.Set(u => u.Username, newName);
         await _collection.UpdateOneAsync(filter, update);
     }
@@ -41,14 +41,14 @@ public class UserRepository
     // 学年だけ更新したい場合
     public async Task UpdateUserGradeAsync(string id, string newGrade)
     {
-        var filter = Builders<User>.Filter.Eq("_id", ObjectId.Parse(id));
+        var filter = Builders<User>.Filter.Eq("_id", id);
         var update = Builders<User>.Update.Set(u => u.Grade, newGrade);
         await _collection.UpdateOneAsync(filter, update);
     }
 
     public async Task UpdateUserRoleAsync(string id, string newRole)
     {
-        var filter = Builders<User>.Filter.Eq("_id", ObjectId.Parse(id));
+        var filter = Builders<User>.Filter.Eq("_id", id);
         var update = Builders<User>.Update.Set(u => u.Role, newRole);
         await _collection.UpdateOneAsync(filter, update);
     }

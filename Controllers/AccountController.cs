@@ -185,7 +185,7 @@ public class AccountController : Controller
         await _userRepository.UpdateAsync(user);
 
         // 更新後はAdminPageにリダイレクト
-        return RedirectToAction("Home", "Admin");
+        return RedirectToAction("Index", "Home");
     }
 
     // ログアウト

@@ -64,6 +64,10 @@
     display: inline-block;
 }
 
+.edit-input {
+    display: inline-block;
+}
+
 .edit-form.open {
     max-height: 500px; /* フォームの高さより十分大きければOK */
 }

@@ -25,15 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="edit-form">
                     <form action="/Account/EditUser" method="post">
                         <input type="hidden" name="UserId" value="${userId}" />
-                        <div class="modern-input">
+                        <div class="modern-input edit-input">
                             <label style="font-weight: bolder;">ユーザー名</label>
                             <input class="modern-control" type="text" name="Username" value="${block.querySelector('.scor').innerText.replace('ユーザー名: ', '')}" />
                         </div>
-                        <div class="modern-input">
+                        <div class="modern-input edit-input">
                             <label style="font-weight: bolder;">学年</label>
                             <input class="modern-control" type="text" name="Grade" value="${block.querySelectorAll('.scor')[1].innerText.replace('学年: ', '')}" />
                         </div>
-                        <div class="modern-input">
+                        <div class="modern-input edit-input">
                             <label style="font-weight: bolder;">ロール</label>
                             <input class="modern-control" type="text" name="Role" value="${block.querySelectorAll('.scor')[2].innerText.replace('ロール: ', '')}" />
                         </div>

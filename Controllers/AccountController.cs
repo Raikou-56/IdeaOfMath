@@ -181,8 +181,14 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> EditUser(User user)
     {
+        if (user == null || string.IsNullOrEmpty(user.UserId))
+        {
+            return BadRequest("無効なユーザー情報です。");
+        }
         // RepositoryのUpdateAsyncを呼ぶ
-        await _userRepository.UpdateAsync(user);
+        await _userRepository.UpdateUserNameAsync(user.UserId, user.Username ?? "");
+        await _userRepository.UpdateUserRoleAsync(user.UserId, user.Role ?? "");
+        await _userRepository.UpdateUserGradeAsync(user.UserId, user.Grade ?? "");
 
         // 更新後はAdminPageにリダイレクト
         return RedirectToAction("Index", "Home");

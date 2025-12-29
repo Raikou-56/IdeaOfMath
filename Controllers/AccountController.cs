@@ -122,6 +122,7 @@ public class AccountController : Controller
             "Student" => RedirectToAction("Index", "Home"),
             "Teacher" => RedirectToAction("Teacher", "Home"),
             "Admin"   => RedirectToAction("Teacher", "Home"),
+            "Educator" => RedirectToAction("Index", "Home"),
             _         => RedirectToAction("Login", "Account"),
         };
     }

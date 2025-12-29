@@ -50,6 +50,11 @@ body {
     line-height: 1.6 !important;
   }
 
+  @page { 
+    margin-top: 15mm; 
+    margin-bottom: 15mm;
+  }
+
   /* インライン数式 */
   .latex mjx-container[display="false"] {
     display: inline !important;

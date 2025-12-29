@@ -68,3 +68,22 @@
         }
     </div>
 </div>
+
+<div class="role-section">
+    <div class="role-bar" data-role="Educator">Educator</div>
+    <div class="role-users">
+        @foreach (var user in Model.Where(u => u.Role == "Educator"))
+        {
+            <div class="user-block blsp d-flex align-items-center justify-content-between mb-2 p-2 bg-light rounded">
+                <div>
+                    <span class="scor">ユーザー名: @user.Username</span>
+                    <span class="scor">学年: @user.Grade</span>
+                    <span class="scor">ロール: @user.Role</span>
+                </div>
+                <div  class="user-actions mt-2">
+                    <button type="button" class="send edit-btn" data-userid="@user.UserId">編集する</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

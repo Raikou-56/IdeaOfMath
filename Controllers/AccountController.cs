@@ -191,7 +191,7 @@ public class AccountController : Controller
         await _userRepository.UpdateUserGradeAsync(user.UserId, user.Grade ?? "");
 
         // 更新後はAdminPageにリダイレクト
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Admin", "Home");
     }
 
     // ログアウト

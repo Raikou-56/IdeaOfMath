@@ -44,7 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                         <div class="modern-input edit-input">
                             <label style="font-weight: bolder;">ロール</label>
-                            <input class="modern-control" type="text" name="Role" value="${block.querySelectorAll('.scor')[2].innerText.replace('ロール: ', '')}" />
+                            <select class="modern-control" name="Role"> 
+                                <option value="">選択してください</option> 
+                                <option value="Student">Student</option> 
+                                <option value="Teacher">Teacher</option> 
+                                <option value="Admin">Admin</option> 
+                                <option value="Educator">Educator</option> 
+                            </select>
                         </div>
                         <button type="submit" class="send">保存</button>
                     </form>
@@ -55,6 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const gradeValue = block.querySelectorAll('.scor')[1].innerText.replace('学年: ', ''); 
             form.querySelector('select[name="Grade"]').value = gradeValue;
+
+            const currentRole = block.querySelectorAll('.scor')[2].innerText.replace('ロール: ', ''); 
+            form.querySelector('select[name="Role"]').value = currentRole;
 
             requestAnimationFrame(() => {
                 form.classList.add("open");

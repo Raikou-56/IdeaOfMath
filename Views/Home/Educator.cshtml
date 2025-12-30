@@ -1,0 +1,183 @@
+@{
+    ViewData[index: "Title"] = "Home Page";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/index.css" />
+}
+@section Scripts {
+    <script src="~/js/educator.js"></script>
+    <script src="~/js/filter.js"></script>
+}
+
+
+<!-- 固定ヘッダー -->
+<div id="filterHeader" class="absolute">
+    <!-- スライドで出てくるフィルター部分 -->
+    <div id="filterPanel">
+        <div class="checkBoxes">
+            <div id="checkboxContainer1">
+                <label class="check-label">分野</label>
+                <div class="subject-group">
+                    <h3 class="subject-toggle">数IA</h3>
+                    <div class="subject-fields">
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="数と式">
+                            <span class="circle"></span> 数と式
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="場合の数">
+                            <span class="circle"></span> 場合の数
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="確率">
+                            <span class="circle"></span> 確率
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="整数">
+                            <span class="circle"></span> 整数
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="集合と論理">
+                            <span class="circle"></span> 集合と論理
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subject-group">
+                    <h3 class="subject-toggle">数II B</h3>
+                    <div class="subject-fields">
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="微積">
+                            <span class="circle"></span> 微積
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="数列">
+                            <span class="circle"></span> 数列
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="図形と方程式">
+                            <span class="circle"></span> 図形
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="ベクトル">
+                            <span class="circle"></span> ベクトル
+                        </label>
+                    </div>
+                </div>
+
+                <div class="subject-group">
+                    <h3 class="subject-toggle">数III C</h3>
+                    <div class="subject-fields">
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="極限">
+                            <span class="circle"></span> 極限
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="微積">
+                            <span class="circle"></span> 微積
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="複素数平面">
+                            <span class="circle"></span> 複素数平面
+                        </label>
+                        <label class="custom-check">
+                            <input type="checkbox" name="field1" value="行列">
+                            <span class="circle"></span> 行列
+                        </label>
+                    </div>
+                </div>
+
+                <label class="custom-check">
+                    <input type="checkbox" name="field1" value="all" checked>
+                    <span class="circle"></span> すべて表示
+                </label>
+            </div>
+            <div id="checkboxContainer2">
+                <label class="check-label">難易度</label>
+                <label class="custom-check">
+                    <input type="checkbox" name="field2" value="A">
+                    <span class="circle"></span> A
+                </label>
+                <label class="custom-check">
+                    <input type="checkbox" name="field2" value="B">
+                    <span class="circle"></span> B
+                </label>
+                <label class="custom-check">
+                    <input type="checkbox" name="field2" value="C">
+                    <span class="circle"></span> C
+                </label>
+                <label class="custom-check">
+                    <input type="checkbox" name="field2" value="D">
+                    <span class="circle"></span> D
+                </label>
+                <label class="custom-check">
+                    <input type="checkbox" name="field2" value="D+">
+                    <span class="circle"></span> D+
+                </label>
+                <label class="custom-check">
+                    <input type="checkbox" name="field2" value="all" checked>
+                    <span class="circle"></span> すべて表示
+                </label>
+            </div>
+            <div id="checkboxContainer3">
+                <label class="check-label">その他</label>
+                <label class="custom-check">
+                    <input type="checkbox" name="extra" value="new">
+                    <span class="circle"></span> 新着問題のみ
+                </label>
+                @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
+                {
+                    <label class="custom-check">
+                        <input type="checkbox" name="extra" value="hidden">
+                        <span class="circle"></span> 非公開のみ
+                    </label>
+                }
+                @if (User.Identity != null && (User.IsInRole("Student")))
+                {
+                    <label class="custom-check">
+                        <input type="checkbox" name="extra" value="unanswered">
+                        <span class="circle"></span> 未回答のみ
+                    </label>
+                }
+            </div>
+        </div>
+    </div>
+    
+    <div class="fixed-buttons">
+        <div id="signboard" class="fixed-button">
+            <span class="fixed-link">絞り込み条件</span>
+        </div>
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <div class="fixed-button">
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button class="fixed-link" type="submit">ログアウト</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="fixed-button">
+                <a class="fixed-link" class="fixed-link" asp-area="" asp-controller="Account" asp-action="Login">ログイン・新規会員登録</a>
+            </div>
+        }
+
+        @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin")))
+        {
+            <div class="fixed-button">
+                <a class="fixed-link" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
+            </div>
+        }
+        <div class="fixed-button">
+            <a class="fixed-link" asp-area="" asp-controller="Account" asp-action="MyPage">マイページ</a>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<br />
+
+<div id="problemContainer"></div>
+
+<br>

@@ -35,7 +35,11 @@ public class HomeController : Controller
         return View();
     }
 
-    
+    [Authorize(Roles = "Teacher,Admin,Educator")]
+    public IActionResult Educator()
+    {
+        return View();
+    }
 
     // index.cshtmlの問題読み込みメソッド
     [HttpGet]

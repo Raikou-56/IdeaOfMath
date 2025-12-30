@@ -61,6 +61,10 @@ body {
     text-align: left !important;
     margin: 0 !important;
   }
+
+  .que:not(.print-enabled) { 
+    display: none !important; 
+  }
   
   /* ブロック数式 */
   .latex mjx-container[display="true"] {

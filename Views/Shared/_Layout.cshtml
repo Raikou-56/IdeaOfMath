@@ -45,6 +45,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
                             </li>
                         }
+                        @if (User.Identity != null && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("Educator")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Educator">Educator</a>
+                            </li>
+                        }
                         @if (User.Identity != null && (User.IsInRole("Admin")))
                         {
                             <li class="nav-item">

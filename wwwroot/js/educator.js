@@ -53,7 +53,7 @@ function renderProblems(problems) {
                 <div class="latex">
                     ${problem.problemLatex ?? ""}
                 </div>
-                <div class="latex">
+                <div class="latex displaynone-latex">
                     ${problem.answerLatex ?? ""}
                 </div>
             </div>
@@ -156,20 +156,21 @@ function toggleLatexMode(mode) {
     items.forEach(item => {
         const latexBlocks = item.querySelectorAll(".latex");
 
-        const problemLatex = latexBlocks[0]; // 1つ目 → 問題
-        const answerLatex  = latexBlocks[1]; // 2つ目 → 解答
+        const problemLatex = latexBlocks[0];
+        const answerLatex  = latexBlocks[1];
 
         if (mode === "problem") {
-            problemLatex.style.display = "block";
-            answerLatex.style.display = "none";
+            problemLatex.classList.remove("displaynone-latex");
+            answerLatex.classList.add("displaynone-latex");
         } else {
-            problemLatex.style.display = "none";
-            answerLatex.style.display = "block";
+            problemLatex.classList.add("displaynone-latex");
+            answerLatex.classList.remove("displaynone-latex");
         }
     });
 
     MathJax.typeset();
 }
+
 
 
 

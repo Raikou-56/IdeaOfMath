@@ -28,7 +28,7 @@ body {
 /* 印刷用 */
 @media print {
   /* 不要部分を非表示 */
-  header, nav, footer, .sidebar, .send, #filterHeader, label.print-select {
+  button, header, nav, footer, .sidebar, .send, #filterHeader, label.print-select {
     display: none !important;
   }
 
@@ -179,8 +179,7 @@ input, textarea {
   justify-content: flex-end;
 }
 
-/* 解答部分を初期状態で非表示にする */
-#problemContainer .latex:nth-of-type(2) {
+.displaynone-latex {
     display: none;
 }
 
@@ -414,3 +413,6 @@ p.tst {
     box-shadow: 0 0 4px rgba(0,0,0,0.15);
 }
 
+.educator-header {
+    display: flex;
+}

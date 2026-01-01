@@ -28,7 +28,7 @@ body {
 /* 印刷用 */
 @media print {
   /* 不要部分を非表示 */
-  header, nav, footer, .sidebar, .send {
+  header, nav, footer, .sidebar, .send, #filterHeader, label.print-select {
     display: none !important;
   }
 
@@ -83,6 +83,27 @@ body {
   /* 問題のみ */
   body.print-problem .answer {
     display: none !important;
+  }
+
+  /* 共通の問題・解答ボックス */
+  .problem-box {
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 1.2em;
+    margin: 1.2em 0;
+    background-color: #f9f9f9;
+  }
+
+  /* タイトル（問題 / 解答） */
+  .problem-box .box-title {
+    font-weight: bold;
+    margin-bottom: 0.6em;
+    font-size: 1.1em;
+  }
+
+  /* 数式部分 */
+  .problem-box .latex {
+    margin-top: 0.5em;
   }
 
   /* 解答のみ */
@@ -157,6 +178,12 @@ input, textarea {
   display: flex;
   justify-content: flex-end;
 }
+
+/* 解答部分を初期状態で非表示にする */
+#problemContainer .latex:nth-of-type(2) {
+    display: none;
+}
+
 
 /* めちゃ使うボタン サイト内はこれで統一でもいいかな */
 .send {
@@ -367,19 +394,23 @@ p.tst {
 
 /* 講師用管理ページ用 */
 .print-tabs {
-  display: flex;
-  gap: 8px;
-  margin: 1em 0;
+    display: flex;
+    gap: 8px;
 }
 
 .print-tabs button {
-  padding: 6px 12px;
-  border: 1px solid #aaa;
-  background: #eee;
-  cursor: pointer;
+    padding: 6px 14px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
 .print-tabs button.active {
-  background: #ddd;
-  font-weight: bold;
+    background: #4a90e2;
+    color: white;
+    border-color: #4a90e2;
+    box-shadow: 0 0 4px rgba(0,0,0,0.15);
 }
+

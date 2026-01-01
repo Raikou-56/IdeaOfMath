@@ -53,11 +53,6 @@ function renderProblems(problems) {
                 <div class="latex">
                     ${problem.problemLatex ?? ""}
                 </div>
-            </div>
-
-            <!-- 解答ブロック -->
-            <div class="answer print-enabled"
-                data-problem-id="${problem.serialNumber}">
                 <div class="latex">
                     ${problem.answerLatex ?? ""}
                 </div>
@@ -137,30 +132,44 @@ document.addEventListener("change", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const tabs = document.querySelectorAll("#printTabs button");
+    loadProblems();
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            const mode = tab.dataset.mode;
+    // タブクリックで切り替え
+    document.querySelectorAll("#printTabs button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const mode = btn.dataset.mode;
 
-            // タブの見た目切り替え
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
+            // タブの active 切り替え
+            document.querySelectorAll("#printTabs button").forEach(b => {
+                b.classList.toggle("active", b === btn);
+            });
 
-            // body クラス切り替え
-            if (mode === "problem") {
-                document.body.classList.add("print-problem");
-                document.body.classList.remove("print-answer");
-            } else {
-                document.body.classList.remove("print-problem");
-                document.body.classList.add("print-answer");
-            }
+            // 問題/解答の表示切り替え
+            toggleLatexMode(mode);
         });
     });
-
-    // 初期状態は問題タブ
-    document.body.classList.add("print-problem");
 });
+
+function toggleLatexMode(mode) {
+    const items = document.querySelectorAll("#problemContainer .problem-item");
+
+    items.forEach(item => {
+        const latexBlocks = item.querySelectorAll(".latex");
+
+        const problemLatex = latexBlocks[0]; // 1つ目 → 問題
+        const answerLatex  = latexBlocks[1]; // 2つ目 → 解答
+
+        if (mode === "problem") {
+            problemLatex.style.display = "block";
+            answerLatex.style.display = "none";
+        } else {
+            problemLatex.style.display = "none";
+            answerLatex.style.display = "block";
+        }
+    });
+
+    MathJax.typeset();
+}
 
 
 

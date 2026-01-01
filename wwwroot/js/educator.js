@@ -8,7 +8,7 @@ function renderProblems(problems) {
     const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
     problems.forEach(problem => {
-        const isHidden = problem.IsPublic === false || problem.IsPublic === undefined || problem.IsPublic === null;
+        const isHidden = problem.isPublic === false || problem.isPublic === undefined || problem.isPublic === null;
 
         if ((!isLoggedIn || role === "Student" || role === "Educator") && isHidden) {
             return;
@@ -51,10 +51,10 @@ function renderProblems(problems) {
                 </div>
 
                 <div class="latex">
-                    ${problem.ProblemLatex ?? ""}
+                    ${problem.problemLatex ?? ""}
                 </div>
                 <div class="latex displaynone-latex">
-                    ${problem.AnswerLatex ?? ""}
+                    ${problem.answerLatex ?? ""}
                 </div>
             </div>
         `;

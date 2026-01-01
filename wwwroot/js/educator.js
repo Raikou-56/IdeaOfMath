@@ -8,10 +8,8 @@ function renderProblems(problems) {
     const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
     problems.forEach(problem => {
-        // 非公開とみなす条件（undefined や null も含める）
         const isHidden = problem.is_public === false || problem.is_public === undefined || problem.is_public === null;
 
-        // ログインしてない or 生徒の場合、非公開問題はスキップ
         if ((!isLoggedIn || role === "Student" || role === "Educator") && isHidden) {
             return;
         }
@@ -19,14 +17,13 @@ function renderProblems(problems) {
         const div = document.createElement("div");
         div.className = "problem-item";
 
-        // --- NEW 判定 ---
+        // NEW 判定
         let newBadge = "";
         let isNew = false;
         if (problem.publishedAt) {
             const publishedDate = new Date(problem.publishedAt);
             const now = new Date();
-            const diffMs = now - publishedDate;
-            const diffDays = diffMs / (1000 * 60 * 60 * 24);
+            const diffDays = (now - publishedDate) / (1000 * 60 * 60 * 24);
             isNew = diffDays <= 3;
             if (isNew) {
                 newBadge = `<span style="font-size:0.7em; color:orange; font-weight:bold; margin-right:4px;">NEW</span>`;
@@ -34,35 +31,45 @@ function renderProblems(problems) {
         }
 
         div.innerHTML = `
-            <div class="que under"
+            <label class="print-select">
+                <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
+                印刷
+            </label>
+
+            <!-- 問題ブロック -->
+            <div class="question que under print-enabled"
+                data-problem-id="${problem.serialNumber}"
                 data-field="${problem.category}"
                 data-dif="${problem.difficulty}"
                 data-new="${isNew}"
                 data-hidden="${isHidden}">
-                <label class="print-select">
-                    <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
-                    印刷
-                </label>
+                
                 ${newBadge}
                 <div class="dif">
                     ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category}
                     ${isHidden ? "<span style='color:red;'>[非公開]</span>" : ""}
                 </div>
+
                 <div class="latex">
-                    ${problem.latexSrc}
+                    ${problem.problemLatex ?? ""}
                 </div>
-                <div class="ans-but">
-                    <form method="post" action="/Answer/LookAnswer" style="text-align: right;">
-                        <button class="send" name="serial" value="${problem.serialNumber}">解答を見る</button>
-                    </form>
+            </div>
+
+            <!-- 解答ブロック -->
+            <div class="answer print-enabled"
+                data-problem-id="${problem.serialNumber}">
+                <div class="latex">
+                    ${problem.answerLatex ?? ""}
                 </div>
             </div>
         `;
 
         container.appendChild(div);
     });
+
     MathJax.typeset();
 }
+
 
 function loadProblems() {
     isLoading = true;

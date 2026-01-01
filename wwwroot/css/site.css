@@ -36,12 +36,12 @@ body {
   * {
     box-shadow: none !important;
     background: transparent !important;
-    color: #000 !important;   /* 印刷は白黒前提 */
+    color: #000 !important;
   }
 
   /* 親要素の影響を完全リセット */
   body, .container, .main, .latex {
-    all: unset;               /* 既存スタイルをリセット */
+    all: unset;
     display: block !important;
     width: 100% !important;
     margin: 0 !important;
@@ -61,22 +61,7 @@ body {
     text-align: left !important;
     margin: 0 !important;
   }
-  
-  /* 問題冊子モード */
-  body.print-problem .answer {
-    display: none !important;
-  }
 
-  /* 解答冊子モード */
-  body.print-answer .answer {
-    display: block !important;
-  }
-
-  /* 問題冊子では問題だけ印刷 */
-  body.print-answer .question {
-    display: none !important;
-  }
-  
   /* ブロック数式 */
   .latex mjx-container[display="true"] {
     display: block !important;
@@ -84,21 +69,34 @@ body {
     margin: 1em 0 !important;
   }
 
+  /* 問題の装飾 */
   .latex.question {
-    border: 2px solid #333;      /* 枠線の太さと色 */
-    border-radius: 8px;          /* 角丸 */
-    padding: 1em;                /* 内側余白 */
-    margin: 1em 0;               /* 上下の余白 */
-    background-color: #f9f9f9;   /* 薄い背景で見やすく */
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 1em;
+    margin: 1em 0;
+    background-color: #f9f9f9;
   }
 
+  /* --- 印刷モード --- */
+
+  /* 問題のみ */
   body.print-problem .answer {
-    display: none !important;   /* 問題だけ印刷 */
+    display: none !important;
   }
+
+  /* 解答のみ */
+  body.print-answer .question {
+    display: none !important;
+  }
+
+  /* 両方印刷 */
+  body.print-all .question,
   body.print-all .answer {
-    display: block !important;  /* 解答も印刷 */
+    display: block !important;
   }
 }
+
 
 
 

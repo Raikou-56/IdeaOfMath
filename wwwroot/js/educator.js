@@ -51,10 +51,10 @@ function renderProblems(problems) {
                 </div>
 
                 <div class="latex">
-                    ${problem.problemLatex ?? ""}
+                    ${problem.ProblemLatex ?? ""}
                 </div>
                 <div class="latex displaynone-latex">
-                    ${problem.answerLatex ?? ""}
+                    ${problem.AnswerLatex ?? ""}
                 </div>
             </div>
         `;

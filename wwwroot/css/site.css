@@ -40,7 +40,7 @@ body {
   }
 
   /* 親要素の影響を完全リセット */
-  body, .container, .main, .latex {
+  body, .container, .main {
     all: unset;
     display: block !important;
     width: 100% !important;
@@ -116,6 +116,15 @@ body {
   body.print-all .answer {
     display: block !important;
   }
+
+  .question {
+      display: none !important;
+  }
+  
+  .print-checkbox:checked + .question {
+      display: block !important;
+  }
+
 }
 
 

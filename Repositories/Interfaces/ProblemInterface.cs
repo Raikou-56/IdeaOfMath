@@ -89,6 +89,7 @@ public class ProblemService : IProblemService
                 difficulty = p.difficulty,
                 ProblemLatex = p.ProblemLatex,
                 AnswerLatex = p.AnswerLatex,
+                IsPublic = p.IsPublic,
                 PublishedAt = p.PublishedAt
             }).ToList();
         }

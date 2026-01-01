@@ -8,7 +8,7 @@ function renderProblems(problems) {
     const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
     problems.forEach(problem => {
-        const isHidden = problem.is_public === false || problem.is_public === undefined || problem.is_public === null;
+        const isHidden = problem.IsPublic === false || problem.IsPublic === undefined || problem.IsPublic === null;
 
         if ((!isLoggedIn || role === "Student" || role === "Educator") && isHidden) {
             return;

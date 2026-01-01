@@ -61,9 +61,20 @@ body {
     text-align: left !important;
     margin: 0 !important;
   }
+  
+  /* 問題冊子モード */
+  body.print-problem .answer {
+    display: none !important;
+  }
 
-  .que:not(.print-enabled) { 
-    display: none !important; 
+  /* 解答冊子モード */
+  body.print-answer .answer {
+    display: block !important;
+  }
+
+  /* 問題冊子では問題だけ印刷 */
+  body.print-answer .question {
+    display: none !important;
   }
   
   /* ブロック数式 */
@@ -354,4 +365,23 @@ p.tst {
 
 .zoom-controls button:hover {
   background: #4682b4;
+}
+
+/* 講師用管理ページ用 */
+.print-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 1em 0;
+}
+
+.print-tabs button {
+  padding: 6px 12px;
+  border: 1px solid #aaa;
+  background: #eee;
+  cursor: pointer;
+}
+
+.print-tabs button.active {
+  background: #ddd;
+  font-weight: bold;
 }

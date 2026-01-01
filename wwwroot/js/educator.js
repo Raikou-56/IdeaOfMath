@@ -34,16 +34,15 @@ function renderProblems(problems) {
         }
 
         div.innerHTML = `
-            <label class="print-select">
-                <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
-                印刷
-            </label>
             <div class="que under"
                 data-field="${problem.category}"
                 data-dif="${problem.difficulty}"
                 data-new="${isNew}"
                 data-hidden="${isHidden}">
-                <br>
+                <label class="print-select">
+                    <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
+                    印刷
+                </label>
                 ${newBadge}
                 <div class="dif">
                     ${problem.idNumber} 難易度 ${problem.difficulty} ${problem.category}
@@ -128,6 +127,32 @@ document.addEventListener("change", (e) => {
     } else {
         problemDiv.classList.remove("print-enabled");
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tabs = document.querySelectorAll("#printTabs button");
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            const mode = tab.dataset.mode;
+
+            // タブの見た目切り替え
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            // body クラス切り替え
+            if (mode === "problem") {
+                document.body.classList.add("print-problem");
+                document.body.classList.remove("print-answer");
+            } else {
+                document.body.classList.remove("print-problem");
+                document.body.classList.add("print-answer");
+            }
+        });
+    });
+
+    // 初期状態は問題タブ
+    document.body.classList.add("print-problem");
 });
 
 

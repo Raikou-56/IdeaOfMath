@@ -71,7 +71,7 @@ function loadProblems() {
     const studentId = (window.currentStudentId && window.currentStudentId !== "null" && window.currentStudentId !== "undefined")
     ? window.currentStudentId
     : "";
-    fetch(`/Home/GetProblems?page=${currentPage}&limit=3&studentId=${studentId}`)
+    fetch(`/Home/GetProblemsDetail?page=${currentPage}&limit=3&studentId=${studentId}`)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });

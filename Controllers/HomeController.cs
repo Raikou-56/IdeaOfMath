@@ -58,6 +58,23 @@ public class HomeController : Controller
         }
     }
 
+    // educator.cshtmlの問題詳細読み込みメソッド
+    [HttpGet]
+    public async Task<IActionResult> GetProblemsDetail(int page = 1, int limit = 3, string? studentId = null)
+    {
+        try
+        {
+            var problems = await _problemService.GetPagedProblemsDetailAsync(page, limit, studentId);
+            return Json(problems);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("ProblemServiceエラー: " + ex.Message);
+            return StatusCode(500, $"GetProblemsでエラー発生: {ex.Message}");
+        }
+    }
+
+
     [Authorize(Roles = "Teacher,Admin")]
     public IActionResult Teacher()
     {

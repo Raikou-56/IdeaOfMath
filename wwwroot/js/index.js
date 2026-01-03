@@ -153,14 +153,14 @@ $(function() {
     });
 });
 
-let scrollTimer;
+let scrollTimer1;
 const btn = document.getElementById("backToTopBtn");
 
 window.addEventListener("scroll", () => {
     btn.classList.remove("show");
 
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
+    clearTimeout(scrollTimer1);
+    scrollTimer1 = setTimeout(() => {
         // 一定時間スクロールが止まったら表示
         if (window.scrollY > 200) {
             btn.classList.add("show");

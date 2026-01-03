@@ -4,8 +4,6 @@ let autoLoadInterval;
 
 function renderProblems(problems) {
     const container = document.getElementById("problemContainer");
-    const role = window.currentUserRole;
-    const isLoggedIn = role && role !== "null" && role !== "undefined" && role !== "";
 
     problems.forEach(problem => {
         const isHidden = problem.isPublic === false || problem.isPublic === undefined || problem.isPublic === null;
@@ -67,11 +65,10 @@ function renderProblems(problems) {
 
 
 function loadProblems() {
+    if (isLoading) return;
     isLoading = true;
-    const studentId = (window.currentStudentId && window.currentStudentId !== "null" && window.currentStudentId !== "undefined")
-    ? window.currentStudentId
-    : "";
-    fetch(`/Home/GetProblemsDetail?page=${currentPage}&limit=3&studentId=${studentId}`)
+    
+    fetch(`/Home/GetProblemsDetail?page=${currentPage}&limit=3`)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });

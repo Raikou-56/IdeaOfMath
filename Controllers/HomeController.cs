@@ -60,11 +60,11 @@ public class HomeController : Controller
 
     // educator.cshtmlの問題詳細読み込みメソッド
     [HttpGet]
-    public async Task<IActionResult> GetProblemsDetail(int page = 1, int limit = 3, string? studentId = null)
+    public async Task<IActionResult> GetProblemsDetail(int page = 1, int limit = 3)
     {
         try
         {
-            var problems = await _problemService.GetPagedProblemsDetailAsync(page, limit, studentId);
+            var problems = await _problemService.GetPagedProblemsDetailAsync(page, limit);
             return Json(problems);
         }
         catch (Exception ex)

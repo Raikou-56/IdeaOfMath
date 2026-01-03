@@ -8,7 +8,7 @@ namespace MathSiteProject.Repositories.Interfaces;
 public interface IProblemService
 {
     Task<List<ProblemViewData>> GetPagedProblemsAsync(int page, int limit, string? studentId);
-    Task<List<Problem>> GetPagedProblemsDetailAsync(int page, int limit, string? studentId);
+    Task<List<Problem>> GetPagedProblemsDetailAsync(int page, int limit);
 }
 
 public class ProblemService : IProblemService
@@ -64,7 +64,7 @@ public class ProblemService : IProblemService
         }
     }
 
-    public async Task<List<Problem>> GetPagedProblemsDetailAsync(int page, int limit, string? studentId)
+    public async Task<List<Problem>> GetPagedProblemsDetailAsync(int page, int limit)
     {
         try
         {

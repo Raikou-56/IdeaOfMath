@@ -10,7 +10,7 @@ function renderProblems(problems) {
     problems.forEach(problem => {
         const isHidden = problem.isPublic === false || problem.isPublic === undefined || problem.isPublic === null;
 
-        if (!isLoggedIn || isHidden) {
+        if (isHidden) {
             return;
         }
 

@@ -68,18 +68,11 @@ public class ProblemService : IProblemService
     {
         try
         {
-            // 並列で履歴と未採点データを取得
-            var historyTask = _answerHistoryRepo.GetHistoryByStudentIdAsync(studentId ?? "");
-            var unscoredTask = _answerHistoryRepo.GetUnscoredProblemIdsAsync();
             var problemsTask = _repository.GetPagedProblems(page, limit);
 
-            await Task.WhenAll(historyTask, unscoredTask, problemsTask);
+            await Task.WhenAll(problemsTask);
 
-            var historyList = historyTask.Result;
-            var unscoredMap = unscoredTask.Result;
             var problems = problemsTask.Result;
-
-            var solvedIds = historyList.Select(h => h.ProblemId).ToHashSet();
 
             return problems.Select(p => new Problem
             {

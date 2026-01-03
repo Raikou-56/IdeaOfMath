@@ -454,3 +454,28 @@ p.tst {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+.move-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 18px;
+    border-radius: 25px;
+    background: #333;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+}
+
+.move-button.show {
+    opacity: 0.85;
+    pointer-events: auto;
+}
+
+.move-button:hover {
+    opacity: 1;
+}

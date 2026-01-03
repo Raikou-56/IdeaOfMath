@@ -189,30 +189,4 @@
   flex-shrink: 0; /* チェックボックスが縮まないように */
 }
 
-.move-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: none;
-    background: #333;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 9999;
-}
-
-.move-button.show {
-    opacity: 0.8;
-    pointer-events: auto;
-}
-
-.move-button:hover {
-    opacity: 1;
-}
 

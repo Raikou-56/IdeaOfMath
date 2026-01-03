@@ -67,6 +67,15 @@ body {
     display: block !important;
   }
 
+  /* 問題のみ */
+  body.print-problem .answer {
+    display: none !important;
+  }
+
+  body.print-answer .problem {
+    display: none !important;
+  }
+
   /* インライン数式 */
   .latex mjx-container[display="false"] {
     display: inline !important;
@@ -90,12 +99,14 @@ body {
     background-color: #f9f9f9;
   }
 
-  /* --- 印刷モード --- */
-
-  /* 問題のみ */
-  body.print-problem .answer {
-    display: none !important;
+  .dif{
+    border: 2px solid #333;
+    border-radius: 2px;
+    padding: 3px;
+    margin: 3px 0;
+    background-color: #f9f9f9;
   }
+  
 
   /* 共通の問題・解答ボックス */
   .problem-box {
@@ -429,4 +440,17 @@ p.tst {
     justify-content: center;
     font-size: 1.5em;
     z-index: 9999;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ccc;
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

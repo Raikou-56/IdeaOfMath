@@ -151,35 +151,38 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function toggleLatexMode(mode) {
-    showLoading(); // ← まずローディング表示
+    showLoading(); // まず表示
 
-    const items = document.querySelectorAll("#problemContainer .problem-item");
+    // ここで一度イベントループに返す
+    setTimeout(() => {
 
-    items.forEach(item => {
-        const latexBlocks = item.querySelectorAll(".latex");
+        const items = document.querySelectorAll("#problemContainer .problem-item");
 
-        const problemLatex = latexBlocks[0];
-        const answerLatex  = latexBlocks[1];
+        items.forEach(item => {
+            const latexBlocks = item.querySelectorAll(".latex");
 
-        if (mode === "problem") {
-            problemLatex.classList.remove("displaynone-latex");
-            answerLatex.classList.add("displaynone-latex");
-        } else {
-            problemLatex.classList.add("displaynone-latex");
-            answerLatex.classList.remove("displaynone-latex");
-        }
-    });
+            const problemLatex = latexBlocks[0];
+            const answerLatex  = latexBlocks[1];
 
-    // MathJax の再描画が終わったらローディングを消す
-    MathJax.typesetPromise()
-        .then(() => {
-            hideLoading();
-        })
-        .catch(err => {
-            console.error(err);
-            hideLoading();
+            if (mode === "problem") {
+                problemLatex.classList.remove("displaynone-latex");
+                answerLatex.classList.add("displaynone-latex");
+            } else {
+                problemLatex.classList.add("displaynone-latex");
+                answerLatex.classList.remove("displaynone-latex");
+            }
         });
+
+        MathJax.typesetPromise()
+            .then(() => hideLoading())
+            .catch(err => {
+                console.error(err);
+                hideLoading();
+            });
+
+    }, 0);
 }
+
 
 
 function showLoading() {

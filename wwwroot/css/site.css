@@ -67,7 +67,7 @@ body {
     display: block !important;
   }
 
-  .print-enabled {
+  body.print-problem .print-enabled {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
@@ -96,7 +96,7 @@ body {
   }
 
   /* 問題の装飾 */
-  .latex.problem {
+  body.print-answer .latex.problem {
     border: 2px solid #333;
     border-radius: 8px;
     padding: 1em;

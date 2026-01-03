@@ -118,7 +118,7 @@
 @media (max-width: 600px) {
   .custom-check {
     display: inline-flex;
-    padding: 4px 8px;       /* 内側余白を小さく */
+    padding: 2px 4px;       /* 内側余白を小さく */
     margin: 3px;            /* 外側余白も縮小 */
     font-size: 12px;        /* 文字サイズを小さく */
     border-width: 1.5px;    /* 枠線を少し細く */
@@ -138,6 +138,15 @@
 
   .check-label {
     font-size: 14px;        /* ラベルも少し小さく */
+  }
+
+  .subject-group {
+    padding: 0 2px;
+    gap: 6px;
+  }
+
+  .subject-fields {
+    gap: 2px;
   }
 }
 
@@ -180,4 +189,30 @@
   flex-shrink: 0; /* チェックボックスが縮まないように */
 }
 
+.move-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #333;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+}
+
+.move-button.show {
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+.move-button:hover {
+    opacity: 1;
+}
 

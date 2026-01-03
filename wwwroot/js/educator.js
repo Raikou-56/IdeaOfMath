@@ -29,7 +29,7 @@ function renderProblems(problems) {
         }
 
         div.innerHTML = `
-            <label class="print-select">
+            <label class="print-select que">
                 <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
                 印刷
             </label>

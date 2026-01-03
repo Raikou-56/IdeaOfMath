@@ -396,7 +396,6 @@ p.tst {
 .print-tabs {
     display: flex;
     gap: 8px;
-    margin-right: 100px;
 }
 
 .print-tabs button {
@@ -408,6 +407,17 @@ p.tst {
     transition: all 0.2s ease;
 }
 
+@media (max-width: 480px) {
+  .print-tabs button {
+      padding: 5px 7px;
+      border: 1px solid #ccc;
+      background: #f7f7f7;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+  }
+}
+
 .print-tabs button.active {
     background: #4a90e2;
     color: white;
@@ -417,6 +427,7 @@ p.tst {
 
 .educator-header {
     display: flex;
+    margin-top: 40px;
 }
 
 .educator-load {
@@ -432,8 +443,8 @@ p.tst {
 }
 
 .spinner {
-    width: 48px;
-    height: 48px;
+    width: 35px;
+    height: 35px;
     border: 5px solid #ccc;
     border-top-color: #3498db;
     border-radius: 50%;

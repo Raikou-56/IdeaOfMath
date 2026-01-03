@@ -153,6 +153,26 @@ $(function() {
     });
 });
 
+let scrollTimer;
+const btn = document.getElementById("backToTopBtn");
 
+window.addEventListener("scroll", () => {
+    btn.classList.remove("show");
+
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+        // 一定時間スクロールが止まったら表示
+        if (window.scrollY > 200) {
+            btn.classList.add("show");
+        }
+    }, 800); // ← スクロール停止後 0.8秒で表示
+});
+
+btn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
 
 

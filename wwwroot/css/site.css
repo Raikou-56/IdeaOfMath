@@ -431,6 +431,9 @@ p.tst {
 .educator-header {
     display: flex;
     margin-top: 40px;
+    max-width: 636px;
+    margin: auto;
+    position: relative;
 }
 
 .educator-load {

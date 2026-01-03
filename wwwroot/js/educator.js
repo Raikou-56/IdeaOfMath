@@ -50,10 +50,10 @@ function renderProblems(problems) {
                     ${isHidden ? "<span style='color:red;'>[非公開]</span>" : ""}
                 </div>
 
-                <div class="latex">
+                <div class="latex problem">
                     ${problem.problemLatex ?? ""}
                 </div>
-                <div class="latex displaynone-latex">
+                <div class="latex displaynone-latex answer">
                     ${problem.answerLatex ?? ""}
                 </div>
             </div>
@@ -151,6 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function toggleLatexMode(mode) {
+    showLoading(); // ← まずローディング表示
+
     const items = document.querySelectorAll("#problemContainer .problem-item");
 
     items.forEach(item => {
@@ -168,9 +170,25 @@ function toggleLatexMode(mode) {
         }
     });
 
-    MathJax.typeset();
+    // MathJax の再描画が終わったらローディングを消す
+    MathJax.typesetPromise()
+        .then(() => {
+            hideLoading();
+        })
+        .catch(err => {
+            console.error(err);
+            hideLoading();
+        });
 }
 
+
+function showLoading() {
+    document.getElementById("loadingOverlay").style.display = "flex";
+}
+
+function hideLoading() {
+    document.getElementById("loadingOverlay").style.display = "none";
+}
 
 
 

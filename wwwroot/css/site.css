@@ -55,6 +55,18 @@ body {
     margin-bottom: 15mm;
   }
 
+  /* 両方印刷 */
+  body.print-all .problem,
+  body.print-all .answer {
+    display: block !important;
+  }
+
+  .print-enabled .dif,
+  body.print-answer .print-enabled .latex.answer,
+  body.print-problem .print-enabled .latex.problem {
+    display: block !important;
+  }
+
   /* インライン数式 */
   .latex mjx-container[display="false"] {
     display: inline !important;
@@ -70,7 +82,7 @@ body {
   }
 
   /* 問題の装飾 */
-  .latex.question {
+  .latex.problem {
     border: 2px solid #333;
     border-radius: 8px;
     padding: 1em;
@@ -105,26 +117,6 @@ body {
   .problem-box .latex {
     margin-top: 0.5em;
   }
-
-  /* 解答のみ */
-  body.print-answer .question {
-    display: none !important;
-  }
-
-  /* 両方印刷 */
-  body.print-all .question,
-  body.print-all .answer {
-    display: block !important;
-  }
-
-  .question {
-      display: none !important;
-  }
-  
-  .print-checkbox:checked + .question {
-      display: block !important;
-  }
-
 }
 
 
@@ -404,6 +396,7 @@ p.tst {
 .print-tabs {
     display: flex;
     gap: 8px;
+    margin-right: 100px;
 }
 
 .print-tabs button {
@@ -424,4 +417,16 @@ p.tst {
 
 .educator-header {
     display: flex;
+}
+
+.educator-load {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255,255,255,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    z-index: 9999;
 }

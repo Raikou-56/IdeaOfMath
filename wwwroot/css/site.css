@@ -112,10 +112,13 @@ body {
     background-color: #f9f9f9;
   }
   
-
   /* 数式部分 */
   .problem-box .latex {
     margin-top: 0.5em;
+  }
+
+  .under {
+    border-bottom: none;
   }
 }
 

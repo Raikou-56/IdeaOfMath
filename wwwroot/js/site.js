@@ -5,17 +5,30 @@ function setPrintMode(mode) {
   window.print();
 }
 
-let scrollTimer2;
-const mainBtn = document.getElementById("backToMainBtn");
+(() => {
+    const btn = document.getElementById("backToMainBtn");
+    if (!btn) return;
 
-window.addEventListener("scroll", () => {
-    mainBtn.classList.remove("show");
+    let scrollTimer;
 
-    clearTimeout(scrollTimer2);
-    scrollTimer2 = setTimeout(() => {
-        if (window.scrollY > 200) {
-            mainBtn.classList.add("show");
-        }
-    }, 800);
-});
+    const showButton = () => {
+        btn.classList.add("show");
+    };
 
+    const hideButton = () => {
+        btn.classList.remove("show");
+    };
+
+    // 初期状態では非表示
+    hideButton();
+
+    window.addEventListener("scroll", () => {
+        hideButton();
+
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            // スクロール位置に関係なく表示
+            showButton();
+        }, 800);
+    });
+})();

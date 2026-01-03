@@ -28,7 +28,7 @@ body {
 /* 印刷用 */
 @media print {
   /* 不要部分を非表示 */
-  button, header, nav, footer, .sidebar, .send, #filterHeader, label.print-select {
+  p, button, header, nav, footer, .sidebar, .send, #filterHeader, label.print-select {
     display: none !important;
   }
 
@@ -96,7 +96,7 @@ body {
   }
 
   /* 問題の装飾 */
-  body.print-answer .latex.problem {
+  body.print-all .latex.problem {
     border: 2px solid #333;
     border-radius: 8px;
     padding: 1em;
@@ -112,22 +112,6 @@ body {
     background-color: #f9f9f9;
   }
   
-
-  /* 共通の問題・解答ボックス */
-  .problem-box {
-    border: 2px solid #333;
-    border-radius: 8px;
-    padding: 1.2em;
-    margin: 1.2em 0;
-    background-color: #f9f9f9;
-  }
-
-  /* タイトル（問題 / 解答） */
-  .problem-box .box-title {
-    font-weight: bold;
-    margin-bottom: 0.6em;
-    font-size: 1.1em;
-  }
 
   /* 数式部分 */
   .problem-box .latex {

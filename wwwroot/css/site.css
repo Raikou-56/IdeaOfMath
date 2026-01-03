@@ -67,6 +67,11 @@ body {
     display: block !important;
   }
 
+  .print-enabled {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
   /* 問題のみ */
   body.print-problem .answer {
     display: none !important;
@@ -100,10 +105,10 @@ body {
   }
 
   .dif{
-    border: 2px solid #333;
+    border: 1px solid #333;
     border-radius: 2px;
     padding: 3px;
-    margin: 3px 0;
+    margin: 1px 0;
     background-color: #f9f9f9;
   }
   

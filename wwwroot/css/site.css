@@ -50,6 +50,15 @@ body {
     line-height: 1.6 !important;
   }
 
+  .under {
+    all: unset;
+    display: block !important;
+  }
+
+  .all {
+    background-color: #fff;
+  }
+
   @page { 
     margin-top: 15mm; 
     margin-bottom: 15mm;

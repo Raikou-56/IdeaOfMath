@@ -29,6 +29,7 @@ public class ProblemController : Controller
 
             // 数IIB
             "数列",
+            "微積(II)",
             "図形",
             "ベクトル",
 
@@ -65,13 +66,13 @@ public class ProblemController : Controller
 
                     // 数IIB
                     "数列",
-                    "微積2",
+                    "微積(II)",
                     "図形",
                     "ベクトル",
 
                     // 数IIIC
                     "極限",
-                    "微積3",
+                    "微積",
                     "複素数平面",
                     "行列"
                 }, match.category);

@@ -248,6 +248,12 @@ input, textarea {
   font-family: "Hiragino Mincho ProN", "游明朝", "Noto Serif JP", serif;
 }
 
+@media (max-width: 480px) {
+  .latex {
+    font-size: 8px;
+  }
+}
+
 .latex img {
   max-width: 100%;
   height: auto;

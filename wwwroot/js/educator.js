@@ -29,10 +29,7 @@ function renderProblems(problems) {
         }
 
         div.innerHTML = `
-            <label class="print-select que">
-                <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
-                印刷
-            </label>
+            
 
             <!-- 問題ブロック -->
             <div class="question que under print-enabled"
@@ -41,6 +38,11 @@ function renderProblems(problems) {
                 data-dif="${problem.difficulty}"
                 data-new="${isNew}"
                 data-hidden="${isHidden}">
+
+                <label class="print-select">
+                    <input type="checkbox" class="print-checkbox" data-problem-id="${problem.serialNumber}" checked>
+                    印刷
+                </label>
                 
                 ${newBadge}
                 <div class="dif">

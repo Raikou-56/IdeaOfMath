@@ -28,7 +28,7 @@ body {
 /* 印刷用 */
 @media print {
   /* 不要部分を非表示 */
-  p, button, header, nav, footer, .sidebar, .send, #filterHeader, label.print-select {
+  p, button, header, nav, footer, .sidebar, .send, #filterHeader, label.print-select, .move-button {
     display: none !important;
   }
 
@@ -414,6 +414,7 @@ p.tst {
 .print-tabs {
     display: flex;
     gap: 8px;
+    margin-left: 20px;
 }
 
 .print-tabs button {
@@ -423,6 +424,7 @@ p.tst {
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.2s ease;
+    margin: 20px auto;
 }
 
 @media (max-width: 480px) {
